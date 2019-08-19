@@ -5,12 +5,11 @@ const StyledTable = styled.div`
   display: table;
   width: 100%;
   table-layout: fixed;
-  box-sizing: border-box;
+  background: #fff;
 `;
 
 const StyledTableRow = styled.div`
   display: table-row;
-  box-sizing: border-box;
 
   ${props =>
     props.head &&
@@ -38,7 +37,6 @@ const StyledTableCell = styled.div`
   display: table-cell;
   padding: 8px;
   font-size: 1em;
-  box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
