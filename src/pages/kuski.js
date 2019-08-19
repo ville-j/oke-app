@@ -7,7 +7,8 @@ import {
   Tabs,
   Tab,
   Avatar,
-  Dropdown
+  Dropdown,
+  CheckBox
 } from "../components";
 
 const StyledKuski = styled.div`
@@ -44,6 +45,7 @@ const StyledAvatar = styled(Avatar)`
 
 const Kuski = ({ location }) => {
   const [dd, setDd] = useState();
+  const [checked, setChecked] = useState();
   return (
     <StyledKuski>
       <div>
@@ -105,6 +107,13 @@ const Kuski = ({ location }) => {
             setDd(value);
           }}
           placeholder="Select a player"
+        />
+        <CheckBox
+          text="boxi"
+          checked={checked}
+          onChange={(e, value) => {
+            setChecked(value);
+          }}
         />
       </div>
     </StyledKuski>
