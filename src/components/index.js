@@ -2,6 +2,7 @@ import Button from "./button";
 import LevelCard from "./levelCard";
 import Menu from "./menu";
 import Avatar from "./avatar";
+import Dropdown from "./dropdown";
 import { Accordion, AccordionSection } from "./accordion";
 import { Table, TableRow, TableCell } from "./table";
 import { Tabs, Tab } from "./tabs";
@@ -17,5 +18,6 @@ export {
   Menu,
   Tab,
   Tabs,
-  Avatar
+  Avatar,
+  Dropdown
 };

@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Table, TableRow, TableCell, Tabs, Tab, Avatar } from "../components";
+import {
+  Table,
+  TableRow,
+  TableCell,
+  Tabs,
+  Tab,
+  Avatar,
+  Dropdown
+} from "../components";
 
 const StyledKuski = styled.div`
   display: flex;
@@ -34,54 +42,73 @@ const StyledAvatar = styled(Avatar)`
   margin-right: 25px;
 `;
 
-const Kuski = ({ location }) => (
-  <StyledKuski>
-    <div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <div>
-          <StyledAvatar />
-        </div>
-        <div>
-          <h1>awsj</h1>
-          <h2>[NORWICH]</h2>
+const Kuski = ({ location }) => {
+  const [dd, setDd] = useState();
+  return (
+    <StyledKuski>
+      <div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div>
+            <StyledAvatar />
+          </div>
+          <div>
+            <h1>awsj</h1>
+            <h2>[NORWICH]</h2>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <Tabs>
-        <Tab to="/">Times</Tab>
-        <Tab to="/battles">Battles</Tab>
-        <Tab to="/settings">Settings</Tab>
-      </Tabs>
-      <h3>Recent times</h3>
-      <Table>
-        <TableRow head>
-          <TableCell style={{ width: 200 }}>Level</TableCell>
-          <TableCell>Time</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>kahvia31</TableCell>
-          <TableCell>15,78</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>qwquu033</TableCell>
-          <TableCell>48,02</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>blaztek [EE]</TableCell>
-          <TableCell>15,63</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>blaztek [EE]</TableCell>
-          <TableCell>15,63</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>blaztek [EE]</TableCell>
-          <TableCell>15,63</TableCell>
-        </TableRow>
-      </Table>
-    </div>
-  </StyledKuski>
-);
+      <div>
+        <Tabs>
+          <Tab to="/">Times</Tab>
+          <Tab to="/battles">Battles</Tab>
+          <Tab to="/settings">Settings</Tab>
+        </Tabs>
+        <h3>Recent times</h3>
+        <Table>
+          <TableRow head>
+            <TableCell style={{ width: 200 }}>Level</TableCell>
+            <TableCell>Time</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>kahvia31</TableCell>
+            <TableCell>15,78</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>qwquu033</TableCell>
+            <TableCell>48,02</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>blaztek [EE]</TableCell>
+            <TableCell>15,63</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>blaztek [EE]</TableCell>
+            <TableCell>15,63</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>blaztek [EE]</TableCell>
+            <TableCell>15,63</TableCell>
+          </TableRow>
+        </Table>
+        <Dropdown
+          value={dd}
+          options={[{ value: 20, text: "moi" }, { value: 21, text: "auts" }]}
+          onSelect={(e, value) => {
+            setDd(value);
+          }}
+          placeholder="Select a player"
+        />
+        <Dropdown
+          value={dd}
+          options={[{ value: 20, text: "moi" }, { value: 21, text: "auts" }]}
+          onSelect={(e, value) => {
+            setDd(value);
+          }}
+          placeholder="Select a player"
+        />
+      </div>
+    </StyledKuski>
+  );
+};
 
 export default Kuski;
