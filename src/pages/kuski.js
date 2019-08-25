@@ -8,7 +8,9 @@ import {
   Tab,
   Avatar,
   Dropdown,
-  CheckBox
+  CheckBox,
+  Label,
+  TextBox
 } from "../components";
 
 const StyledKuski = styled.div`
@@ -92,6 +94,7 @@ const Kuski = ({ location }) => {
             <TableCell>15,63</TableCell>
           </TableRow>
         </Table>
+        <Label text="Player" />
         <Dropdown
           value={dd}
           options={[{ value: 20, text: "moi" }, { value: 21, text: "auts" }]}
@@ -108,8 +111,10 @@ const Kuski = ({ location }) => {
           }}
           placeholder="Select a player"
         />
+        <Label text="Player" />
+        <TextBox />
         <CheckBox
-          text="boxi"
+          text="Box"
           checked={checked}
           onChange={(e, value) => {
             setChecked(value);

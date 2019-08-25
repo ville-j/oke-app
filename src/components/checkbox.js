@@ -2,7 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const StyledCheckBox = styled.label`
-  display: flex;
+  display: inline-flex;
   padding: 12px;
   align-items: center;
   input {
@@ -11,25 +11,15 @@ const StyledCheckBox = styled.label`
 `;
 
 const Checked = styled.div`
-  width: 1em;
-  height: 1em;
-  margin-right: 8px;
-  border: 1px solid #eaeaea;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f7f7f7;
+  width: 0.8em;
+  height: 0.8em;
+  margin-right: 5px;
+  border: 1px solid #505050;
   ${props =>
     props.checked &&
     css`
-      div {
-        display: block;
-      }
+      background: #505050;
     `}
-`;
-
-const CheckMark = styled.div`
-  display: none;
 `;
 
 const CheckBox = ({ text, checked = false, onChange }) => {
@@ -42,9 +32,7 @@ const CheckBox = ({ text, checked = false, onChange }) => {
           onChange && onChange(e, !checked);
         }}
       />
-      <Checked checked={checked}>
-        <CheckMark>&#x2714;</CheckMark>
-      </Checked>
+      <Checked checked={checked} />
       <span>{text}</span>
     </StyledCheckBox>
   );

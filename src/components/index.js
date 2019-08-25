@@ -4,6 +4,8 @@ import Menu from "./menu";
 import Avatar from "./avatar";
 import Dropdown from "./dropdown";
 import CheckBox from "./checkbox";
+import Label from "./label";
+import TextBox from "./textBox";
 import { Accordion, AccordionSection } from "./accordion";
 import { Table, TableRow, TableCell } from "./table";
 import { Tabs, Tab } from "./tabs";
@@ -21,5 +23,7 @@ export {
   Tabs,
   Avatar,
   Dropdown,
-  CheckBox
+  CheckBox,
+  Label,
+  TextBox
 };
