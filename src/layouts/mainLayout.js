@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, Kuski, Levels, NotFound } from "../pages";
+import { Home, Kuski, Levels, NotFound, Battles } from "../pages";
 import { Menu } from "../components";
 
 const menuHeight = "50px";
@@ -37,6 +37,7 @@ const MainLayout = ({ bottomBarVisible }) => {
             <Route path="/" exact component={Home} />
             <Route path="/kuskis" component={Kuski} />
             <Route path="/levels" exact component={Levels} />
+            <Route path="/battles" exact component={Battles} />
             <Route component={NotFound} />
           </Switch>
         </Content>

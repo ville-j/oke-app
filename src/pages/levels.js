@@ -11,7 +11,7 @@ const Home = () => (
   <Accordion>
     <AccordionSection title="33. Zig Zag" />
     <AccordionSection title="34. Sink" />
-    <AccordionSection title="35. Labyrinth Pro" visible>
+    <AccordionSection title="35. Labyrinth Pro">
       <Table>
         <TableRow head>
           <TableCell style={{ width: 50 }}>#</TableCell>
