@@ -23,7 +23,7 @@ const Battles = () => {
   }, []);
   return (
     <Grid>
-      {battles.splice(0, 15).map(b => {
+      {[...battles].splice(0, 15).map(b => {
         return (
           <Cell key={b.id}>
             <BattleCard id={b.id} />

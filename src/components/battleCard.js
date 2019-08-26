@@ -4,15 +4,16 @@ import { getResults } from "../api";
 import LevelCard from "./levelCard";
 
 const BattleCard = ({ id }) => {
-  const [results, setResults] = useState({ results: [], level: null });
+  const [data, setData] = useState(null);
   useEffect(() => {
     async function loadResults() {
       const data = await getResults(id);
-      setResults(data);
+      setData(data);
     }
     loadResults();
   }, [id]);
-  return <LevelCard times={results.results} id={id} level={results.level} />;
+  if (!data) return null;
+  return <LevelCard times={data.results} id={id} level={data.level} />;
 };
 
 export default BattleCard;

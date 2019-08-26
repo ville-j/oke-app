@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 import { Table, TableRow, TableCell } from "./";
@@ -42,7 +42,7 @@ const LevelCard = ({ children, times, id, level }) => (
         <TableCell>Kuski</TableCell>
         <TableCell>Time</TableCell>
       </TableRow>
-      {times.splice(0, 3).map((t, i) => (
+      {[...times].splice(0, 3).map((t, i) => (
         <TableRow key={i}>
           <TableCell>{t.position}.</TableCell>
           <TableCell>{t.kuski}</TableCell>
@@ -50,7 +50,7 @@ const LevelCard = ({ children, times, id, level }) => (
         </TableRow>
       ))}
     </Table>
-    <ResultsLink to={`/battles/${id}`}>Full results</ResultsLink>
+    <ResultsLink to={`/battles/${id}`}>Full info</ResultsLink>
   </StyledLevelCard>
 );
 
