@@ -1,19 +1,7 @@
 @font-face {
-  font-family: "Emilio19";
-  font-style: normal;
-  src: url("./Emilio19.ttf");
-}
-
-@font-face {
   font-family: "Graduate";
   font-style: normal;
   src: url("./Graduate-Regular.ttf");
-}
-
-@font-face {
-  font-family: "Octin Sports";
-  font-style: normal;
-  src: url("./octin-sports-free.regular.ttf");
 }
 
 body {

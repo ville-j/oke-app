@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Recplayer from "recplayer-react";
 import styled from "styled-components";
-import { getResults } from "../api";
+import { useSelector, useDispatch } from "react-redux";
+import { getBattleAsync } from "../actions";
 import { Table, TableRow, TableCell } from "../components";
 
 const StyledBattle = styled.div`
@@ -43,15 +44,14 @@ const Battle = ({
     params: { id }
   }
 }) => {
-  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
   useEffect(() => {
-    async function loadBattle() {
-      const data = await getResults(id);
-      setData(data);
-    }
-    loadBattle();
-  }, [id]);
+    dispatch(getBattleAsync(id));
+  }, [dispatch, id]);
+  const data = useSelector(state => state.battleData.find(b => b.id === id));
+
   if (!data) return null;
+
   return (
     <StyledBattle>
       <div>{data.filename}.lev</div>

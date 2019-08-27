@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
 const port = 6543;
-
+const fs = require("fs");
 const API = require("./api");
+const path = require("path");
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -21,8 +22,20 @@ app.get("/battles", async (req, res) => {
 });
 
 app.get("/battles/:id", async (req, res) => {
-  const results = await API.getBattleResults(req.params.id);
-  res.json(results);
+  const fn = path.join(__dirname, `/cache/${req.params.id}.json`);
+
+  if (fs.existsSync(fn)) {
+    res.send(fs.readFileSync(fn, "utf8"));
+  } else {
+    const results = await API.getBattleResults(req.params.id);
+
+    if (!results.ongoing && !results.queued) {
+      fs.writeFile(fn, JSON.stringify(results), res => {
+        console.log("done");
+      });
+    }
+    res.json(results);
+  }
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

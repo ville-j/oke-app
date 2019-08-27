@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { getBattles } from "../api";
+import { useSelector, useDispatch } from "react-redux";
+import { getBattlesAsync } from "../actions";
 import { BattleCard } from "../components";
 
 const Grid = styled.div`
@@ -13,14 +14,12 @@ const Grid = styled.div`
 const Cell = styled.div``;
 
 const Battles = () => {
-  const [battles, setBattles] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    async function loadBattles() {
-      const data = await getBattles();
-      setBattles(data);
-    }
-    loadBattles();
-  }, []);
+    dispatch(getBattlesAsync());
+  }, [dispatch]);
+
+  const battles = useSelector(state => state.battles);
   return (
     <Grid>
       {[...battles].splice(0, 15).map(b => {

@@ -30,7 +30,7 @@ const BottomBar = styled.div`
 const MainLayout = ({ bottomBarVisible }) => {
   return (
     <StyledLayout bottomBarVisible={bottomBarVisible}>
-      <Router>
+      <Router basename="/okeol">
         <Menu />
         <Content>
           <Switch>
