@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Recplayer from "recplayer-react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { getBattleAsync } from "../actions";
 import { Table, TableRow, TableCell } from "../components";
 
@@ -9,6 +10,11 @@ const StyledBattle = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  overflow: hidden;
+
+  > div:first-child {
+    padding: 12px;
+  }
 
   @media (min-width: 950px) {
     flex-direction: row;
@@ -17,7 +23,6 @@ const StyledBattle = styled.div`
       flex: 1;
       :first-child {
         border-right: 1px solid #f7f7f7;
-        padding: 12px;
         flex: 0 0 350px;
       }
       :last-child {
@@ -39,6 +44,24 @@ const TableContainer = styled.div`
   }
 `;
 
+const TitleBar = styled.div`
+  display: flex;
+  align-items: center;
+
+  > * {
+    display: flex;
+    flex: 1;
+    margin: 0;
+
+    :nth-child(2) {
+      justify-content: center;
+    }
+    :nth-child(3) {
+      justify-content: flex-end;
+    }
+  }
+`;
+
 const Battle = ({
   match: {
     params: { id }
@@ -54,7 +77,17 @@ const Battle = ({
 
   return (
     <StyledBattle>
-      <div>{data.filename}.lev</div>
+      <div>
+        <TitleBar>
+          <NavLink to={`/battles/${Number(id) + 1}`}>Newer</NavLink>
+          <h2>{data.filename}.lev</h2>
+          <NavLink to={`/battles/${id - 1}`}>Older</NavLink>
+        </TitleBar>
+        <hr />
+        {data.startTime}
+        <br />
+        Started by {data.designer}
+      </div>
       <div>
         <PlayerContainer>
           <Recplayer level={data.level} battle={id} autoFill autoPlay />

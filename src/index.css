@@ -31,7 +31,6 @@ h1 {
   font-size: 3em;
 }
 h2 {
-  font-family: "Graduate";
   font-size: 1.2em;
 }
 h3 {
@@ -41,4 +40,14 @@ h3 {
 }
 div {
   box-sizing: border-box;
+}
+
+a {
+  color: #66af30;
+  text-decoration: none;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #f7f7f7;
 }

@@ -13,13 +13,12 @@ const store = (state = initialState, action) => {
       return { ...state, battles: action.data };
     }
     case GET_BATTLE: {
-      const b = state.battleData.find(b => b.id === action.data.id);
-
       return {
         ...state,
-        battleData: b
-          ? [...state.battleData]
-          : [...state.battleData, action.data]
+        battleData: [
+          ...state.battleData.filter(b => b.id !== action.data.id),
+          action.data
+        ]
       };
     }
     default: {

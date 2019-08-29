@@ -47,9 +47,6 @@ a {
 const Menu = () => (
   <StyledMenu>
     <div>
-      <h1>okeol</h1>
-    </div>
-    <div>
       <NavLink to="/levels">
         Levels
         <BottomBorder />

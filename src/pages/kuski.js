@@ -94,18 +94,9 @@ const Kuski = ({ location }) => {
             <TableCell>15,63</TableCell>
           </TableRow>
         </Table>
-        <Label text="Player" />
         <Dropdown
           value={dd}
-          options={[{ value: 20, text: "moi" }, { value: 21, text: "auts" }]}
-          onSelect={(e, value) => {
-            setDd(value);
-          }}
-          placeholder="Select a player"
-        />
-        <Dropdown
-          value={dd}
-          options={[{ value: 20, text: "moi" }, { value: 21, text: "auts" }]}
+          options={[{ value: 20, text: "a" }, { value: 21, text: "b" }]}
           onSelect={(e, value) => {
             setDd(value);
           }}
