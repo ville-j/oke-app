@@ -2,7 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, Kuski, Levels, NotFound, Battles, Battle } from "../pages";
-import { Menu } from "../components";
+import { Menu, StickyPlayer } from "../components";
 
 const menuHeight = "50px";
 const bottomBarHeight = "200px";
@@ -19,7 +19,6 @@ const StyledLayout = styled.div`
 
 const Content = styled.div`
   height: 100%;
-  overflow: auto;
 `;
 
 const BottomBar = styled.div`
@@ -43,6 +42,7 @@ const MainLayout = ({ bottomBarVisible }) => {
           </Switch>
         </Content>
         {bottomBarVisible && <BottomBar />}
+        <StickyPlayer />
       </Router>
     </StyledLayout>
   );

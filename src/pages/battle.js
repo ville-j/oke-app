@@ -1,9 +1,15 @@
-import React, { useEffect } from "react";
-import Recplayer from "recplayer-react";
+import React, { useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getBattleAsync } from "../actions";
+import {
+  getBattleAsync,
+  loadLevel,
+  loadReplay,
+  setPlayerBoundingBox,
+  setPlayerVisible,
+  playerViewLeft
+} from "../actions";
 import { Table, TableRow, TableCell } from "../components";
 
 const StyledBattle = styled.div`
@@ -68,30 +74,61 @@ const Battle = ({
   }
 }) => {
   const dispatch = useDispatch();
+  const playerContainer = useRef(null);
+  const playerDocked = useSelector(state => state.playerDocked);
+
+  const updatePlayerBoundingBox = useCallback(() => {
+    if (playerContainer.current) {
+      const {
+        x,
+        y,
+        width,
+        height
+      } = playerContainer.current.getBoundingClientRect();
+      dispatch(setPlayerBoundingBox({ x, y, width, height }));
+    }
+  }, [dispatch]);
+
   useEffect(() => {
+    updatePlayerBoundingBox();
     dispatch(getBattleAsync(id));
-  }, [dispatch, id]);
+    return () => {
+      dispatch(playerViewLeft());
+    };
+  }, [dispatch, id, updatePlayerBoundingBox]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", tryUpdate);
+    window.addEventListener("resize", tryUpdate);
+    function tryUpdate() {
+      !playerDocked && updatePlayerBoundingBox();
+    }
+    return () => {
+      window.removeEventListener("scroll", tryUpdate);
+      window.removeEventListener("resize", tryUpdate);
+    };
+  }, [dispatch, playerDocked, updatePlayerBoundingBox]);
+
   const data = useSelector(state => state.battleData.find(b => b.id === id));
 
-  if (!data) return null;
-
+  data && dispatch(loadLevel(`https://elma.online/dl/level/${data.level}`));
+  data && dispatch(loadReplay(`https://elma.online/dl/battlereplay/${id}`));
+  data && dispatch(setPlayerVisible(true));
   return (
     <StyledBattle>
       <div>
         <TitleBar>
           <NavLink to={`/battles/${Number(id) + 1}`}>Newer</NavLink>
-          <h2>{data.filename}.lev</h2>
+          <h2>{data && data.filename}.lev</h2>
           <NavLink to={`/battles/${id - 1}`}>Older</NavLink>
         </TitleBar>
         <hr />
-        {data.startTime}
+        {data && data.startTime}
         <br />
-        Started by {data.designer}
+        Started by {data && data.designer}
       </div>
       <div>
-        <PlayerContainer>
-          <Recplayer level={data.level} battle={id} autoFill autoPlay />
-        </PlayerContainer>
+        <PlayerContainer ref={playerContainer}></PlayerContainer>
         <TableContainer>
           <Table>
             <TableRow head>
@@ -99,13 +136,14 @@ const Battle = ({
               <TableCell>Kuski</TableCell>
               <TableCell>Time</TableCell>
             </TableRow>
-            {data.results.map((t, i) => (
-              <TableRow key={i}>
-                <TableCell>{t.position}.</TableCell>
-                <TableCell>{t.kuski}</TableCell>
-                <TableCell>{t.time}</TableCell>
-              </TableRow>
-            ))}
+            {data &&
+              data.results.map((t, i) => (
+                <TableRow key={i}>
+                  <TableCell>{t.position}.</TableCell>
+                  <TableCell>{t.kuski}</TableCell>
+                  <TableCell>{t.time}</TableCell>
+                </TableRow>
+              ))}
           </Table>
         </TableContainer>
       </div>

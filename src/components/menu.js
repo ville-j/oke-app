@@ -13,35 +13,37 @@ const BottomBorder = styled.div`
 `;
 
 const StyledMenu = styled.div`
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  z-index: 50;
+  background: #fff;
 
-h1 {
-    margin 0 12px;
-    line-height: 50px;
-    font-size: 2em;
-}
+  h1 {
+      margin 0 12px;
+      line-height: 50px;
+      font-size: 2em;
+  }
 
-border-bottom: 1px solid #f7f7f7;
-display: flex;
+  border-bottom: 1px solid #f7f7f7;
+  display: flex;
 
-a {
-    line-height: 50px;
-    text-decoration: none;
-    display: inline-block;
-    padding 0 12px;
-    position: relative;
-    color: #8a8a8a;
-    &.active {
-        color: #66af30;
-        div {
-            display: block;
-        }
-    }
-}
+  a {
+      line-height: 50px;
+      text-decoration: none;
+      display: inline-block;
+      padding 0 12px;
+      position: relative;
+      color: #8a8a8a;
+      &.active {
+          color: #66af30;
+          div {
+              display: block;
+          }
+      }
+  }
 `;
 
 const Menu = () => (

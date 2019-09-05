@@ -88,6 +88,7 @@ const getBattleResults = async battleId => {
     filename,
     queued,
     ongoing,
+    finished: !queued && !ongoing,
     startTime,
     designer,
     level: levelUrl[levelUrl.length - 1],
