@@ -3,21 +3,20 @@ import styled from "styled-components";
 import RecPlayer from "recplayer-react";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { dockPlayer } from "../actions";
+import { dockPlayer, fullscreenPlayer } from "../actions";
 
 const Container = styled.div.attrs(props => ({
   style: {
-    left: !props.playerDocked ? props.x : "",
-    top: !props.playerDocked ? props.y : "",
+    left: !props.playerDocked ? (props.fullscreen ? 0 : props.x) : "",
+    top: !props.playerDocked ? (props.fullscreen ? 0 : props.y) : "",
     width: props.width,
     height: props.height,
     right: props.playerDocked ? 0 : "",
-    bottom: props.playerDocked ? 0 : ""
+    bottom: props.playerDocked ? 0 : "",
+    zIndex: props.fullscreen ? 100 : 10,
+    position: "fixed"
   }
-}))`
-  position: fixed;
-  z-index: 20;
-`;
+}))``;
 
 const Dock = styled.div`
   background: red;
@@ -25,7 +24,7 @@ const Dock = styled.div`
   height: 50px;
   position: absolute;
   right: 0;
-  bottom: 0;
+  top: 0;
 `;
 
 const StickyPlayer = ({ history }) => {
@@ -35,21 +34,30 @@ const StickyPlayer = ({ history }) => {
   const levUrl = useSelector(state => state.playerLevUrl);
   const playerDocked = useSelector(state => state.playerDocked);
   const { x, y, width, height } = useSelector(state => state.playerBoundingBox);
-  if (!visible) return null;
+  const playerFullscreen = useSelector(state => state.playerFullscreen);
+
+  if (!visible || !levUrl) return null;
+
   return (
     <Container
       x={x}
       y={y}
-      width={width}
-      height={height}
+      width={playerFullscreen ? document.documentElement.clientWidth : width}
+      height={playerFullscreen ? document.documentElement.clientHeight : height}
       playerDocked={playerDocked}
+      fullscreen={playerFullscreen}
     >
       <RecPlayer
         recUrl={recUrl}
         levUrl={levUrl}
         autoPlay
-        width={width}
-        height={height}
+        width={playerFullscreen ? document.documentElement.clientWidth : width}
+        height={
+          playerFullscreen ? document.documentElement.clientHeight : height
+        }
+        onFullscreenClick={() => {
+          dispatch(fullscreenPlayer(!playerFullscreen));
+        }}
       />
       <Dock
         onClick={() => {

@@ -15,7 +15,6 @@ import {
 
 const StyledKuski = styled.div`
   display: flex;
-  height: 100%;
 
   > div {
     flex: 1;

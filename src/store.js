@@ -8,22 +8,27 @@ import {
   SET_PLAYER_BOUNDING_BOX,
   SET_PLAYER_VISIBLE,
   DOCK_PLAYER,
-  PLAYER_VIEW_LEFT
+  UNDOCK_PLAYER,
+  PLAYER_VIEW_LEFT,
+  LOAD_LEV_REC,
+  FULLSCREEN_PLAYER
 } from "./actions";
 
 const initialState = {
   battles: [],
   battleData: [],
   playerVisible: false,
-  playerRecUrl: "https://elma.online/dl/battlereplay/145543",
-  playerLevUrl: "https://elma.online/dl/level/438609",
+  playerRecUrl: "",
+  playerLevUrl: "",
   playerBoundingBox: {
     x: 0,
     y: 0,
     width: 0,
     height: 0
   },
-  playerDocked: false
+  playerDocked: false,
+  prePlayerDocked: false,
+  playerFullscreen: false
 };
 
 const store = (state = initialState, action) => {
@@ -52,10 +57,16 @@ const store = (state = initialState, action) => {
         playerLevUrl: action.url
       };
     }
+    case LOAD_LEV_REC: {
+      return {
+        ...state,
+        playerLevUrl: action.data.lev,
+        playerRecUrl: action.data.rec
+      };
+    }
     case SET_PLAYER_BOUNDING_BOX: {
       return {
         ...state,
-        playerDocked: false,
         playerBoundingBox: action.data
       };
     }
@@ -75,12 +86,27 @@ const store = (state = initialState, action) => {
       return {
         ...state,
         playerDocked: true,
+        playerFullscreen: false,
         playerBoundingBox: {
           x: 0,
           y: 0,
-          width: 300,
+          width: 350,
           height: 200
         }
+      };
+    }
+    case UNDOCK_PLAYER: {
+      return {
+        ...state,
+        playerDocked: false
+      };
+    }
+    case FULLSCREEN_PLAYER: {
+      return {
+        ...state,
+        prePlayerDocked: state.playerDocked,
+        playerDocked: action.data ? false : state.prePlayerDocked,
+        playerFullscreen: action.data || false
       };
     }
     default: {

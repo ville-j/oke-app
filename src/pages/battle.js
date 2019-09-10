@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
   getBattleAsync,
-  loadLevel,
-  loadReplay,
   setPlayerBoundingBox,
   setPlayerVisible,
-  playerViewLeft
+  playerViewLeft,
+  loadLevRec,
+  undockPlayer
 } from "../actions";
 import { Table, TableRow, TableCell } from "../components";
 
@@ -90,6 +90,10 @@ const Battle = ({
   }, [dispatch]);
 
   useEffect(() => {
+    dispatch(undockPlayer());
+  });
+
+  useEffect(() => {
     updatePlayerBoundingBox();
     dispatch(getBattleAsync(id));
     return () => {
@@ -98,22 +102,25 @@ const Battle = ({
   }, [dispatch, id, updatePlayerBoundingBox]);
 
   useEffect(() => {
-    window.addEventListener("scroll", tryUpdate);
-    window.addEventListener("resize", tryUpdate);
-    function tryUpdate() {
-      !playerDocked && updatePlayerBoundingBox();
-    }
+    window.addEventListener("scroll", updatePlayerBoundingBox);
+    window.addEventListener("resize", updatePlayerBoundingBox);
     return () => {
-      window.removeEventListener("scroll", tryUpdate);
-      window.removeEventListener("resize", tryUpdate);
+      window.removeEventListener("scroll", updatePlayerBoundingBox);
+      window.removeEventListener("resize", updatePlayerBoundingBox);
     };
   }, [dispatch, playerDocked, updatePlayerBoundingBox]);
 
   const data = useSelector(state => state.battleData.find(b => b.id === id));
-
-  data && dispatch(loadLevel(`https://elma.online/dl/level/${data.level}`));
-  data && dispatch(loadReplay(`https://elma.online/dl/battlereplay/${id}`));
-  data && dispatch(setPlayerVisible(true));
+  data &&
+    dispatch(
+      loadLevRec({
+        lev: `https://elma.online/dl/level/${data.level}`,
+        rec: `https://elma.online/dl/battlereplay/${id}`
+      })
+    );
+  useEffect(() => {
+    dispatch(setPlayerVisible(true));
+  }, [dispatch, id]);
   return (
     <StyledBattle>
       <div>
