@@ -91,7 +91,7 @@ const Battle = ({
 
   useEffect(() => {
     dispatch(undockPlayer());
-  });
+  }, [dispatch]);
 
   useEffect(() => {
     updatePlayerBoundingBox();
@@ -125,9 +125,9 @@ const Battle = ({
     <StyledBattle>
       <div>
         <TitleBar>
-          <NavLink to={`/battles/${Number(id) + 1}`}>Newer</NavLink>
+          <NavLink to={`/battles/${Number(id) + 1}`}>Next</NavLink>
           <h2>{data && data.filename}.lev</h2>
-          <NavLink to={`/battles/${id - 1}`}>Older</NavLink>
+          <NavLink to={`/battles/${id - 1}`}>Previous</NavLink>
         </TitleBar>
         <hr />
         {data && data.startTime}

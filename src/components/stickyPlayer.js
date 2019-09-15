@@ -43,7 +43,7 @@ const StickyPlayer = ({ history }) => {
       x={x}
       y={y}
       width={playerFullscreen ? document.documentElement.clientWidth : width}
-      height={playerFullscreen ? document.documentElement.clientHeight : height}
+      height={playerFullscreen ? window.innerHeight : height}
       playerDocked={playerDocked}
       fullscreen={playerFullscreen}
     >
@@ -52,9 +52,7 @@ const StickyPlayer = ({ history }) => {
         levUrl={levUrl}
         autoPlay
         width={playerFullscreen ? document.documentElement.clientWidth : width}
-        height={
-          playerFullscreen ? document.documentElement.clientHeight : height
-        }
+        height={playerFullscreen ? window.innerHeight : height}
         onFullscreenClick={() => {
           dispatch(fullscreenPlayer(!playerFullscreen));
         }}
