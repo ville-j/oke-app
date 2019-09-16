@@ -16,8 +16,8 @@ const LevImage = styled.div`
   height: 200px;
   background: #5e8244;
   border: 10px solid #5e8244;
-  background-image: url("http://localhost:6543/levelimage/${props =>
-    props.level}");
+  background-image: url("${process.env.REACT_APP_API_URL}/levelimage/${props =>
+  props.level}");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
