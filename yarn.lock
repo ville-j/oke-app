@@ -6408,6 +6408,11 @@ no-case@^2.2.0:
   dependencies:
     lower-case "^1.1.1"
 
+node-elma@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/node-elma/-/node-elma-1.0.3.tgz#e43b22a19c073b3a385a9e9d03190f2a5151890f"
+  integrity sha512-pxVMecoIvcvuybCwYWdCVWNETZmUtMP6VmG0p6Twnl4g2Z2FtJD0G1/Kbivlwu0i3alWtzJpkCVF9KdUrku6VA==
+
 node-forge@0.7.5:
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.5.tgz#6c152c345ce11c52f465c2abd957e8639cd674df"

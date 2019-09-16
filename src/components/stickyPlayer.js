@@ -56,6 +56,7 @@ const StickyPlayer = ({ history }) => {
         onFullscreenClick={() => {
           dispatch(fullscreenPlayer(!playerFullscreen));
         }}
+        {...(playerDocked ? { zoom: 0.5 } : {})}
       />
       <Dock
         onClick={() => {

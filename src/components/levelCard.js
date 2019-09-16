@@ -15,6 +15,12 @@ const StyledLevelCard = styled.div`
 const LevImage = styled.div`
   height: 200px;
   background: #5e8244;
+  border: 10px solid #5e8244;
+  background-image: url("http://localhost:6543/levelimage/${props =>
+    props.level}");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const ResultsLink = styled(NavLink)`
@@ -35,7 +41,7 @@ const ResultsLink = styled(NavLink)`
 
 const LevelCard = ({ children, times, id, level }) => (
   <StyledLevelCard>
-    <LevImage level={level} />
+    <LevImage level={level}></LevImage>
     <Table>
       <TableRow head>
         <TableCell style={{ width: 50 }}>#</TableCell>

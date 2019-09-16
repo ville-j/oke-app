@@ -5,6 +5,7 @@
   "homepage": "https://janka.la/okeol/",
   "dependencies": {
     "axios": "^0.19.0",
+    "node-elma": "^1.0.3",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

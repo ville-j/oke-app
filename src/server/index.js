@@ -30,11 +30,26 @@ app.get("/battles/:id", async (req, res) => {
     const results = await API.getBattleResults(req.params.id);
 
     if (!results.ongoing && !results.queued) {
-      fs.writeFile(fn, JSON.stringify(results), res => {
+      fs.writeFile(fn, JSON.stringify(results), () => {
         console.log("done");
       });
     }
     res.json(results);
+  }
+});
+
+app.get("/levelimage/:id", async (req, res) => {
+  res.setHeader("Content-Type", "image/svg+xml");
+  const fn = path.join(__dirname, `/cache/images/${req.params.id}.svg`);
+
+  if (fs.existsSync(fn)) {
+    res.send(fs.readFileSync(fn));
+  } else {
+    const data = await API.getLevelImage(req.params.id);
+    fs.writeFile(fn, data, () => {
+      console.log("done");
+    });
+    res.send(data);
   }
 });
 

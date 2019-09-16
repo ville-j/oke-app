@@ -96,7 +96,47 @@ const getBattleResults = async battleId => {
   };
 };
 
+const getLevelImage = async id => {
+  const image = await axios
+    .get(`https://elma.online/dl/level/${id}`, { responseType: "arraybuffer" })
+    .then(async res => {
+      const Level = require("node-elma").Level;
+      return Level.loadFromBuffer(Buffer.from(res.data)).then(level => {
+        let minx;
+        let maxx;
+        let miny;
+        let maxy;
+        const svgData = level.polygons
+          .filter(p => !p.grass)
+          .map(p => {
+            return p.vertices
+              .map(v => {
+                if (!minx || v.x < minx) minx = v.x;
+                if (!miny || v.y < miny) miny = v.y;
+                if (!maxx || v.x > maxx) maxx = v.x;
+                if (!maxy || v.y > maxy) maxy = v.y;
+                return [v.x, v.y].join(",");
+              })
+              .join(" ");
+          });
+        const paths = svgData.map(s => {
+          return "M " + s + " z";
+        });
+
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${minx} ${miny} ${maxx -
+          minx} ${maxy - miny}">
+        <g><path d="${paths.join(
+          " "
+        )}" style="fill: #f1f1f1; fill-rule: evenodd"/></g></svg>`;
+
+        return svg;
+      });
+    });
+  return image;
+};
+
 module.exports = {
   getBattleResults,
-  getBattles
+  getBattles,
+  getLevelImage
 };
