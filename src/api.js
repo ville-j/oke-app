@@ -1,6 +1,5 @@
 import axios from "axios";
-//axios.defaults.baseURL = "https://janka.la:2828";
-axios.defaults.baseURL = "http://localhost:6543";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const getBattles = async () => {
   const res = await axios.get("/battles");
