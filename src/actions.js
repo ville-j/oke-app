@@ -5,6 +5,7 @@ const LOAD_REPLAY = "LOAD_REPLAY";
 const LOAD_LEVEL = "LOAD_LEVEL";
 const LOAD_LEV_REC = "LOAD_LEV_REC";
 const SET_PLAYER_STATE = "SET_PLAYER_STATE";
+const VIDEO_VIEW_LEFT = "VIDEO_VIEW_LEFT";
 
 const actionGetBattles = data => ({
   type: GET_BATTLES,
@@ -36,6 +37,10 @@ const setPlayerState = state => ({
   state
 });
 
+const videoViewLeft = () => ({
+  type: VIDEO_VIEW_LEFT
+});
+
 const getBattlesAsync = () => {
   return async dispatch => {
     const data = await getBattles();
@@ -57,10 +62,12 @@ export {
   LOAD_LEVEL,
   LOAD_LEV_REC,
   SET_PLAYER_STATE,
+  VIDEO_VIEW_LEFT,
   getBattlesAsync,
   getBattleAsync,
   loadReplay,
   loadLevel,
   loadLevRec,
-  setPlayerState
+  setPlayerState,
+  videoViewLeft
 };

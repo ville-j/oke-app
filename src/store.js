@@ -6,7 +6,8 @@ import {
   LOAD_LEVEL,
   LOAD_REPLAY,
   LOAD_LEV_REC,
-  SET_PLAYER_STATE
+  SET_PLAYER_STATE,
+  VIDEO_VIEW_LEFT
 } from "./actions";
 
 const initialState = {
@@ -56,6 +57,12 @@ const store = (state = initialState, action) => {
         ...state,
         prePlayerState: state.playerState,
         playerState: action.state
+      };
+    }
+    case VIDEO_VIEW_LEFT: {
+      return {
+        ...state,
+        playerState: state.playerState !== 2 ? 0 : 2
       };
     }
     default: {

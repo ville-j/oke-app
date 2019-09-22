@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { getBattleAsync, loadLevRec, setPlayerState } from "../actions";
+import {
+  getBattleAsync,
+  loadLevRec,
+  setPlayerState,
+  videoViewLeft
+} from "../actions";
 import { Table, TableRow, TableCell } from "../components";
 
 const StyledBattle = styled.div``;
@@ -19,11 +24,17 @@ const Battle = ({
   }
 }) => {
   const dispatch = useDispatch();
+  const data = useSelector(state => state.battleData.find(b => b.id === id));
+
   useEffect(() => {
     dispatch(getBattleAsync(id));
+    dispatch(setPlayerState(1));
+
+    return () => {
+      dispatch(videoViewLeft());
+    };
   }, [id, dispatch]);
 
-  const data = useSelector(state => state.battleData.find(b => b.id === id));
   data &&
     dispatch(
       loadLevRec({
@@ -31,12 +42,6 @@ const Battle = ({
         rec: `https://elma.online/dl/battlereplay/${id}`
       })
     );
-  useEffect(() => {
-    dispatch(setPlayerState(1));
-    return () => {
-      dispatch(setPlayerState(2));
-    };
-  }, [dispatch]);
 
   return (
     <StyledBattle>

@@ -22,6 +22,9 @@ const Player = ({ width, height }) => {
           ? dispatch(setPlayerState(3))
           : dispatch(setPlayerState(prePlayerState));
       }}
+      onDockClick={() => {
+        dispatch(setPlayerState(2));
+      }}
     ></RecPlayer>
   );
 };
