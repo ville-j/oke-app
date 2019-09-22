@@ -7,10 +7,11 @@ import CheckBox from "./checkbox";
 import Label from "./label";
 import TextBox from "./textBox";
 import BattleCard from "./battleCard";
-import StickyPlayer from "./stickyPlayer";
 import { Accordion, AccordionSection } from "./accordion";
 import { Table, TableRow, TableCell } from "./table";
 import { Tabs, Tab } from "./tabs";
+import Player from "./player";
+import BattleSidebar from "./battleSidebar";
 
 export {
   Button,
@@ -29,5 +30,6 @@ export {
   Label,
   TextBox,
   BattleCard,
-  StickyPlayer
+  Player,
+  BattleSidebar
 };
