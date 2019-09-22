@@ -19,11 +19,19 @@ const StyledLayout = styled.div`
 
 const SidebarLayout = styled.div`
   display: flex;
+
+  @media (max-width: 799px) {
+    flex-direction: column;
+  }
 `;
 
 const Sidebar = styled.div`
   flex: 0 0 350px;
   border-right: 1px solid #f7f7f7;
+
+  @media (max-width: 799px) {
+    flex: 1;
+  }
 `;
 
 const Content = styled.div`
