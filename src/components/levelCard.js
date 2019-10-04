@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
 
 import { Table, TableRow, TableCell } from "./";
@@ -16,8 +16,11 @@ const LevImage = styled.div`
   height: 200px;
   background: #5e8244;
   border: 10px solid #5e8244;
-  background-image: url("${process.env.REACT_APP_API_URL}/levelimage/${props =>
-  props.level}");
+  ${props =>
+    props.level &&
+    css`background-image: url("${
+      process.env.REACT_APP_API_URL
+    }/levelimage/${props => props.level}");`}
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -39,7 +42,7 @@ const ResultsLink = styled(NavLink)`
   }
 `;
 
-const LevelCard = ({ children, times, id, level }) => (
+const LevelCard = ({ times, id, level }) => (
   <StyledLevelCard>
     <LevImage level={level}></LevImage>
     <Table>

@@ -43,7 +43,7 @@ const PlayerContainer = styled.div`
 ${props =>
   props.visible &&
   css`
-    height: 300px;
+    height: 350px;
   `}
   
   ${props =>
@@ -52,6 +52,7 @@ ${props =>
       position: fixed;
       bottom: 0;
       right: 0;
+      height: 300px;
       width: 350px;
       z-index: 100;
     `}

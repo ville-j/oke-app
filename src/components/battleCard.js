@@ -9,8 +9,14 @@ const BattleCard = ({ id }) => {
     dispatch(getBattleAsync(id));
   }, [dispatch, id]);
   const data = useSelector(state => state.battleData.find(b => b.id === id));
-  if (!data) return null;
-  return <LevelCard times={data.results} id={id} level={data.level} />;
+
+  return (
+    <LevelCard
+      times={data ? data.results : []}
+      id={id}
+      level={data ? data.level : ""}
+    />
+  );
 };
 
 export default BattleCard;
