@@ -38,7 +38,7 @@ const BattleSidebar = ({
     <>
       <TitleBar>
         <NavLink to={`/battles/${Number(id) + 1}`}>Next</NavLink>
-        <h2>{data && data.filename}.lev</h2>
+        <div>{data && data.filename}.lev</div>
         <NavLink to={`/battles/${id - 1}`}>Previous</NavLink>
       </TitleBar>
       <Line>{data && data.startTime}</Line>

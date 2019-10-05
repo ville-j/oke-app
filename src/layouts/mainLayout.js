@@ -6,7 +6,15 @@ import {
   Switch,
   withRouter
 } from "react-router-dom";
-import { Home, Kuski, Levels, NotFound, Battles, Battle } from "../pages";
+import {
+  Home,
+  Kuski,
+  Levels,
+  NotFound,
+  Battles,
+  Battle,
+  Login
+} from "../pages";
 import { Menu, Player, BattleSidebar } from "../components";
 import { useSelector } from "react-redux";
 
@@ -14,11 +22,12 @@ const menuHeight = "50px";
 
 const StyledLayout = styled.div`
   padding-top: ${menuHeight};
-  min-height: 100%;
+  height: 100%;
 `;
 
 const SidebarLayout = styled.div`
   display: flex;
+  min-height: 100%;
 
   @media (max-width: 799px) {
     flex-direction: column;
@@ -30,7 +39,7 @@ const Sidebar = styled.div`
   border-right: 1px solid #f7f7f7;
 
   @media (max-width: 799px) {
-    flex: 1;
+    border-right: 0;
   }
 `;
 
@@ -116,13 +125,13 @@ const MainLayout = () => {
             >
               {playerState > 0 && <PL width={w} height={h} />}
             </PlayerContainer>
-
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/kuskis" component={Kuski} />
               <Route path="/levels" exact component={Levels} />
               <Route path="/battles" exact component={Battles} />
               <Route path="/battles/:id" exact component={Battle} />
+              <Route path="/login" component={Login} />
               <Route component={NotFound} />
             </Switch>
           </Content>

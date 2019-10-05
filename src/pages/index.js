@@ -4,5 +4,6 @@ import Levels from "./levels";
 import Battles from "./battles";
 import Battle from "./battle";
 import NotFound from "./404";
+import Login from "./login";
 
-export { Home, Kuski, Levels, NotFound, Battles, Battle };
+export { Home, Kuski, Levels, NotFound, Battles, Battle, Login };

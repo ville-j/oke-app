@@ -7,7 +7,8 @@ import {
   LOAD_REPLAY,
   LOAD_LEV_REC,
   SET_PLAYER_STATE,
-  VIDEO_VIEW_LEFT
+  VIDEO_VIEW_LEFT,
+  AUTH
 } from "./actions";
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
   playerRecUrl: "",
   playerLevUrl: "",
   playerState: 0,
-  prePlayerState: 0
+  prePlayerState: 0,
+  user: null
 };
 
 const store = (state = initialState, action) => {
@@ -63,6 +65,12 @@ const store = (state = initialState, action) => {
       return {
         ...state,
         playerState: state.playerState !== 2 ? 0 : 2
+      };
+    }
+    case AUTH: {
+      return {
+        ...state,
+        user: action.data
       };
     }
     default: {
