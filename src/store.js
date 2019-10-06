@@ -8,7 +8,8 @@ import {
   LOAD_LEV_REC,
   SET_PLAYER_STATE,
   VIDEO_VIEW_LEFT,
-  AUTH
+  AUTH,
+  GET_TIMES
 } from "./actions";
 
 const initialState = {
@@ -18,7 +19,8 @@ const initialState = {
   playerLevUrl: "",
   playerState: 0,
   prePlayerState: 0,
-  user: null
+  user: null,
+  times: []
 };
 
 const store = (state = initialState, action) => {
@@ -71,6 +73,12 @@ const store = (state = initialState, action) => {
       return {
         ...state,
         user: action.data
+      };
+    }
+    case GET_TIMES: {
+      return {
+        ...state,
+        times: action.data
       };
     }
     default: {

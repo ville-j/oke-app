@@ -12,6 +12,7 @@ import { Table, TableRow, TableCell } from "./table";
 import { Tabs, Tab } from "./tabs";
 import Player from "./player";
 import BattleSidebar from "./battleSidebar";
+import Time from "./time";
 
 export {
   Button,
@@ -31,5 +32,6 @@ export {
   TextBox,
   BattleCard,
   Player,
-  BattleSidebar
+  BattleSidebar,
+  Time
 };

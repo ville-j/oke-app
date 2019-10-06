@@ -33,6 +33,11 @@ const auth = async () => {
   return res.data;
 };
 
+const getTimes = async () => {
+  const res = await axios.get(`/times`);
+  return res.data;
+};
+
 const logout = () => {
   setToken(null);
 };
@@ -42,4 +47,4 @@ const setToken = token => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
-export { getBattles, getBattle, register, login, logout, auth };
+export { getBattles, getBattle, register, login, logout, auth, getTimes };

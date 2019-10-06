@@ -5,6 +5,8 @@
   "homepage": "https://janka.la/okeapp/",
   "dependencies": {
     "axios": "^0.19.0",
+    "date-fns": "^2.4.1",
+    "dayjs": "^1.8.16",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

@@ -1,4 +1,4 @@
-import { getBattle, getBattles, auth } from "./api";
+import { getBattle, getBattles, auth, getTimes } from "./api";
 const GET_BATTLE = "GET_BATTLE";
 const GET_BATTLES = "GET_BATTLES";
 const LOAD_REPLAY = "LOAD_REPLAY";
@@ -7,6 +7,7 @@ const LOAD_LEV_REC = "LOAD_LEV_REC";
 const SET_PLAYER_STATE = "SET_PLAYER_STATE";
 const VIDEO_VIEW_LEFT = "VIDEO_VIEW_LEFT";
 const AUTH = "AUTH";
+const GET_TIMES = "GET_TIMES";
 
 const actionGetBattles = data => ({
   type: GET_BATTLES,
@@ -47,6 +48,11 @@ const videoViewLeft = () => ({
   type: VIDEO_VIEW_LEFT
 });
 
+const actionGetTimes = data => ({
+  type: GET_TIMES,
+  data
+});
+
 const getBattlesAsync = () => {
   return async dispatch => {
     const data = await getBattles();
@@ -58,6 +64,13 @@ const getBattleAsync = id => {
   return async dispatch => {
     const data = await getBattle(id);
     dispatch(actionGetBattle({ ...data, id }));
+  };
+};
+
+const getTimesAsync = () => {
+  return async dispatch => {
+    const data = await getTimes();
+    dispatch(actionGetTimes(data));
   };
 };
 
@@ -81,6 +94,7 @@ export {
   SET_PLAYER_STATE,
   VIDEO_VIEW_LEFT,
   AUTH,
+  GET_TIMES,
   getBattlesAsync,
   getBattleAsync,
   loadReplay,
@@ -88,5 +102,6 @@ export {
   loadLevRec,
   setPlayerState,
   videoViewLeft,
-  getUser
+  getUser,
+  getTimesAsync
 };

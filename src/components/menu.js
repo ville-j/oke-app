@@ -68,20 +68,12 @@ const Menu = ({ history }) => {
   return (
     <StyledMenu>
       <div>
-        <NavLink to="/levels">
-          Levels
-          <BottomBorder />
-        </NavLink>
-        <NavLink to="/replays">
-          Replays
+        <NavLink to="/" exact>
+          Home
           <BottomBorder />
         </NavLink>
         <NavLink to="/battles">
           Battles
-          <BottomBorder />
-        </NavLink>
-        <NavLink to="/kuskis">
-          Kuskis
           <BottomBorder />
         </NavLink>
         {!user && (
