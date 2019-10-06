@@ -9,7 +9,10 @@ import {
   SET_PLAYER_STATE,
   VIDEO_VIEW_LEFT,
   AUTH,
-  GET_TIMES
+  GET_TIMES,
+  GET_LEVELS,
+  GET_LEVEL,
+  GET_LEVEL_TIMES
 } from "./actions";
 
 const initialState = {
@@ -20,7 +23,9 @@ const initialState = {
   playerState: 0,
   prePlayerState: 0,
   user: null,
-  times: []
+  times: [],
+  levels: [],
+  levelTimes: []
 };
 
 const store = (state = initialState, action) => {
@@ -79,6 +84,27 @@ const store = (state = initialState, action) => {
       return {
         ...state,
         times: action.data
+      };
+    }
+    case GET_LEVELS: {
+      return {
+        ...state,
+        levels: action.data
+      };
+    }
+    case GET_LEVEL: {
+      return {
+        ...state,
+        levels: [
+          ...state.levels.filter(l => l.id !== action.data.id),
+          action.data
+        ]
+      };
+    }
+    case GET_LEVEL_TIMES: {
+      return {
+        ...state,
+        levelTimes: action.data
       };
     }
     default: {

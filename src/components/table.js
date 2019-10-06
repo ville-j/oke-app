@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const StyledTable = styled.div`
   display: table;
@@ -23,7 +24,7 @@ const StyledTableRow = styled.div`
     `}
 `;
 
-const StyledTableLinkRow = styled.a`
+const StyledTableLinkRow = styled(NavLink)`
   display: table-row;
   box-sizing: border-box;
   text-decoration: none;
@@ -53,7 +54,9 @@ const StyledTableCell = styled.div`
 const Table = ({ children }) => <StyledTable>{children}</StyledTable>;
 const TableRow = props =>
   props.href ? (
-    <StyledTableLinkRow {...props}>{props.children}</StyledTableLinkRow>
+    <StyledTableLinkRow to={props.href} {...props}>
+      {props.children}
+    </StyledTableLinkRow>
   ) : (
     <StyledTableRow {...props}>{props.children}</StyledTableRow>
   );

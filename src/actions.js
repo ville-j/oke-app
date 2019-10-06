@@ -1,4 +1,12 @@
-import { getBattle, getBattles, auth, getTimes } from "./api";
+import {
+  getBattle,
+  getBattles,
+  auth,
+  getTimes,
+  getLevels,
+  getLevel,
+  getLevelTimes
+} from "./api";
 const GET_BATTLE = "GET_BATTLE";
 const GET_BATTLES = "GET_BATTLES";
 const LOAD_REPLAY = "LOAD_REPLAY";
@@ -8,6 +16,9 @@ const SET_PLAYER_STATE = "SET_PLAYER_STATE";
 const VIDEO_VIEW_LEFT = "VIDEO_VIEW_LEFT";
 const AUTH = "AUTH";
 const GET_TIMES = "GET_TIMES";
+const GET_LEVEL_TIMES = "GET_LEVEL_TIMES";
+const GET_LEVELS = "GET_LEVELS";
+const GET_LEVEL = "GET_LEVEL";
 
 const actionGetBattles = data => ({
   type: GET_BATTLES,
@@ -53,6 +64,21 @@ const actionGetTimes = data => ({
   data
 });
 
+const actionGetLevelTimes = data => ({
+  type: GET_LEVEL_TIMES,
+  data
+});
+
+const actionGetLevels = data => ({
+  type: GET_LEVELS,
+  data
+});
+
+const actionGetLevel = data => ({
+  type: GET_LEVEL,
+  data
+});
+
 const getBattlesAsync = () => {
   return async dispatch => {
     const data = await getBattles();
@@ -71,6 +97,27 @@ const getTimesAsync = () => {
   return async dispatch => {
     const data = await getTimes();
     dispatch(actionGetTimes(data));
+  };
+};
+
+const getLevelsAsync = () => {
+  return async dispatch => {
+    const data = await getLevels();
+    dispatch(actionGetLevels(data));
+  };
+};
+
+const getLevelAsync = id => {
+  return async dispatch => {
+    const data = await getLevel(id);
+    dispatch(actionGetLevel(data));
+  };
+};
+
+const getLevelTimesAsync = id => {
+  return async dispatch => {
+    const data = await getLevelTimes(id);
+    dispatch(actionGetLevelTimes(data));
   };
 };
 
@@ -95,6 +142,9 @@ export {
   VIDEO_VIEW_LEFT,
   AUTH,
   GET_TIMES,
+  GET_LEVELS,
+  GET_LEVEL,
+  GET_LEVEL_TIMES,
   getBattlesAsync,
   getBattleAsync,
   loadReplay,
@@ -103,5 +153,8 @@ export {
   setPlayerState,
   videoViewLeft,
   getUser,
-  getTimesAsync
+  getTimesAsync,
+  getLevelsAsync,
+  getLevelAsync,
+  getLevelTimesAsync
 };

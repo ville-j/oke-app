@@ -10,6 +10,7 @@ import {
   Home,
   Kuski,
   Levels,
+  Level,
   NotFound,
   Battles,
   Battle,
@@ -130,6 +131,7 @@ const MainLayout = () => {
               <Route path="/" exact component={Home} />
               <Route path="/kuskis" component={Kuski} />
               <Route path="/levels" exact component={Levels} />
+              <Route path="/levels/:id" exact component={Level} />
               <Route path="/battles" exact component={Battles} />
               <Route path="/battles/:id" exact component={Battle} />
               <Route path="/login" component={Login} />

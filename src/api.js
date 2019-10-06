@@ -38,6 +38,21 @@ const getTimes = async () => {
   return res.data;
 };
 
+const getLevelTimes = async id => {
+  const res = await axios.get(`/times/${id}`);
+  return res.data;
+};
+
+const getLevels = async () => {
+  const res = await axios.get(`/levels`);
+  return res.data;
+};
+
+const getLevel = async id => {
+  const res = await axios.get(`/levels/${id}`);
+  return res.data;
+};
+
 const logout = () => {
   setToken(null);
 };
@@ -47,4 +62,15 @@ const setToken = token => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
-export { getBattles, getBattle, register, login, logout, auth, getTimes };
+export {
+  getBattles,
+  getBattle,
+  register,
+  login,
+  logout,
+  auth,
+  getTimes,
+  getLevels,
+  getLevel,
+  getLevelTimes
+};

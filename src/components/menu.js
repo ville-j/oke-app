@@ -76,6 +76,10 @@ const Menu = ({ history }) => {
           Battles
           <BottomBorder />
         </NavLink>
+        <NavLink to="/levels">
+          Levels
+          <BottomBorder />
+        </NavLink>
         {!user && (
           <NavLink to="/login">
             Log in / register
