@@ -2,7 +2,7 @@
   "name": "oke-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://janka.la/okeol/",
+  "homepage": "https://janka.la/okeapp/",
   "dependencies": {
     "axios": "^0.19.0",
     "normalize.css": "^8.0.1",

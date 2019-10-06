@@ -1,8 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { logout } from "../api";
+import { getUser } from "../actions";
+import { Dropdown } from "./";
 
 const BottomBorder = styled.div`
   position: absolute;
@@ -57,8 +61,10 @@ const StyledMenu = styled.div`
   }
 `;
 
-const Menu = () => {
+const Menu = ({ history }) => {
   const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
   return (
     <StyledMenu>
       <div>
@@ -87,14 +93,32 @@ const Menu = () => {
       </div>
       <div>
         {user && (
-          <NavLink to={`kuskis/${user.name}`}>
-            {user.name}
-            <BottomBorder />
-          </NavLink>
+          <Dropdown
+            primary
+            placeholder={user.name}
+            options={[
+              { value: 1, text: "Profile" },
+              { value: 2, text: "Log out" }
+            ]}
+            onSelect={(e, i) => {
+              switch (i) {
+                case 1:
+                  history.push(`/kuskis/${user.name}`);
+                  return;
+                case 2:
+                  logout();
+                  dispatch(getUser());
+                  return;
+                default:
+                  return;
+              }
+            }}
+            style={{ width: 200 }}
+          />
         )}
       </div>
     </StyledMenu>
   );
 };
 
-export default Menu;
+export default withRouter(Menu);

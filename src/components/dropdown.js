@@ -1,14 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledDropdown = styled.div`
   position: relative;
   border-bottom: 1px solid #f7f7f7;
+  ${props =>
+    props.primary &&
+    css`
+      background: #66af30;
+      border-bottom: 1px solid #66af30;
+      color: #fff;
+    `}
 `;
 
 const Selection = styled.div`
   padding: 12px;
   cursor: default;
+  padding-right: 36px;
 `;
 
 const Options = styled.div`
@@ -18,9 +26,20 @@ const Options = styled.div`
   border-top: 1px solid #eaeaea;
   z-index: 10;
   background: #f7f7f7;
+  ${props =>
+    props.primary &&
+    css`
+      background: #66af30;
+      color: #fff;
+      border-top: 1px solid #86ce51;
+    `}
   > div {
     padding: 8px 12px;
     cursor: default;
+
+    :hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
   }
 `;
 
@@ -31,7 +50,14 @@ const Chevron = styled.div`
   padding: 12px;
 `;
 
-const Dropdown = ({ options, onSelect, value, placeholder = "Select" }) => {
+const Dropdown = ({
+  options,
+  onSelect,
+  value,
+  placeholder = "Select",
+  primary,
+  style
+}) => {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(!open);
@@ -55,7 +81,7 @@ const Dropdown = ({ options, onSelect, value, placeholder = "Select" }) => {
     };
   });
   return (
-    <StyledDropdown ref={container}>
+    <StyledDropdown ref={container} primary={primary} style={{ ...style }}>
       <Selection
         role="button"
         tabIndex="0"
@@ -66,7 +92,7 @@ const Dropdown = ({ options, onSelect, value, placeholder = "Select" }) => {
         <Chevron>▾</Chevron>
       </Selection>
       {open && (
-        <Options>
+        <Options primary={primary}>
           {options.map(o => (
             <div
               key={o.value}

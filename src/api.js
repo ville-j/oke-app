@@ -33,9 +33,13 @@ const auth = async () => {
   return res.data;
 };
 
+const logout = () => {
+  setToken(null);
+};
+
 const setToken = token => {
   localStorage.setItem("token", token);
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
-export { getBattles, getBattle, register, login, auth };
+export { getBattles, getBattle, register, login, logout, auth };

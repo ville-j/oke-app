@@ -40,6 +40,7 @@ const Sidebar = styled.div`
 
   @media (max-width: 799px) {
     border-right: 0;
+    flex: 0;
   }
 `;
 
@@ -104,7 +105,7 @@ const MainLayout = () => {
   }, [sw, setWidth, playerState]);
   return (
     <StyledLayout>
-      <Router basename="/okeol">
+      <Router basename="/okeapp">
         <Menu />
         <SidebarLayout>
           <Route
