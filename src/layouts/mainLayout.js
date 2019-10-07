@@ -48,6 +48,10 @@ const Sidebar = styled.div`
 const Content = styled.div`
   flex: 1;
   overflow: hidden;
+  @media (max-width: 799px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const PlayerContainer = styled.div`

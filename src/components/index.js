@@ -13,6 +13,7 @@ import { Tabs, Tab } from "./tabs";
 import Player from "./player";
 import BattleSidebar from "./battleSidebar";
 import Time from "./time";
+import LevelImage from "./levelImage";
 
 export {
   Button,
@@ -33,5 +34,6 @@ export {
   BattleCard,
   Player,
   BattleSidebar,
-  Time
+  Time,
+  LevelImage
 };

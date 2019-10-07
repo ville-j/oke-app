@@ -3,21 +3,17 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getLevelAsync, getLevelTimesAsync } from "../actions";
 
-import { Table, TableRow, TableCell, Time } from "../components";
+import { Table, TableRow, TableCell, Time, LevelImage } from "../components";
 
 const Container = styled.div`
   min-height: 100%;
+  flex: 1;
   display: flex;
 `;
 
 const Side = styled.div`
   flex: 0 1 350px;
   border-right: 1px solid #f7f7f7;
-`;
-
-const LevImage = styled.div`
-  background: #333;
-  height: 350px;
 `;
 
 const Content = styled.div`
@@ -62,7 +58,7 @@ const Level = ({
         <Title>{level && level.name}.lev</Title>
       </Side>
       <Content>
-        <LevImage></LevImage>
+        <LevelImage level={id} height="350px" />
         <TableContainer>
           <Table>
             <TableRow head>
