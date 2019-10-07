@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
 
@@ -12,18 +12,30 @@ const StyledLevelCard = styled.div`
   box-shadow: 1px 1px 4px 0px #eaeaea;
 `;
 
-const LevImage = styled.div`
+const Image = styled.div`
   height: 200px;
-  background: #5e8244;
-  border: 10px solid #5e8244;
-  ${props =>
-    props.level &&
-    css`background-image: url("${
-      process.env.REACT_APP_API_URL
-    }/levelimage/${props => props.level}");`}
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  > div {
+    ${props =>
+      props.fullscreen &&
+      css`
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 99;
+      `}
+    width: 100%;
+    height: 100%;
+    background: #333;
+    border: 10px solid #333;
+    ${props =>
+      props.level &&
+      css`background-image: url("${
+        process.env.REACT_APP_API_URL
+      }/levelimage/${props => props.level}");`}
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 `;
 
 const ResultsLink = styled(NavLink)`
@@ -42,9 +54,24 @@ const ResultsLink = styled(NavLink)`
   }
 `;
 
+const LevelImage = ({ level }) => {
+  const [fs, setFs] = useState(false);
+  return (
+    <Image
+      level={level}
+      fullscreen={fs}
+      onClick={() => {
+        setFs(!fs);
+      }}
+    >
+      <div></div>
+    </Image>
+  );
+};
+
 const LevelCard = ({ times, id, level }) => (
   <StyledLevelCard>
-    <LevImage level={level}></LevImage>
+    <LevelImage level={level} />
     <Table>
       <TableRow head>
         <TableCell style={{ width: 50 }}>#</TableCell>
