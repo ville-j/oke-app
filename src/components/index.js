@@ -14,6 +14,7 @@ import Player from "./player";
 import BattleSidebar from "./battleSidebar";
 import Time from "./time";
 import LevelImage from "./levelImage";
+import Line from "./line";
 
 export {
   Button,
@@ -35,5 +36,6 @@ export {
   Player,
   BattleSidebar,
   Time,
-  LevelImage
+  LevelImage,
+  Line
 };

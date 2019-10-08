@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-
 import { NavLink } from "react-router-dom";
-
+import { Line } from "./";
 const TitleBar = styled.div`
   display: flex;
   align-items: center;
@@ -24,7 +23,7 @@ const TitleBar = styled.div`
   }
 `;
 
-const Line = styled.div`
+const DataLine = styled.div`
   margin: 12px;
 `;
 
@@ -38,11 +37,13 @@ const BattleSidebar = ({
     <>
       <TitleBar>
         <NavLink to={`/battles/${Number(id) + 1}`}>Next</NavLink>
-        <div>{data && data.filename}.lev</div>
+        <div>{(data && data.filename) || <Line width="100%" />}</div>
         <NavLink to={`/battles/${id - 1}`}>Previous</NavLink>
       </TitleBar>
-      <Line>{data && data.startTime}</Line>
-      <Line>Started by {data && data.designer}</Line>
+      <DataLine>{(data && data.startTime) || <Line width="100%" />}</DataLine>
+      <DataLine>
+        {(data && `Started by ${data.designer}`) || <Line width="100%" />}
+      </DataLine>
     </>
   );
 };
