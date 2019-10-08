@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -29,11 +29,32 @@ const StyledMenu = styled.div`
 
   > div {
     flex: 1;
+
+    @media all and (max-width: 799px) {
+      position: fixed;
+      top: 50px;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      ${props =>
+        !props.menuOpen &&
+        css`
+          display: none;
+        `}
+
+      > a {
+        display: block;
+      }
+    }
   }
 
-  > div:nth-child(2) {
+  > div:nth-child(3) {
     display: flex;
     justify-content: flex-end;
+
+    @media all and (max-width: 799px) {
+      display: none;
+    }
   }
 
   h1 {
@@ -61,34 +82,90 @@ const StyledMenu = styled.div`
   }
 `;
 
+const ToggleButton = styled.button`
+  width: 50px;
+  font-size: 20px;
+  border: 0;
+  background: transparent;
+  color: #66af30;
+  @media all and (min-width: 800px) {
+    display: none;
+  }
+`;
+
+const HideOnDesktop = styled.div`
+  @media all and (min-width: 800px) {
+    display: none;
+  }
+  > a {
+    display: block;
+  }
+`;
+
 const Menu = ({ history }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
 
   return (
-    <StyledMenu>
+    <StyledMenu menuOpen={menuOpen}>
+      <ToggleButton
+        type="button"
+        onClick={() => {
+          setMenuOpen(!menuOpen);
+        }}
+      >
+        ☰
+      </ToggleButton>
       <div>
-        <NavLink to="/" exact>
+        <NavLink to="/" exact onClick={closeMenu}>
           Home
           <BottomBorder />
         </NavLink>
-        <NavLink to="/battles">
+        <NavLink to="/battles" onClick={closeMenu}>
           Battles
           <BottomBorder />
         </NavLink>
-        <NavLink to="/levels">
+        <NavLink to="/levels" onClick={closeMenu}>
           Levels
           <BottomBorder />
         </NavLink>
+        {user && (
+          <HideOnDesktop>
+            <NavLink to={`/kuskis/${user.name}`} onClick={closeMenu}>
+              Profile
+              <BottomBorder />
+            </NavLink>
+          </HideOnDesktop>
+        )}
+        {user && (
+          <HideOnDesktop>
+            <NavLink
+              to="/logout"
+              onClick={e => {
+                e.preventDefault();
+                logout();
+                dispatch(getUser());
+                closeMenu();
+              }}
+            >
+              Log out
+              <BottomBorder />
+            </NavLink>
+          </HideOnDesktop>
+        )}
         {!user && (
-          <NavLink to="/login">
+          <NavLink to="/login" onClick={closeMenu}>
             Log in / register
             <BottomBorder />
           </NavLink>
         )}
       </div>
-      <div>
-        {user && (
+      {user && (
+        <div>
           <Dropdown
             primary
             placeholder={user.name}
@@ -111,8 +188,8 @@ const Menu = ({ history }) => {
             }}
             style={{ width: 200 }}
           />
-        )}
-      </div>
+        </div>
+      )}
     </StyledMenu>
   );
 };
