@@ -103,6 +103,7 @@ const Dropdown = ({
               onKeyDown={e => {
                 e.keyCode === 13 && handleSelect(e, o.value);
               }}
+              role="button"
             >
               {o.text}
             </div>

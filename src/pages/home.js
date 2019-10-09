@@ -23,9 +23,9 @@ const Home = () => {
       </Pad>
       <Table>
         <TableRow head>
-          <TableCell style={{ width: 120 }}>Filename</TableCell>
+          <TableCell style={{ width: 120 }}>Level</TableCell>
           <TableCell style={{ width: 140 }}>Kuski</TableCell>
-          <TableCell style={{ width: 120 }}>Time</TableCell>
+          <TableCell style={{ width: 90 }}>Time</TableCell>
           <TableCell>Finished</TableCell>
         </TableRow>
         {times.map(t => {
