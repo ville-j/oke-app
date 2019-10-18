@@ -33,17 +33,25 @@ const StyledMenu = styled.div`
     @media all and (max-width: 799px) {
       position: fixed;
       top: 50px;
-      width: 100%;
+      width: 85%;
       height: 100%;
-      background: #fff;
+      background: #66af30;
+      transition: left .1s;
+      left: 0%;
       ${props =>
         !props.menuOpen &&
         css`
-          display: none;
+          left: -85%;
         `}
 
       > a {
         display: block;
+        color: #fff;
+
+        &.active {
+          color: #fff;
+          text-decoration: underline;
+        }
       }
     }
   }
