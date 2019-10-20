@@ -18,6 +18,51 @@ const BottomBorder = styled.div`
   display: none;
 `;
 
+const MenuItems = styled.div`
+  a {
+    line-height: 50px;
+    display: inline-block;
+    padding 0 12px;
+    position: relative;
+    color: #8a8a8a;
+    &.active {
+        color: #66af30;
+        div {
+            display: block;
+        }
+    }
+  }
+  @media all and (max-width: 799px) {
+    position: fixed;
+    top: 50px;
+    width: 300px;
+    max-width: 85%;
+    height: 100%;
+    background: #66af30;
+    transition: left 0.1s;
+    left: 0%;
+    ${props =>
+      !props.menuOpen &&
+      css`
+        left: -300px;
+      `}
+
+    a {
+      display: block;
+      color: #fff;
+
+      &.active {
+        color: #fff;
+        text-decoration: underline;
+      }
+    }
+  }
+`;
+
+const DropdownContainer = styled.div`
+  flex: 1;
+`;
+
 const StyledMenu = styled.div`
   position: fixed;
   top: 0;
@@ -27,36 +72,7 @@ const StyledMenu = styled.div`
   z-index: 50;
   background: #fff;
 
-  > div {
-    flex: 1;
-
-    @media all and (max-width: 799px) {
-      position: fixed;
-      top: 50px;
-      width: 85%;
-      height: 100%;
-      background: #66af30;
-      transition: left .1s;
-      left: 0%;
-      ${props =>
-        !props.menuOpen &&
-        css`
-          left: -85%;
-        `}
-
-      > a {
-        display: block;
-        color: #fff;
-
-        &.active {
-          color: #fff;
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-
-  > div:nth-child(3) {
+  > div:nth-child(4) {
     display: flex;
     justify-content: flex-end;
 
@@ -74,20 +90,7 @@ const StyledMenu = styled.div`
   border-bottom: 1px solid #f7f7f7;
   display: flex;
 
-  a {
-      line-height: 50px;
-      text-decoration: none;
-      display: inline-block;
-      padding 0 12px;
-      position: relative;
-      color: #8a8a8a;
-      &.active {
-          color: #66af30;
-          div {
-              display: block;
-          }
-      }
-  }
+
 `;
 
 const ToggleButton = styled.button`
@@ -110,6 +113,30 @@ const HideOnDesktop = styled.div`
   }
 `;
 
+const Search = styled.div`
+  display: flex;
+  flex: 0 1 300px;
+
+  @media all and (max-width: 799px) {
+    flex: 1;
+  }
+
+  input {
+    line-height: 50px;
+    border: 0;
+    padding: 0 12px;
+    display: block;
+    width: 100%;
+    border: 0;
+
+    ::placeholder {
+      color: #8a8a8a;
+      font-size: inherit;
+      font-family: inherit;
+    }
+  }
+`;
+
 const Menu = ({ history }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector(state => state.user);
@@ -119,7 +146,7 @@ const Menu = ({ history }) => {
   };
 
   return (
-    <StyledMenu menuOpen={menuOpen}>
+    <StyledMenu>
       <ToggleButton
         type="button"
         onClick={() => {
@@ -128,7 +155,7 @@ const Menu = ({ history }) => {
       >
         ☰
       </ToggleButton>
-      <div>
+      <MenuItems menuOpen={menuOpen}>
         <NavLink to="/" exact onClick={closeMenu}>
           Home
           <BottomBorder />
@@ -171,9 +198,21 @@ const Menu = ({ history }) => {
             <BottomBorder />
           </NavLink>
         )}
-      </div>
+      </MenuItems>
+
+      <Search>
+        <input
+          type="text"
+          placeholder="Search"
+          onKeyDown={e => {
+            e.keyCode === 13 &&
+              e.target.value.length > 0 &&
+              history.push(`/search?q=${e.target.value}`);
+          }}
+        />
+      </Search>
       {user && (
-        <div>
+        <DropdownContainer>
           <Dropdown
             primary
             placeholder={user.name}
@@ -196,7 +235,7 @@ const Menu = ({ history }) => {
             }}
             style={{ width: 200 }}
           />
-        </div>
+        </DropdownContainer>
       )}
     </StyledMenu>
   );

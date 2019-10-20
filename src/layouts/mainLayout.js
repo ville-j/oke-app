@@ -14,7 +14,8 @@ import {
   NotFound,
   Battles,
   Battle,
-  Login
+  Login,
+  Search
 } from "../pages";
 import { Menu, Player, BattleSidebar } from "../components";
 import { useSelector } from "react-redux";
@@ -139,6 +140,7 @@ const MainLayout = () => {
               <Route path="/battles" exact component={Battles} />
               <Route path="/battles/:id" exact component={Battle} />
               <Route path="/login" component={Login} />
+              <Route path="/search" component={Search} />
               <Route component={NotFound} />
             </Switch>
           </Content>

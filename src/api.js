@@ -62,6 +62,15 @@ const setToken = token => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
+const search = async query => {
+  const res = await axios.get(`/search`, {
+    params: {
+      query
+    }
+  });
+  return res.data;
+};
+
 export {
   getBattles,
   getBattle,
@@ -72,5 +81,6 @@ export {
   getTimes,
   getLevels,
   getLevel,
-  getLevelTimes
+  getLevelTimes,
+  search
 };

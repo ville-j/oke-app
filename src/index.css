@@ -55,5 +55,5 @@ hr {
 button:focus,
 [role="button"]:focus,
 input:focus {
-  outline: none;
+  outline: 2px solid #ffad46;
 }
