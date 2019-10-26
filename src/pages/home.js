@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDistance, parseISO } from "date-fns";
+import { formatDistance, fromUnixTime } from "date-fns";
 import { getTimesAsync } from "../actions";
 import { Table, TableRow, TableCell, Time } from "../components";
 
@@ -29,7 +29,6 @@ const Home = () => {
           <TableCell>Finished</TableCell>
         </TableRow>
         {times.map(t => {
-          const d = parseISO(t.created);
           return (
             <TableRow key={t.id}>
               <TableCell>{t.lev_name}</TableCell>
@@ -37,7 +36,13 @@ const Home = () => {
               <TableCell>
                 <Time time={t.time} />
               </TableCell>
-              <TableCell>{formatDistance(d, new Date())} ago</TableCell>
+              <TableCell>
+                {formatDistance(
+                  fromUnixTime(t.created + 1262304000),
+                  new Date()
+                )}{" "}
+                ago
+              </TableCell>
             </TableRow>
           );
         })}

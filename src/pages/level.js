@@ -86,7 +86,7 @@ const Level = ({
               levelTimes.map((t, i) => (
                 <TableRow key={t.id}>
                   <TableCell style={{ width: 50 }}>{i + 1}.</TableCell>
-                  <TableCell>{t.kuski_name}</TableCell>
+                  <TableCell>{t.name}</TableCell>
                   <TableCell>
                     <Time time={t.time} />
                   </TableCell>
