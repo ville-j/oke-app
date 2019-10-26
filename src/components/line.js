@@ -5,7 +5,7 @@ const Line = styled.span`
   height: 1em;
   line-height: 1em;
   background: #f7f7f7;
-  width: ${props => `${props.width}`};
+  width: ${props => `${props.width ? props.width : `100%`}`};
   border-radius: 2px;
 `;
 

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getLevelAsync, getLevelTimesAsync } from "../actions";
+import SidebarLayout from "../layouts/sidebarLayout";
 
 import {
   Table,
@@ -11,30 +12,6 @@ import {
   LevelImage,
   Line
 } from "../components";
-
-const Container = styled.div`
-  min-height: 100%;
-  flex: 1;
-  display: flex;
-
-  @media (max-width: 799px) {
-    flex-direction: column;
-  }
-`;
-
-const Side = styled.div`
-  flex: 0 1 350px;
-  border-right: 1px solid #f7f7f7;
-
-  @media (max-width: 799px) {
-    flex: 0;
-    border: 0;
-  }
-`;
-
-const Content = styled.div`
-  flex: 1;
-`;
 
 const TableContainer = styled.div`
   @media (min-width: 950px) {
@@ -68,35 +45,32 @@ const Level = ({
   const levelTimes = useSelector(state =>
     state.levelTimes.filter(t => t.lev_id === Number(id))
   );
-  return (
-    <Container>
-      <Side>
-        <Title>{(level && level.name) || <Line width="100%" />}</Title>
-      </Side>
-      <Content>
-        <LevelImage level={id} height="350px" />
-        <TableContainer>
-          <Table>
-            <TableRow head>
-              <TableCell style={{ width: 50 }}>#</TableCell>
-              <TableCell>Kuski</TableCell>
-              <TableCell>Time</TableCell>
-            </TableRow>
-            {levelTimes &&
-              levelTimes.map((t, i) => (
-                <TableRow key={t.id}>
-                  <TableCell style={{ width: 50 }}>{i + 1}.</TableCell>
-                  <TableCell>{t.name}</TableCell>
-                  <TableCell>
-                    <Time time={t.time} />
-                  </TableCell>
-                </TableRow>
-              ))}
-          </Table>
-        </TableContainer>
-      </Content>
-    </Container>
+  const side = <Title>{(level && level.name) || <Line />}</Title>;
+  const content = (
+    <>
+      <LevelImage level={id} height="350px" />
+      <TableContainer>
+        <Table>
+          <TableRow head>
+            <TableCell style={{ width: 50 }}>#</TableCell>
+            <TableCell>Kuski</TableCell>
+            <TableCell>Time</TableCell>
+          </TableRow>
+          {levelTimes &&
+            levelTimes.map((t, i) => (
+              <TableRow key={t.id}>
+                <TableCell style={{ width: 50 }}>{i + 1}.</TableCell>
+                <TableCell>{t.name}</TableCell>
+                <TableCell>
+                  <Time time={t.time} />
+                </TableCell>
+              </TableRow>
+            ))}
+        </Table>
+      </TableContainer>
+    </>
   );
+  return <SidebarLayout side={side} content={content} />;
 };
 
 export default Level;

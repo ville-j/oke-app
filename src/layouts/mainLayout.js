@@ -134,7 +134,7 @@ const MainLayout = () => {
             </PlayerContainer>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/kuskis" component={Kuski} />
+              <Route path="/kuskis/:name" component={Kuski} />
               <Route path="/levels" exact component={Levels} />
               <Route path="/levels/:id" exact component={Level} />
               <Route path="/battles" exact component={Battles} />

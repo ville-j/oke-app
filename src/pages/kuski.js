@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { getKuskiAsync, getKuskiTimesAsync } from "../actions";
 import {
   Table,
   TableRow,
@@ -7,112 +9,100 @@ import {
   Tabs,
   Tab,
   Avatar,
-  Dropdown,
-  CheckBox,
-  Label,
-  TextBox
+  Line,
+  Time,
+  Timestamp
 } from "../components";
-
-const StyledKuski = styled.div`
-  display: flex;
-
-  > div {
-    flex: 1;
-    :first-child {
-      flex: 0 0 350px;
-      border-right: 1px solid #f7f7f7;
-      padding: 12px;
-    }
-    h1,
-    h2 {
-      margin: 0;
-    }
-    h3 {
-      margin: 12px;
-    }
-  }
-  @media (max-width: 650px) {
-    flex-direction: column;
-    > div:first-child {
-      flex: 0;
-      border-right: 0;
-    }
-  }
-`;
+import SidebarLayout from "../layouts/sidebarLayout";
 
 const StyledAvatar = styled(Avatar)`
   margin-right: 25px;
 `;
 
-const Kuski = ({ location }) => {
-  const [dd, setDd] = useState();
-  const [checked, setChecked] = useState();
-  return (
-    <StyledKuski>
+const KuskiInfo = styled.div`
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  h1 {
+    font-size: 2.2em;
+  }
+  h1,
+  h2 {
+    margin: 0;
+  }
+`;
+
+const Content = styled.div`
+  h3 {
+    margin: 12px;
+  }
+`;
+
+const Kuski = ({
+  match: {
+    params: { name }
+  }
+}) => {
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.kuskis.find(k => k.name === name));
+  const { id } = data || { id: null };
+  const times = useSelector(state => state.kuskiTimes.find(k => k.id === id));
+
+  useEffect(() => {
+    dispatch(getKuskiAsync(name));
+  }, [name, dispatch]);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getKuskiTimesAsync(id));
+    }
+  }, [dispatch, id]);
+
+  const side = (
+    <KuskiInfo>
       <div>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <div>
-            <StyledAvatar />
-          </div>
-          <div>
-            <h1>awsj</h1>
-            <h2>[NORWICH]</h2>
-          </div>
-        </div>
+        <StyledAvatar />
       </div>
-      <div>
-        <Tabs>
-          <Tab to="/">Times</Tab>
-          <Tab to="/battles">Battles</Tab>
-          <Tab to="/settings">Settings</Tab>
-        </Tabs>
-        <h3>Recent times</h3>
-        <Table>
-          <TableRow head>
-            <TableCell style={{ width: 200 }}>Level</TableCell>
-            <TableCell>Time</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>kahvia31</TableCell>
-            <TableCell>15,78</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>qwquu033</TableCell>
-            <TableCell>48,02</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>blaztek [EE]</TableCell>
-            <TableCell>15,63</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>blaztek [EE]</TableCell>
-            <TableCell>15,63</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>blaztek [EE]</TableCell>
-            <TableCell>15,63</TableCell>
-          </TableRow>
-        </Table>
-        <Dropdown
-          value={dd}
-          options={[{ value: 20, text: "a" }, { value: 21, text: "b" }]}
-          onSelect={(e, value) => {
-            setDd(value);
-          }}
-          placeholder="Select a player"
-        />
-        <Label text="Player" />
-        <TextBox />
-        <CheckBox
-          text="Box"
-          checked={checked}
-          onChange={(e, value) => {
-            setChecked(value);
-          }}
-        />
+      <div style={{ flex: 1 }}>
+        <h1>{data ? data.name : <Line />}</h1>
+        <h2>
+          {data ? data.team ? `[${data.team}]` : "—" : <Line width="100px" />}
+        </h2>
       </div>
-    </StyledKuski>
+    </KuskiInfo>
   );
+  const content = (
+    <Content>
+      <Tabs>
+        <Tab to={`/kuskis/${name}`}>Times</Tab>
+      </Tabs>
+      <h3>Recent times</h3>
+      <Table>
+        <TableRow head>
+          <TableCell style={{ width: 120 }}>Level</TableCell>
+          <TableCell style={{ width: 90 }} alignRight>
+            Time
+          </TableCell>
+          <TableCell>Finished</TableCell>
+        </TableRow>
+        {times &&
+          times.data.map(t => {
+            return (
+              <TableRow key={t.id}>
+                <TableCell>{t.lev_name}</TableCell>
+                <TableCell alignRight>
+                  <Time time={t.time} />
+                </TableCell>
+                <TableCell>
+                  <Timestamp time={t.created} />
+                </TableCell>
+              </TableRow>
+            );
+          })}
+      </Table>
+    </Content>
+  );
+  return <SidebarLayout side={side} content={content} />;
 };
 
 export default Kuski;

@@ -53,6 +53,16 @@ const getLevel = async id => {
   return res.data;
 };
 
+const getKuski = async name => {
+  const res = await axios.get(`/users/${name}`);
+  return res.data;
+};
+
+const getKuskiTimes = async id => {
+  const res = await axios.get(`/times/kuski/${id}`);
+  return res.data;
+};
+
 const logout = () => {
   setToken(null);
 };
@@ -82,5 +92,7 @@ export {
   getLevels,
   getLevel,
   getLevelTimes,
-  search
+  search,
+  getKuski,
+  getKuskiTimes
 };

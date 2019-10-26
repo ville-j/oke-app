@@ -25,7 +25,9 @@ const Home = () => {
         <TableRow head>
           <TableCell style={{ width: 120 }}>Level</TableCell>
           <TableCell style={{ width: 140 }}>Kuski</TableCell>
-          <TableCell style={{ width: 90 }}>Time</TableCell>
+          <TableCell style={{ width: 90 }} alignRight>
+            Time
+          </TableCell>
           <TableCell>Finished</TableCell>
         </TableRow>
         {times.map(t => {
@@ -33,7 +35,7 @@ const Home = () => {
             <TableRow key={t.id}>
               <TableCell>{t.lev_name}</TableCell>
               <TableCell>{t.kuski_name}</TableCell>
-              <TableCell>
+              <TableCell alignRight>
                 <Time time={t.time} />
               </TableCell>
               <TableCell>
