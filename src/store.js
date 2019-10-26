@@ -12,7 +12,9 @@ import {
   GET_TIMES,
   GET_LEVELS,
   GET_LEVEL,
-  GET_LEVEL_TIMES
+  GET_LEVEL_TIMES,
+  GET_KUSKI,
+  GET_KUSKI_TIMES
 } from "./actions";
 
 const initialState = {
@@ -25,7 +27,9 @@ const initialState = {
   user: null,
   times: [],
   levels: [],
-  levelTimes: []
+  levelTimes: [],
+  kuskis: [],
+  kuskiTimes: []
 };
 
 const store = (state = initialState, action) => {
@@ -38,6 +42,24 @@ const store = (state = initialState, action) => {
         ...state,
         battleData: [
           ...state.battleData.filter(b => b.id !== action.data.id),
+          action.data
+        ]
+      };
+    }
+    case GET_KUSKI: {
+      return {
+        ...state,
+        kuskis: [
+          ...state.kuskis.filter(k => k.id !== action.data.id),
+          action.data
+        ]
+      };
+    }
+    case GET_KUSKI_TIMES: {
+      return {
+        ...state,
+        kuskiTimes: [
+          ...state.kuskiTimes.filter(k => k.id !== action.data.id),
           action.data
         ]
       };

@@ -37,13 +37,11 @@ const BattleSidebar = ({
     <>
       <TitleBar>
         <NavLink to={`/battles/${Number(id) + 1}`}>Next</NavLink>
-        <div>{(data && data.filename) || <Line width="100%" />}</div>
+        <div>{(data && data.filename) || <Line />}</div>
         <NavLink to={`/battles/${id - 1}`}>Previous</NavLink>
       </TitleBar>
-      <DataLine>{(data && data.startTime) || <Line width="100%" />}</DataLine>
-      <DataLine>
-        {(data && `Started by ${data.designer}`) || <Line width="100%" />}
-      </DataLine>
+      <DataLine>{(data && data.startTime) || <Line />}</DataLine>
+      <DataLine>{(data && `Started by ${data.designer}`) || <Line />}</DataLine>
     </>
   );
 };

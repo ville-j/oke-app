@@ -42,6 +42,12 @@ const StyledTableCell = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 
+  ${props =>
+    props.alignRight &&
+    css`
+      text-align: right;
+    `}
+
   :first-child {
     padding-left: 12px;
   }

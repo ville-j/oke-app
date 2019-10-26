@@ -15,6 +15,7 @@ import BattleSidebar from "./battleSidebar";
 import Time from "./time";
 import LevelImage from "./levelImage";
 import Line from "./line";
+import Timestamp from "./timestamp";
 
 export {
   Button,
@@ -37,5 +38,6 @@ export {
   BattleSidebar,
   Time,
   LevelImage,
-  Line
+  Line,
+  Timestamp
 };
