@@ -5,7 +5,7 @@ import { search } from "../api";
 import { Table, TableRow, TableCell } from "../components";
 
 const NoResults = styled.div`
-  padding: 12px;
+  padding: 8px 12px;
   color: #d0d0d0;
 `;
 

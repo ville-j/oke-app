@@ -14,6 +14,7 @@ import {
   Timestamp
 } from "../components";
 import SidebarLayout from "../layouts/sidebarLayout";
+import { parseTime, formatTime } from "../utils";
 
 const StyledAvatar = styled(Avatar)`
   margin-right: 25px;
@@ -25,6 +26,8 @@ const KuskiInfo = styled.div`
   align-items: center;
   h1 {
     font-size: 2.2em;
+    line-height: 1em;
+    word-break: break-all;
   }
   h1,
   h2 {
@@ -36,6 +39,30 @@ const Content = styled.div`
   h3 {
     margin: 12px;
   }
+`;
+
+const Stats = styled.div`
+  @media all and (max-width: 799px) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+`;
+
+const StatsContainer = styled.div`
+  padding: 8px 12px;
+  flex: 1 0 200px;
+`;
+
+const StatsValue = styled.div`
+  color: #66af30;
+  font-size: 1.8em;
+  font-weight: 600;
+`;
+
+const StatsTitle = styled.div`
+  color: #8a8a8a;
 `;
 
 const Kuski = ({
@@ -59,18 +86,37 @@ const Kuski = ({
   }, [dispatch, id]);
 
   const side = (
-    <KuskiInfo>
-      <div>
-        <StyledAvatar />
-      </div>
-      <div style={{ flex: 1 }}>
-        <h1>{data ? data.name : <Line />}</h1>
-        <h2>
-          {data ? data.team ? `[${data.team}]` : "—" : <Line width="100px" />}
-        </h2>
-      </div>
-    </KuskiInfo>
+    <>
+      <KuskiInfo>
+        <div>
+          <StyledAvatar />
+        </div>
+        <div style={{ flex: 1 }}>
+          <h1>{data ? data.name : <Line />}</h1>
+          <h2>
+            {data ? data.team ? `[${data.team}]` : "—" : <Line width="100px" />}
+          </h2>
+        </div>
+      </KuskiInfo>
+      <Stats>
+        <StatsContainer>
+          <StatsValue>
+            {data ? formatTime(parseTime(data.playtime)) : <Line />}
+          </StatsValue>
+          <StatsTitle>Play time</StatsTitle>
+        </StatsContainer>
+        <StatsContainer>
+          <StatsValue>{data ? data.runcount : <Line />}</StatsValue>
+          <StatsTitle>Run count</StatsTitle>
+        </StatsContainer>
+        <StatsContainer>
+          <StatsValue>{data ? data.runfinish : <Line />}</StatsValue>
+          <StatsTitle>Finished runs</StatsTitle>
+        </StatsContainer>
+      </Stats>
+    </>
   );
+
   const content = (
     <Content>
       <Tabs>

@@ -3,6 +3,13 @@ import styled, { css } from "styled-components";
 
 const StyledDropdown = styled.div`
   position: relative;
+`;
+
+const Selection = styled.div`
+  padding: 12px;
+  cursor: default;
+  padding-right: 36px;
+
   border-bottom: 1px solid #f7f7f7;
   ${props =>
     props.primary &&
@@ -11,12 +18,6 @@ const StyledDropdown = styled.div`
       border-bottom: 1px solid #66af30;
       color: #fff;
     `}
-`;
-
-const Selection = styled.div`
-  padding: 12px;
-  cursor: default;
-  padding-right: 36px;
 `;
 
 const Options = styled.div`
@@ -81,12 +82,13 @@ const Dropdown = ({
     };
   });
   return (
-    <StyledDropdown ref={container} primary={primary} style={{ ...style }}>
+    <StyledDropdown ref={container} style={{ ...style }}>
       <Selection
         role="button"
         tabIndex="0"
         onClick={handleClick}
         onKeyDown={handleKeyDown}
+        primary={primary}
       >
         {selectedItem ? selectedItem.text : placeholder}
         <Chevron>▾</Chevron>
