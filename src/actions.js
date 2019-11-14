@@ -114,9 +114,9 @@ const getTimesAsync = () => {
   };
 };
 
-const getLevelsAsync = () => {
+const getLevelsAsync = page => {
   return async dispatch => {
-    const data = await getLevels();
+    const data = await getLevels(page);
     dispatch(actionGetLevels(data));
   };
 };

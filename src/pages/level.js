@@ -40,7 +40,7 @@ const Level = ({
   }, [dispatch, id]);
 
   const level = useSelector(state =>
-    state.levels.find(l => l.id === Number(id))
+    state.levelData.find(l => l.id === Number(id))
   );
   const levelTimes = useSelector(state =>
     state.levelTimes.filter(t => t.lev_id === Number(id))

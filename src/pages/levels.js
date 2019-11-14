@@ -1,27 +1,32 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import qs from "query-string";
 import { getLevelsAsync } from "../actions";
-import { Table, TableRow, TableCell } from "../components";
+import { Table, TableRow, TableCell, Pagination } from "../components";
 
-const Levels = () => {
+const Levels = ({ location }) => {
   const dispatch = useDispatch();
-  const levels = useSelector(state => state.levels).sort((a, b) => {
-    return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-  });
+  const levels = useSelector(state => state.levels);
+  const { page } = qs.parse(location.search);
 
   useEffect(() => {
-    dispatch(getLevelsAsync());
-  }, [dispatch]);
+    dispatch(getLevelsAsync(page || 1));
+  }, [dispatch, page]);
+
+  if (!page && levels.meta.page !== 1) return null;
   return (
-    <Table>
-      {levels.map(l => {
-        return (
-          <TableRow href={`/levels/${l.id}`} key={l.id}>
-            <TableCell>{l.name}</TableCell>
-          </TableRow>
-        );
-      })}
-    </Table>
+    <>
+      <Table>
+        {levels.items.map(l => {
+          return (
+            <TableRow href={`/levels/${l.id}`} key={l.id}>
+              <TableCell>{l.name}</TableCell>
+            </TableRow>
+          );
+        })}
+      </Table>
+      <Pagination {...levels.meta} />
+    </>
   );
 };
 

@@ -22,14 +22,14 @@ const MenuItems = styled.div`
   a {
     line-height: 50px;
     display: inline-block;
-    padding 0 12px;
+    padding: 0 12px;
     position: relative;
     color: #8a8a8a;
     &.active {
-        color: #66af30;
-        div {
-            display: block;
-        }
+      color: #66af30;
+      div {
+        display: block;
+      }
     }
   }
   @media all and (max-width: 799px) {
@@ -39,12 +39,13 @@ const MenuItems = styled.div`
     max-width: 85%;
     height: 100%;
     background: #66af30;
-    transition: left 0.1s;
+    transition: left 0.3s, visibility 1s;
     left: 0%;
     ${props =>
       !props.menuOpen &&
       css`
         left: -300px;
+        visibility: hidden;
       `}
 
     a {
@@ -82,15 +83,13 @@ const StyledMenu = styled.div`
   }
 
   h1 {
-      margin 0 12px;
-      line-height: 50px;
-      font-size: 2em;
+    margin: 0 12px;
+    line-height: 50px;
+    font-size: 2em;
   }
 
   border-bottom: 1px solid #f7f7f7;
   display: flex;
-
-
 `;
 
 const ToggleButton = styled.button`
@@ -233,7 +232,7 @@ const Menu = ({ history }) => {
                   return;
               }
             }}
-            style={{ width: 200 }}
+            style={{ width: 200, margin: 2 }}
           />
         </DropdownContainer>
       )}

@@ -7,7 +7,7 @@ const StyledTextBox = styled.input`
   border: 0;
   background: #f7f7f7;
   line-height: 1.5;
-  width: ${props => (props.fullSize ? "100%" : "300px")}
+  width: ${props => (props.fullSize ? "100%" : "300px")};
   box-sizing: border-box;
 `;
 
