@@ -16,6 +16,7 @@ import Time from "./time";
 import LevelImage from "./levelImage";
 import Line from "./line";
 import Timestamp from "./timestamp";
+import Pagination from "./pagination";
 
 export {
   Button,
@@ -39,5 +40,6 @@ export {
   Time,
   LevelImage,
   Line,
-  Timestamp
+  Timestamp,
+  Pagination
 };

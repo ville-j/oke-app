@@ -26,7 +26,13 @@ const initialState = {
   prePlayerState: 0,
   user: null,
   times: [],
-  levels: [],
+  levels: {
+    items: [],
+    meta: {
+      page: 1
+    }
+  },
+  levelData: [],
   levelTimes: [],
   kuskis: [],
   kuskiTimes: []
@@ -117,8 +123,8 @@ const store = (state = initialState, action) => {
     case GET_LEVEL: {
       return {
         ...state,
-        levels: [
-          ...state.levels.filter(l => l.id !== action.data.id),
+        levelData: [
+          ...state.levelData.filter(l => l.id !== action.data.id),
           action.data
         ]
       };

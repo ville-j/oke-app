@@ -43,8 +43,12 @@ const getLevelTimes = async id => {
   return res.data;
 };
 
-const getLevels = async () => {
-  const res = await axios.get(`/levels`);
+const getLevels = async page => {
+  const res = await axios.get(`/levels`, {
+    params: {
+      page
+    }
+  });
   return res.data;
 };
 
