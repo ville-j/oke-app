@@ -16,4 +16,14 @@ const formatTime = ({ h, m, s }) => {
   }${s && m && s < 10 ? `0` : ``}${Math.floor(s)}s`;
 };
 
-export { parseTime, formatTime };
+const poll = (fn, interval) => () => {
+  fn();
+  const i = setInterval(() => {
+    fn();
+  }, interval);
+  return () => {
+    clearInterval(i);
+  };
+};
+
+export { parseTime, formatTime, poll };

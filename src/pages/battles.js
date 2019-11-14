@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getBattlesAsync } from "../actions";
 import { BattleCard } from "../components";
+import { poll } from "../utils";
 
 const Grid = styled.div`
   display: grid;
@@ -15,9 +16,12 @@ const Cell = styled.div``;
 
 const Battles = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getBattlesAsync());
-  }, [dispatch]);
+  useEffect(
+    poll(() => {
+      dispatch(getBattlesAsync());
+    }, 30000),
+    [dispatch]
+  );
 
   const battles = useSelector(state => state.battles);
   return (
