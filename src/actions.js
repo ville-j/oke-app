@@ -7,6 +7,7 @@ import {
   getLevel,
   getLevelTimes,
   getKuski,
+  getKuskis,
   getKuskiTimes
 } from "./api";
 const GET_BATTLE = "GET_BATTLE";
@@ -22,6 +23,7 @@ const GET_LEVEL_TIMES = "GET_LEVEL_TIMES";
 const GET_LEVELS = "GET_LEVELS";
 const GET_LEVEL = "GET_LEVEL";
 const GET_KUSKI = "GET_KUSKI";
+const GET_KUSKIS = "GET_KUSKIS";
 const GET_KUSKI_TIMES = "GET_KUSKI_TIMES";
 
 const actionGetBattles = data => ({
@@ -85,6 +87,11 @@ const actionGetLevel = data => ({
 
 const actionGetKuski = data => ({
   type: GET_KUSKI,
+  data
+});
+
+const actionGetKuskis = data => ({
+  type: GET_KUSKIS,
   data
 });
 
@@ -153,6 +160,13 @@ const getKuskiAsync = name => {
   };
 };
 
+const getKuskisAsync = () => {
+  return async dispatch => {
+    const data = await getKuskis();
+    dispatch(actionGetKuskis(data));
+  };
+};
+
 const getKuskiTimesAsync = id => {
   return async dispatch => {
     const data = await getKuskiTimes(id);
@@ -174,6 +188,7 @@ export {
   GET_LEVEL,
   GET_LEVEL_TIMES,
   GET_KUSKI,
+  GET_KUSKIS,
   GET_KUSKI_TIMES,
   getBattlesAsync,
   getBattleAsync,
@@ -188,5 +203,6 @@ export {
   getLevelAsync,
   getLevelTimesAsync,
   getKuskiAsync,
+  getKuskisAsync,
   getKuskiTimesAsync
 };

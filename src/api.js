@@ -62,6 +62,11 @@ const getKuski = async name => {
   return res.data;
 };
 
+const getKuskis = async () => {
+  const res = await axios.get(`/kuskis`);
+  return res.data;
+};
+
 const getKuskiTimes = async id => {
   const res = await axios.get(`/times/kuski/${id}`);
   return res.data;
@@ -98,5 +103,6 @@ export {
   getLevelTimes,
   search,
   getKuski,
+  getKuskis,
   getKuskiTimes
 };
