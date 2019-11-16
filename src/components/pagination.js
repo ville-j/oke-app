@@ -3,14 +3,12 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledPagination = styled.div`
-  margin: 0 12px;
   a {
     display: inline-block;
-    min-width: 37px;
-    height: 37px;
+    min-width: 45px;
+    height: 45px;
     text-align: center;
-    line-height: 37px;
-    border-radius: 2px;
+    line-height: 45px;
     padding: 0 2px;
     box-sizing: border-box;
 

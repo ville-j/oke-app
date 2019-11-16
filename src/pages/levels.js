@@ -1,8 +1,22 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import qs from "query-string";
+import styled from "styled-components";
 import { getLevelsAsync } from "../actions";
 import { Table, TableRow, TableCell, Pagination } from "../components";
+
+const Container = styled.div`
+  margin-bottom: 50px;
+`;
+
+const PaginationContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #f7f7f7;
+`;
 
 const Levels = ({ location }) => {
   const dispatch = useDispatch();
@@ -15,7 +29,7 @@ const Levels = ({ location }) => {
 
   if (!page && levels.meta.page !== 1) return null;
   return (
-    <>
+    <Container>
       <Table>
         {levels.items.map(l => {
           return (
@@ -25,8 +39,10 @@ const Levels = ({ location }) => {
           );
         })}
       </Table>
-      <Pagination {...levels.meta} />
-    </>
+      <PaginationContainer>
+        <Pagination {...levels.meta} />
+      </PaginationContainer>
+    </Container>
   );
 };
 
