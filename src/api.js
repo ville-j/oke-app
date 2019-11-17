@@ -15,7 +15,7 @@ const getBattle = async id => {
 };
 
 const register = async (name, password) => {
-  return await axios.post(`/users`, { name, password });
+  return await axios.post(`/kuskis`, { name, password });
 };
 
 const login = async (name, password) => {
@@ -58,7 +58,12 @@ const getLevel = async id => {
 };
 
 const getKuski = async name => {
-  const res = await axios.get(`/users/${name}`);
+  const res = await axios.get(`/kuskis/${name}`);
+  return res.data;
+};
+
+const getKuskis = async () => {
+  const res = await axios.get(`/kuskis`);
   return res.data;
 };
 
@@ -98,5 +103,6 @@ export {
   getLevelTimes,
   search,
   getKuski,
+  getKuskis,
   getKuskiTimes
 };

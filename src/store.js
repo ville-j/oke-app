@@ -14,6 +14,7 @@ import {
   GET_LEVEL,
   GET_LEVEL_TIMES,
   GET_KUSKI,
+  GET_KUSKIS,
   GET_KUSKI_TIMES
 } from "./actions";
 
@@ -53,12 +54,22 @@ const store = (state = initialState, action) => {
       };
     }
     case GET_KUSKI: {
+      const { kuskis } = state;
+      const i = kuskis.findIndex(k => k.id === action.data.id);
+      if (i > -1) {
+        kuskis.splice(i, 1, action.data);
+      } else {
+        kuskis.push(action.data);
+      }
       return {
         ...state,
-        kuskis: [
-          ...state.kuskis.filter(k => k.id !== action.data.id),
-          action.data
-        ]
+        kuskis
+      };
+    }
+    case GET_KUSKIS: {
+      return {
+        ...state,
+        kuskis: action.data
       };
     }
     case GET_KUSKI_TIMES: {

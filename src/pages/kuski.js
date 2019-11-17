@@ -25,9 +25,10 @@ const KuskiInfo = styled.div`
   display: flex;
   align-items: center;
   h1 {
-    font-size: 2.2em;
+    font-size: 1.8em;
     line-height: 1em;
     word-break: break-all;
+    text-transform: lowercase;
   }
   h1,
   h2 {
@@ -57,7 +58,7 @@ const StatsContainer = styled.div`
 
 const StatsValue = styled.div`
   color: #66af30;
-  font-size: 1.8em;
+  font-size: 1.5em;
   font-weight: 600;
 `;
 
@@ -93,9 +94,7 @@ const Kuski = ({
         </div>
         <div style={{ flex: 1 }}>
           <h1>{data ? data.name : <Line />}</h1>
-          <h2>
-            {data ? data.team ? `[${data.team}]` : "—" : <Line width="100px" />}
-          </h2>
+          <h2>{data && data.team && `[${data.team}]`}</h2>
         </div>
       </KuskiInfo>
       <Stats>

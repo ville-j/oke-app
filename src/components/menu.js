@@ -167,6 +167,10 @@ const Menu = ({ history }) => {
           Levels
           <BottomBorder />
         </NavLink>
+        <NavLink to="/kuskis" onClick={closeMenu}>
+          Kuskis
+          <BottomBorder />
+        </NavLink>
         {user && (
           <HideOnDesktop>
             <NavLink to={`/kuskis/${user.name}`} onClick={closeMenu}>
