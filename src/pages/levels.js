@@ -6,7 +6,7 @@ import { getLevelsAsync } from "../actions";
 import { Table, TableRow, TableCell, Pagination } from "../components";
 
 const Container = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 `;
 
 const PaginationContainer = styled.div`
