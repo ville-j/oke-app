@@ -23,10 +23,10 @@ const Battles = () => {
     [dispatch]
   );
 
-  const battles = useSelector(state => state.battles);
+  const battles = useSelector(state => state.battles.list);
   return (
     <Grid>
-      {[...battles].splice(0, 15).map(b => {
+      {battles.slice(0, 15).map(b => {
         return (
           <Cell key={b.id}>
             <BattleCard id={b.id} />

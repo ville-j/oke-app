@@ -93,7 +93,7 @@ const MainLayout = () => {
   const playerContainer = useRef(null);
   const [w, sw] = useState(0);
   const [h, sh] = useState(0);
-  const playerState = useSelector(state => state.playerState);
+  const playerState = useSelector(state => state.player.playerState);
 
   const setWidth = useCallback(() => {
     sw(playerContainer.current.offsetWidth);

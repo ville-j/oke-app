@@ -32,7 +32,9 @@ const BattleSidebar = ({
     params: { id }
   }
 }) => {
-  const data = useSelector(state => state.battleData.find(b => b.id === id));
+  const data = useSelector(state =>
+    state.battles.details.find(b => b.id === id)
+  );
   return (
     <>
       <TitleBar>

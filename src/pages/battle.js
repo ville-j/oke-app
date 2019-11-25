@@ -24,7 +24,9 @@ const Battle = ({
   }
 }) => {
   const dispatch = useDispatch();
-  const data = useSelector(state => state.battleData.find(b => b.id === id));
+  const data = useSelector(state =>
+    state.battles.details.find(b => b.id === id)
+  );
 
   useEffect(() => {
     dispatch(getBattleAsync(id));
