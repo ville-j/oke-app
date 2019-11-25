@@ -170,7 +170,7 @@ const getKuskisAsync = () => {
 const getKuskiTimesAsync = id => {
   return async dispatch => {
     const data = await getKuskiTimes(id);
-    dispatch(actionGetKuskiTimes({ id, data }));
+    dispatch(actionGetKuskiTimes(data));
   };
 };
 

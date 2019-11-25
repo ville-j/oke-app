@@ -6,7 +6,7 @@ import { getLevelsAsync } from "../actions";
 import { Table, TableRow, TableCell, Pagination } from "../components";
 
 const Container = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 `;
 
 const PaginationContainer = styled.div`
@@ -20,7 +20,7 @@ const PaginationContainer = styled.div`
 
 const Levels = ({ location }) => {
   const dispatch = useDispatch();
-  const levels = useSelector(state => state.levels);
+  const levels = useSelector(state => state.levels.list);
   const { page } = qs.parse(location.search);
 
   useEffect(() => {
@@ -28,6 +28,7 @@ const Levels = ({ location }) => {
   }, [dispatch, page]);
 
   if (!page && levels.meta.page !== 1) return null;
+
   return (
     <Container>
       <Table>

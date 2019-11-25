@@ -40,10 +40,10 @@ const Level = ({
   }, [dispatch, id]);
 
   const level = useSelector(state =>
-    state.levelData.find(l => l.id === Number(id))
+    state.levels.details.find(l => l.id === Number(id))
   );
   const levelTimes = useSelector(state =>
-    state.levelTimes.filter(t => t.lev_id === Number(id))
+    state.levels.times.filter(t => t.lev_id === Number(id))
   );
   const side = <Title>{(level && level.name) || <Line />}</Title>;
   const content = (
@@ -60,7 +60,7 @@ const Level = ({
             levelTimes.map((t, i) => (
               <TableRow key={t.id}>
                 <TableCell style={{ width: 50 }}>{i + 1}.</TableCell>
-                <TableCell>{t.name}</TableCell>
+                <TableCell>{t.kuski_name}</TableCell>
                 <TableCell>
                   <Time time={t.time} />
                 </TableCell>

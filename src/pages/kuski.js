@@ -74,7 +74,9 @@ const Kuski = ({
   const dispatch = useDispatch();
   const data = useSelector(state => state.kuskis.find(k => k.name === name));
   const { id } = data || { id: null };
-  const times = useSelector(state => state.kuskiTimes.find(k => k.id === id));
+  const times = useSelector(state =>
+    state.times.filter(k => k.kuski_id === id)
+  );
 
   useEffect(() => {
     dispatch(getKuskiAsync(name));
@@ -131,7 +133,7 @@ const Kuski = ({
           <TableCell>Finished</TableCell>
         </TableRow>
         {times &&
-          times.data.map(t => {
+          times.map(t => {
             return (
               <TableRow key={t.id}>
                 <TableCell>{t.lev_name}</TableCell>
