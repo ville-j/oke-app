@@ -102,43 +102,67 @@ const actionGetKuskiTimes = data => ({
 
 const getBattlesAsync = () => {
   return async dispatch => {
-    const data = await getBattles();
-    dispatch(actionGetBattles(data));
+    try {
+      const data = await getBattles();
+      dispatch(actionGetBattles(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 const getBattleAsync = id => {
   return async dispatch => {
-    const data = await getBattle(id);
-    dispatch(actionGetBattle({ ...data, id }));
+    try {
+      const data = await getBattle(id);
+      dispatch(actionGetBattle({ ...data, id }));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 const getTimesAsync = () => {
   return async dispatch => {
-    const data = await getTimes();
-    dispatch(actionGetTimes(data));
+    try {
+      const data = await getTimes();
+      dispatch(actionGetTimes(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 const getLevelsAsync = page => {
   return async dispatch => {
-    const data = await getLevels(page);
-    dispatch(actionGetLevels(data));
+    try {
+      const data = await getLevels(page);
+      dispatch(actionGetLevels(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 const getLevelAsync = id => {
   return async dispatch => {
-    const data = await getLevel(id);
-    dispatch(actionGetLevel(data));
+    try {
+      const data = await getLevel(id);
+      dispatch(actionGetLevel(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 const getLevelTimesAsync = id => {
   return async dispatch => {
-    const data = await getLevelTimes(id);
-    dispatch(actionGetLevelTimes(data));
+    try {
+      const data = await getLevelTimes(id);
+      dispatch(actionGetLevelTimes(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
@@ -155,22 +179,34 @@ const getUser = () => {
 
 const getKuskiAsync = name => {
   return async dispatch => {
-    const data = await getKuski(name);
-    dispatch(actionGetKuski(data));
+    try {
+      const data = await getKuski(name);
+      dispatch(actionGetKuski(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 const getKuskisAsync = () => {
   return async dispatch => {
-    const data = await getKuskis();
-    dispatch(actionGetKuskis(data));
+    try {
+      const data = await getKuskis();
+      dispatch(actionGetKuskis(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
 const getKuskiTimesAsync = id => {
   return async dispatch => {
-    const data = await getKuskiTimes(id);
-    dispatch(actionGetKuskiTimes(data));
+    try {
+      const data = await getKuskiTimes(id);
+      dispatch(actionGetKuskiTimes(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 

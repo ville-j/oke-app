@@ -20,7 +20,7 @@ const Battles = () => {
     poll(() => {
       dispatch(getBattlesAsync());
     }, 30000),
-    [dispatch]
+    []
   );
 
   const battles = useSelector(state => state.battles.list);

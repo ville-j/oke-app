@@ -80,13 +80,15 @@ const Kuski = ({
 
   useEffect(() => {
     dispatch(getKuskiAsync(name));
-  }, [name, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name]);
 
   useEffect(() => {
     if (id) {
       dispatch(getKuskiTimesAsync(id));
     }
-  }, [dispatch, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const side = (
     <>

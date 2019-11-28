@@ -37,7 +37,8 @@ const Level = ({
   useEffect(() => {
     dispatch(getLevelAsync(id));
     dispatch(getLevelTimesAsync(id));
-  }, [dispatch, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const level = useSelector(state =>
     state.levels.details.find(l => l.id === Number(id))

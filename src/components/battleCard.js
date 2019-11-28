@@ -5,13 +5,15 @@ import LevelCard from "./levelCard";
 
 const BattleCard = ({ id }) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getBattleAsync(id));
-  }, [dispatch, id]);
   const data = useSelector(state =>
     state.battles.details.find(b => b.id === id)
   );
-
+  useEffect(() => {
+    if (!data || !data.finished) {
+      dispatch(getBattleAsync(id));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
   return (
     <LevelCard
       times={data ? data.results : []}
