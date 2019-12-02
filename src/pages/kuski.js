@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { getKuskiAsync, getKuskiTimesAsync } from "../actions";
 import {
   Table,
@@ -80,13 +81,15 @@ const Kuski = ({
 
   useEffect(() => {
     dispatch(getKuskiAsync(name));
-  }, [name, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name]);
 
   useEffect(() => {
     if (id) {
       dispatch(getKuskiTimesAsync(id));
     }
-  }, [dispatch, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const side = (
     <>
@@ -136,7 +139,9 @@ const Kuski = ({
           times.map(t => {
             return (
               <TableRow key={t.id}>
-                <TableCell>{t.lev_name}</TableCell>
+                <TableCell>
+                  <NavLink to={`/levels/${t.lev_id}`}>{t.lev_name}</NavLink>
+                </TableCell>
                 <TableCell alignRight>
                   <Time time={t.time} />
                 </TableCell>

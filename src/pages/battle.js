@@ -35,7 +35,8 @@ const Battle = ({
     return () => {
       dispatch(videoViewLeft());
     };
-  }, [id, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   data &&
     dispatch(

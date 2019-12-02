@@ -39,7 +39,7 @@ const MenuItems = styled.div`
     max-width: 85%;
     height: 100%;
     background: #66af30;
-    transition: left 0.3s, visibility 1s;
+    transition: left 0.3s, visibility 0.3s;
     left: 0%;
     ${props =>
       !props.menuOpen &&

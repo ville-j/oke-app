@@ -25,7 +25,8 @@ const Levels = ({ location }) => {
 
   useEffect(() => {
     dispatch(getLevelsAsync(page || 1));
-  }, [dispatch, page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   if (!page && levels.meta.page !== 1) return null;
 

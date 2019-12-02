@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDistance, fromUnixTime } from "date-fns";
+import { NavLink } from "react-router-dom";
 import { getTimesAsync } from "../actions";
 import { Table, TableRow, TableCell, Time } from "../components";
 
@@ -17,7 +18,8 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getTimesAsync());
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <Pad>
@@ -35,8 +37,12 @@ const Home = () => {
         {times.map(t => {
           return (
             <TableRow key={t.id}>
-              <TableCell>{t.lev_name}</TableCell>
-              <TableCell>{t.kuski_name}</TableCell>
+              <TableCell>
+                <NavLink to={`/levels/${t.lev_id}`}>{t.lev_name}</NavLink>
+              </TableCell>
+              <TableCell>
+                <NavLink to={`/kuskis/${t.kuski_name}`}>{t.kuski_name}</NavLink>
+              </TableCell>
               <TableCell alignRight>
                 <Time time={t.time} />
               </TableCell>

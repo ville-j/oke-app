@@ -64,45 +64,9 @@ const Login = ({ history }) => {
     <StyledLogin>
       <div>
         <Box primary>
-          <h2>Log in</h2>
-          <Group>
-            <div>
-              <Label text="Username"></Label>
-            </div>
-            <TextBox
-              value={form.loginUsername}
-              fullSize
-              validationMessage={form.loginUsernameError}
-              onChange={e => {
-                setForm({
-                  ...form,
-                  loginUsername: e.target.value,
-                  loginUsernameError: ""
-                });
-              }}
-            />
-          </Group>
-          <Group>
-            <div>
-              <Label text="Password"></Label>
-            </div>
-            <TextBox
-              password
-              fullSize
-              validationMessage={form.loginPasswordError}
-              onChange={e => {
-                setForm({
-                  ...form,
-                  loginPassword: e.target.value,
-                  loginPasswordError: ""
-                });
-              }}
-            />
-          </Group>
-          <Button
-            text="Log in"
-            style={{ marginTop: 15 }}
-            onClick={async () => {
+          <form
+            onSubmit={async e => {
+              e.preventDefault();
               const res = await login(form.loginUsername, form.loginPassword);
               if (res) {
                 dispatch(getUser());
@@ -111,50 +75,51 @@ const Login = ({ history }) => {
                 setForm({ ...form, loginPasswordError: "Wrong password" });
               }
             }}
-          />
+          >
+            <h2>Log in</h2>
+            <Group>
+              <div>
+                <Label text="Username"></Label>
+              </div>
+              <TextBox
+                value={form.loginUsername}
+                fullSize
+                validationMessage={form.loginUsernameError}
+                onChange={e => {
+                  setForm({
+                    ...form,
+                    loginUsername: e.target.value,
+                    loginUsernameError: ""
+                  });
+                }}
+              />
+            </Group>
+            <Group>
+              <div>
+                <Label text="Password"></Label>
+              </div>
+              <TextBox
+                password
+                fullSize
+                validationMessage={form.loginPasswordError}
+                onChange={e => {
+                  setForm({
+                    ...form,
+                    loginPassword: e.target.value,
+                    loginPasswordError: ""
+                  });
+                }}
+              />
+            </Group>
+            <Button text="Log in" style={{ marginTop: 15 }} type="submit" />
+          </form>
         </Box>
       </div>
       <div>
         <Box>
-          <h2>Register</h2>
-          <Group>
-            <div>
-              <Label text="Username"></Label>
-            </div>
-            <TextBox
-              fullSize
-              validationMessage={form.registerUsernameError}
-              onChange={e => {
-                setForm({
-                  ...form,
-                  registerUsername: e.target.value,
-                  registerUsernameError: ""
-                });
-              }}
-            />
-          </Group>
-          <Group>
-            <div>
-              <Label text="Password"></Label>
-            </div>
-            <TextBox
-              password
-              validationMessage={form.registerPasswordError}
-              fullSize
-              onChange={e => {
-                setForm({
-                  ...form,
-                  registerPassword: e.target.value,
-                  registerPasswordError: ""
-                });
-              }}
-            />
-          </Group>
-          <Button
-            text="Register"
-            style={{ marginTop: 15 }}
-            primary
-            onClick={async () => {
+          <form
+            onSubmit={async e => {
+              e.preventDefault();
               try {
                 await register(form.registerUsername, form.registerPassword);
                 await login(form.registerUsername, form.registerPassword);
@@ -176,7 +141,48 @@ const Login = ({ history }) => {
                   });
               }
             }}
-          />
+          >
+            <h2>Register</h2>
+            <Group>
+              <div>
+                <Label text="Username"></Label>
+              </div>
+              <TextBox
+                fullSize
+                validationMessage={form.registerUsernameError}
+                onChange={e => {
+                  setForm({
+                    ...form,
+                    registerUsername: e.target.value,
+                    registerUsernameError: ""
+                  });
+                }}
+              />
+            </Group>
+            <Group>
+              <div>
+                <Label text="Password"></Label>
+              </div>
+              <TextBox
+                password
+                validationMessage={form.registerPasswordError}
+                fullSize
+                onChange={e => {
+                  setForm({
+                    ...form,
+                    registerPassword: e.target.value,
+                    registerPasswordError: ""
+                  });
+                }}
+              />
+            </Group>
+            <Button
+              text="Register"
+              style={{ marginTop: 15 }}
+              type="submit"
+              primary
+            />
+          </form>
         </Box>
       </div>
     </StyledLogin>

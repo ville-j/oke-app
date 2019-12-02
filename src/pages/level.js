@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getLevelAsync, getLevelTimesAsync } from "../actions";
 import SidebarLayout from "../layouts/sidebarLayout";
@@ -37,7 +38,8 @@ const Level = ({
   useEffect(() => {
     dispatch(getLevelAsync(id));
     dispatch(getLevelTimesAsync(id));
-  }, [dispatch, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const level = useSelector(state =>
     state.levels.details.find(l => l.id === Number(id))
@@ -60,7 +62,11 @@ const Level = ({
             levelTimes.map((t, i) => (
               <TableRow key={t.id}>
                 <TableCell style={{ width: 50 }}>{i + 1}.</TableCell>
-                <TableCell>{t.kuski_name}</TableCell>
+                <TableCell>
+                  <NavLink to={`/kuskis/${t.kuski_name}`}>
+                    {t.kuski_name}
+                  </NavLink>
+                </TableCell>
                 <TableCell>
                   <Time time={t.time} />
                 </TableCell>

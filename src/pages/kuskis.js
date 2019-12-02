@@ -10,7 +10,8 @@ const Kuskis = () => {
 
   useEffect(() => {
     dispatch(getKuskisAsync());
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Table>
