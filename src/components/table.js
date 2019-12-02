@@ -30,7 +30,7 @@ const StyledTableLinkRow = styled(NavLink)`
   text-decoration: none;
   color: inherit;
   :hover {
-    background: #f7f7f7;
+    background: #fbfbfb;
   }
 `;
 
@@ -42,12 +42,20 @@ const StyledTableCell = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 
+  a {
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   ${props =>
-      props.alignRight &&
-      css`
-        text-align: right;
-      `}
-    :first-child {
+    props.alignRight &&
+    css`
+      text-align: right;
+    `}
+  :first-child {
     padding-left: 12px;
   }
 
