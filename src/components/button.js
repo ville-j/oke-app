@@ -23,12 +23,12 @@ const StyledButton = styled.button`
   line-height: inherit;
 `;
 
-const Button = ({ text, width, style, primary, onClick }) => (
+const Button = ({ text, width, style, primary, onClick, type = "button" }) => (
   <StyledButton
     width={width}
     style={{ ...style }}
     primary={primary}
-    type="button"
+    type={type}
     onClick={onClick}
   >
     {text}
