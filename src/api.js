@@ -90,6 +90,15 @@ const search = async query => {
   return res.data;
 };
 
+const uploadShirt = async (kuski, formData) => {
+  const res = await axios.post(`/kuskis/${kuski}/shirt`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
+  return res.data;
+};
+
 export {
   getBattles,
   getBattle,
@@ -104,5 +113,6 @@ export {
   search,
   getKuski,
   getKuskis,
-  getKuskiTimes
+  getKuskiTimes,
+  uploadShirt
 };

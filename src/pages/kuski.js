@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -16,6 +16,7 @@ import {
 } from "../components";
 import SidebarLayout from "../layouts/sidebarLayout";
 import { parseTime, formatTime } from "../utils";
+import { uploadShirt } from "../api";
 
 const StyledAvatar = styled(Avatar)`
   margin-right: 25px;
@@ -67,6 +68,18 @@ const StatsTitle = styled.div`
   color: #8a8a8a;
 `;
 
+const ShirtForm = styled.form`
+  display: none;
+`;
+
+const ChangeAvatar = styled.div`
+  padding: 8px 12px;
+  padding-top: 0;
+  label {
+    cursor: pointer;
+  }
+`;
+
 const Kuski = ({
   match: {
     params: { name }
@@ -74,10 +87,12 @@ const Kuski = ({
 }) => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.kuskis.find(k => k.name === name));
+  const user = useSelector(state => state.user);
   const { id } = data || { id: null };
   const times = useSelector(state =>
     state.times.filter(k => k.kuski_id === id)
   );
+  const [t, setT] = useState(new Date().getTime());
 
   useEffect(() => {
     dispatch(getKuskiAsync(name));
@@ -93,15 +108,41 @@ const Kuski = ({
 
   const side = (
     <>
+      <ShirtForm>
+        <input
+          type="file"
+          name="shirt"
+          id="shirt"
+          onChange={async e => {
+            if (e.target.files.length > 0) {
+              const formData = new FormData();
+              formData.append("shirt", e.target.files[0]);
+              try {
+                await uploadShirt(data.name, formData);
+                setT(new Date().getTime());
+              } catch (e) {
+                console.log(e);
+              }
+            }
+          }}
+        />
+      </ShirtForm>
       <KuskiInfo>
         <div>
-          <StyledAvatar />
+          <StyledAvatar kuski={data && data.name} t={t} />
         </div>
         <div style={{ flex: 1 }}>
           <h1>{data ? data.name : <Line />}</h1>
           <h2>{data && data.team && `[${data.team}]`}</h2>
         </div>
       </KuskiInfo>
+      {user && data && user.id === data.id && (
+        <ChangeAvatar>
+          <label tabIndex="0" htmlFor="shirt">
+            Change shirt
+          </label>
+        </ChangeAvatar>
+      )}
       <Stats>
         <StatsContainer>
           <StatsValue>
