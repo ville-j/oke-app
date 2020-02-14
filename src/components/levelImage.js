@@ -21,20 +21,13 @@ const Image = styled.div`
       css`background-image: url("${
         process.env.REACT_APP_API_URL
       }/levels/${props => props.level}/map");`}
-
-    ${props =>
-      props.level &&
-      props.battle &&
-      css`background-image: url("${
-        process.env.REACT_APP_API_URL
-      }/levelimage/${props => props.level}");`}
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
   }
 `;
 
-const LevelImage = ({ level, height, battle }) => {
+const LevelImage = ({ level, height }) => {
   const [fs, setFs] = useState(false);
   return (
     <Image
@@ -44,7 +37,6 @@ const LevelImage = ({ level, height, battle }) => {
       onClick={() => {
         setFs(!fs);
       }}
-      battle={battle}
     >
       <div></div>
     </Image>

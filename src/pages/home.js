@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { formatDistance, fromUnixTime } from "date-fns";
 import { NavLink } from "react-router-dom";
 import { getTimesAsync } from "../actions";
-import { Table, TableRow, TableCell, Time } from "../components";
+import { Table, TableRow, TableCell, Time, Timestamp } from "../components";
 
 const Pad = styled.div`
   padding: 0 12px;
@@ -47,11 +47,7 @@ const Home = () => {
                 <Time time={t.time} />
               </TableCell>
               <TableCell>
-                {formatDistance(
-                  fromUnixTime(t.created + 1262304000),
-                  new Date()
-                )}{" "}
-                ago
+                <Timestamp time={t.created} relative />
               </TableCell>
             </TableRow>
           );

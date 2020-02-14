@@ -187,7 +187,7 @@ const Kuski = ({
                   <Time time={t.time} />
                 </TableCell>
                 <TableCell>
-                  <Timestamp time={t.created} />
+                  <Timestamp time={t.created} relative />
                 </TableCell>
               </TableRow>
             );

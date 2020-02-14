@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import { Table, TableRow, TableCell, LevelImage } from "./";
+import { Table, TableRow, TableCell, LevelImage, Time } from "./";
 
 const StyledLevelCard = styled.div`
   background: #fff;
@@ -30,7 +30,7 @@ const ResultsLink = styled(NavLink)`
 
 const LevelCard = ({ times, id, level }) => (
   <StyledLevelCard>
-    <LevelImage level={level} height="200px" battle />
+    <LevelImage level={level} height="200px" />
     <Table>
       <TableRow head>
         <TableCell style={{ width: 50 }}>#</TableCell>
@@ -39,9 +39,14 @@ const LevelCard = ({ times, id, level }) => (
       </TableRow>
       {[...times].splice(0, 3).map((t, i) => (
         <TableRow key={i}>
-          <TableCell>{t.position}.</TableCell>
-          <TableCell>{t.kuski}</TableCell>
-          <TableCell>{t.time}</TableCell>
+          <TableCell>{i + 1}.</TableCell>
+          <TableCell>
+            {t.kuski}
+            {t.team && ` [${t.team}]`}
+          </TableCell>
+          <TableCell>
+            <Time time={t.time} />
+          </TableCell>
         </TableRow>
       ))}
     </Table>
