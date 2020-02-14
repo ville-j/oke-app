@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+
 import {
   getBattleAsync,
   loadLevRec,
   setPlayerState,
   videoViewLeft
 } from "../actions";
-import { Table, TableRow, TableCell } from "../components";
+import { Table, TableRow, TableCell, Time } from "../components";
 
 const StyledBattle = styled.div``;
 const TableContainer = styled.div`
@@ -41,8 +43,8 @@ const Battle = ({
   data &&
     dispatch(
       loadLevRec({
-        lev: `https://elma.online/dl/level/${data.level}`,
-        rec: `https://elma.online/dl/battlereplay/${id}`
+        lev: `${process.env.REACT_APP_API_URL}/levels/${data.lev_id}/data`,
+        rec: null
       })
     );
 
@@ -58,9 +60,13 @@ const Battle = ({
           {data &&
             data.results.map((t, i) => (
               <TableRow key={i}>
-                <TableCell>{t.position}.</TableCell>
-                <TableCell>{t.kuski}</TableCell>
-                <TableCell>{t.time}</TableCell>
+                <TableCell>{i + 1}.</TableCell>
+                <TableCell>
+                  <NavLink to={`/kuskis/${t.kuski}`}>{t.kuski}</NavLink>
+                </TableCell>
+                <TableCell>
+                  <Time time={t.time} />
+                </TableCell>
               </TableRow>
             ))}
         </Table>

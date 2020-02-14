@@ -9,7 +9,7 @@ const BattleCard = ({ id }) => {
     state.battles.details.find(b => b.id === id)
   );
   useEffect(() => {
-    if (!data || !data.finished) {
+    if (!data || data.status < 2) {
       dispatch(getBattleAsync(id));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -18,7 +18,7 @@ const BattleCard = ({ id }) => {
     <LevelCard
       times={data ? data.results : []}
       id={id}
-      level={data ? data.level : ""}
+      level={data ? data.lev_id : ""}
     />
   );
 };

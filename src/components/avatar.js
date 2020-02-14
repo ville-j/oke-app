@@ -12,7 +12,7 @@ const StyledAvatar = styled.div`
       background-image: url(${process.env.REACT_APP_API_URL}/shirts/${props =>
           props.kuski}.png?t=${props => props.t});
     `}
-  background-position: -50px -10px;
+  background-position: -40px -20px;
 `;
 
 const Avatar = props => <StyledAvatar {...props} />;
