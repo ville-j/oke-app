@@ -1,17 +1,15 @@
 import React from "react";
-// import RecPlayer from "recplayer-react";
+/*import RecPlayer from "recplayer-react";
 import { useSelector, useDispatch } from "react-redux";
 import { setPlayerState } from "../actions";
 
 const Player = ({ width, height }) => {
-  const recUrl = useSelector((state) => state.player.playerRecUrl);
-  const levUrl = useSelector((state) => state.player.playerLevUrl);
-  const prePlayerState = useSelector((state) => state.player.prePlayerState);
-  const playerState = useSelector((state) => state.player.playerState);
+  const recUrl = useSelector(state => state.player.playerRecUrl);
+  const levUrl = useSelector(state => state.player.playerLevUrl);
+  const prePlayerState = useSelector(state => state.player.prePlayerState);
+  const playerState = useSelector(state => state.player.playerState);
   const dispatch = useDispatch();
   if (!levUrl) return null;
-  return null;
-  /*
   return (
     <RecPlayer
       recUrl={recUrl}
@@ -28,7 +26,8 @@ const Player = ({ width, height }) => {
         dispatch(setPlayerState(2));
       }}
     ></RecPlayer>
-  );*/
+  );
 };
 
 export default Player;
+*/

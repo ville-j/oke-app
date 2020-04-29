@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  withRouter
+  withRouter,
 } from "react-router-dom";
 import {
   Home,
@@ -16,9 +16,9 @@ import {
   Battle,
   Login,
   Search,
-  Kuskis
+  Kuskis,
 } from "../pages";
-import { Menu, Player, BattleSidebar } from "../components";
+import { Menu, BattleSidebar, Chat } from "../components";
 import { useSelector } from "react-redux";
 
 const menuHeight = "50px";
@@ -57,13 +57,13 @@ const Content = styled.div`
 `;
 
 const PlayerContainer = styled.div`
-${props =>
+${(props) =>
   props.visible &&
   css`
     height: 350px;
   `}
   
-  ${props =>
+  ${(props) =>
     props.docked &&
     css`
       position: fixed;
@@ -73,7 +73,7 @@ ${props =>
       width: 350px;
       z-index: 100;
     `}
-  ${props =>
+  ${(props) =>
     props.fullscreen &&
     css`
       position: fixed;
@@ -86,14 +86,14 @@ ${props =>
 `;
 
 const PL = withRouter(({ width, height }) => {
-  return <Player width={width} height={height} />;
+  return null; //<Player width={width} height={height} />;
 });
 
 const MainLayout = () => {
   const playerContainer = useRef(null);
   const [w, sw] = useState(0);
   const [h, sh] = useState(0);
-  const playerState = useSelector(state => state.player.playerState);
+  const playerState = useSelector((state) => state.player.playerState);
 
   const setWidth = useCallback(() => {
     sw(playerContainer.current.offsetWidth);
@@ -118,7 +118,7 @@ const MainLayout = () => {
           <Route
             path="/battles/:id"
             exact
-            render={props => (
+            render={(props) => (
               <Sidebar>
                 <BattleSidebar {...props} />
               </Sidebar>
@@ -148,6 +148,7 @@ const MainLayout = () => {
           </Content>
         </SidebarLayout>
       </Router>
+      <Chat />
     </StyledLayout>
   );
 };

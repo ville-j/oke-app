@@ -8,7 +8,7 @@ import {
   getLevelTimes,
   getKuski,
   getKuskis,
-  getKuskiTimes
+  getKuskiTimes,
 } from "./api";
 const GET_BATTLE = "GET_BATTLE";
 const GET_BATTLES = "GET_BATTLES";
@@ -25,83 +25,89 @@ const GET_LEVEL = "GET_LEVEL";
 const GET_KUSKI = "GET_KUSKI";
 const GET_KUSKIS = "GET_KUSKIS";
 const GET_KUSKI_TIMES = "GET_KUSKI_TIMES";
+const ADD_MESSAGE = "ADD_MESSAGE";
 
-const actionGetBattles = data => ({
+const actionGetBattles = (data) => ({
   type: GET_BATTLES,
-  data
+  data,
 });
 
-const actionGetBattle = data => ({
+const actionGetBattle = (data) => ({
   type: GET_BATTLE,
-  data
+  data,
 });
 
-const actionAuth = data => ({
+const actionAuth = (data) => ({
   type: AUTH,
-  data
+  data,
 });
 
-const loadReplay = url => ({
+const loadReplay = (url) => ({
   type: LOAD_REPLAY,
-  url
+  url,
 });
 
-const loadLevel = url => ({
+const loadLevel = (url) => ({
   type: LOAD_LEVEL,
-  url
+  url,
 });
 
-const loadLevRec = data => ({
+const loadLevRec = (data) => ({
   type: LOAD_LEV_REC,
-  data
+  data,
 });
 
-const setPlayerState = state => ({
+const setPlayerState = (state) => ({
   type: SET_PLAYER_STATE,
-  state
+  state,
 });
 
 const videoViewLeft = () => ({
-  type: VIDEO_VIEW_LEFT
+  type: VIDEO_VIEW_LEFT,
 });
 
-const actionGetTimes = data => ({
+const actionGetTimes = (data) => ({
   type: GET_TIMES,
-  data
+  data,
 });
 
-const actionGetLevelTimes = data => ({
+const actionGetLevelTimes = (data) => ({
   type: GET_LEVEL_TIMES,
-  data
+  data,
 });
 
-const actionGetLevels = data => ({
+const actionGetLevels = (data) => ({
   type: GET_LEVELS,
-  data
+  data,
 });
 
-const actionGetLevel = data => ({
+const actionGetLevel = (data) => ({
   type: GET_LEVEL,
-  data
+  data,
 });
 
-const actionGetKuski = data => ({
+const actionGetKuski = (data) => ({
   type: GET_KUSKI,
-  data
+  data,
 });
 
-const actionGetKuskis = data => ({
+const actionGetKuskis = (data) => ({
   type: GET_KUSKIS,
-  data
+  data,
 });
 
-const actionGetKuskiTimes = data => ({
+const actionGetKuskiTimes = (data) => ({
   type: GET_KUSKI_TIMES,
-  data
+  data,
+});
+
+const addMessage = (data) => ({
+  type: ADD_MESSAGE,
+  data,
 });
 
 const getBattlesAsync = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const data = await getBattles();
       dispatch(actionGetBattles(data));
@@ -111,8 +117,8 @@ const getBattlesAsync = () => {
   };
 };
 
-const getBattleAsync = id => {
-  return async dispatch => {
+const getBattleAsync = (id) => {
+  return async (dispatch) => {
     try {
       const data = await getBattle(id);
       dispatch(actionGetBattle({ ...data, id }));
@@ -123,7 +129,7 @@ const getBattleAsync = id => {
 };
 
 const getTimesAsync = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const data = await getTimes();
       dispatch(actionGetTimes(data));
@@ -133,8 +139,8 @@ const getTimesAsync = () => {
   };
 };
 
-const getLevelsAsync = page => {
-  return async dispatch => {
+const getLevelsAsync = (page) => {
+  return async (dispatch) => {
     try {
       const data = await getLevels(page);
       dispatch(actionGetLevels(data));
@@ -144,8 +150,8 @@ const getLevelsAsync = page => {
   };
 };
 
-const getLevelAsync = id => {
-  return async dispatch => {
+const getLevelAsync = (id) => {
+  return async (dispatch) => {
     try {
       const data = await getLevel(id);
       dispatch(actionGetLevel(data));
@@ -155,8 +161,8 @@ const getLevelAsync = id => {
   };
 };
 
-const getLevelTimesAsync = id => {
-  return async dispatch => {
+const getLevelTimesAsync = (id) => {
+  return async (dispatch) => {
     try {
       const data = await getLevelTimes(id);
       dispatch(actionGetLevelTimes(data));
@@ -167,7 +173,7 @@ const getLevelTimesAsync = id => {
 };
 
 const getUser = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const data = await auth();
       dispatch(actionAuth({ ...data }));
@@ -177,8 +183,8 @@ const getUser = () => {
   };
 };
 
-const getKuskiAsync = name => {
-  return async dispatch => {
+const getKuskiAsync = (name) => {
+  return async (dispatch) => {
     try {
       const data = await getKuski(name);
       dispatch(actionGetKuski(data));
@@ -189,7 +195,7 @@ const getKuskiAsync = name => {
 };
 
 const getKuskisAsync = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const data = await getKuskis();
       dispatch(actionGetKuskis(data));
@@ -199,8 +205,8 @@ const getKuskisAsync = () => {
   };
 };
 
-const getKuskiTimesAsync = id => {
-  return async dispatch => {
+const getKuskiTimesAsync = (id) => {
+  return async (dispatch) => {
     try {
       const data = await getKuskiTimes(id);
       dispatch(actionGetKuskiTimes(data));
@@ -226,6 +232,7 @@ export {
   GET_KUSKI,
   GET_KUSKIS,
   GET_KUSKI_TIMES,
+  ADD_MESSAGE,
   getBattlesAsync,
   getBattleAsync,
   loadReplay,
@@ -240,5 +247,6 @@ export {
   getLevelTimesAsync,
   getKuskiAsync,
   getKuskisAsync,
-  getKuskiTimesAsync
+  getKuskiTimesAsync,
+  addMessage,
 };
