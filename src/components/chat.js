@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useLayoutEffect,
   useState,
+  useMemo,
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -14,12 +15,12 @@ import { Button } from "./";
 
 const Container = styled.div`
   position: fixed;
+  height: 100%;
   right: 0;
   bottom: 0;
   width: 300px;
-  background: #fff;
-  border-left: 1px solid #d2d2d2;
-  border-top: 1px solid #d2d2d2;
+  background: #e6e6e6;
+  border-left: 1px solid #e6e6e6;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
@@ -27,25 +28,37 @@ const Container = styled.div`
 
 const Line = styled.div`
   display: flex;
-  margin: 2px 18px;
+  margin: 12px 18px;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 18px;
 `;
 
 const Time = styled.div`
-  font-size: 0.9em;
-  padding-top: 2px;
+  font-size: 0.8em;
+  padding-top: 4px;
   margin-right: 5px;
+  color: #8a8a8a;
 `;
 
-const Name = styled.div`
-  margin-right: 5px;
+const Name = styled.span`
   font-weight: 600;
+  margin-right: 5px;
 `;
 
-const Message = styled.div``;
+const Message = styled.span`
+  word-wrap: break-word;
+`;
+
+const MessagesWrap = styled.div`
+  height: 100%;
+  padding-top: 96px;
+  box-sizing: border-box;
+`;
 
 const Messages = styled.div`
-  height: 300px;
-  max-height: 300px;
+  height: 100%;
+  max-height: 100%;
   overflow: auto;
   box-sizing: border-box;
 `;
@@ -63,41 +76,76 @@ const Input = styled.div`
   }
 `;
 
-const ws = new WebSocket(process.env.REACT_APP_CHAT_SERVER_URI);
-
-ws.addEventListener("open", () => {
-  console.log("connected");
-});
-
 const Chat = () => {
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.chat.messages);
   const user = useSelector((state) => state.user);
+  const chatVisible = useSelector((state) => state.chat.visible);
   const [scroll, setScroll] = useState(false);
   const input = useRef(null);
   const container = useRef(null);
   const sc = useRef(null);
 
+  const ws = useMemo(() => {
+    const socket = new WebSocket(process.env.REACT_APP_CHAT_SERVER_URI);
+    socket.addEventListener("open", () => {
+      console.log("open");
+    });
+    return socket;
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      console.log("close");
+      ws.close();
+    };
+    /* eslint-disable-next-line*/
+  }, []);
+
   useEffect(() => {
     if (user) {
-      ws.send(
-        JSON.stringify({
-          type: "auth",
-          data: {
-            token: localStorage.getItem("token"),
-          },
-        })
-      );
+      const f = () => {
+        console.log("auth");
+        ws.send(
+          JSON.stringify({
+            type: "auth",
+            data: {
+              token: localStorage.getItem("token"),
+            },
+          })
+        );
+      };
+      if (ws.readyState === 1) {
+        f();
+      } else {
+        ws.addEventListener("open", () => {
+          f();
+        });
+      }
     }
+    /* eslint-disable-next-line*/
   }, [user]);
 
-  useLayoutEffect(() => {
-    if (container.current) {
-      if (container.current.offsetHeight > 300) {
+  const f = useCallback(() => {
+    if (chatVisible) {
+      if (container.current.offsetHeight > sc.current.offsetHeight) {
         setScroll(true);
       }
-      if (sc.current) sc.current.scrollTop = container.current.offsetHeight;
+      if (sc && container && container.current) {
+        sc.current.scrollTop = container.current.offsetHeight;
+      }
     }
+  }, [chatVisible]);
+
+  useLayoutEffect(() => {
+    if (!scroll) {
+      setTimeout(() => {
+        f();
+      }, 1);
+    } else {
+      f();
+    }
+    /* eslint-disable-next-line*/
   }, [messages]);
 
   useEffect(() => {
@@ -129,32 +177,39 @@ const Chat = () => {
         })
       );
     }
+    /* eslint-disable-next-line*/
   }, []);
+
+  if (!chatVisible) return null;
 
   return (
     <Container>
-      <Messages
-        ref={sc}
-        style={
-          scroll
-            ? {}
-            : {
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-end",
-              }
-        }
-      >
-        <div ref={container}>
-          {messages.map((m, i) => (
-            <Line key={i}>
-              <Time>{format(m.date, "HH:mm")}</Time>
-              <Name>{m.name}</Name>
-              <Message>{m.message}</Message>
-            </Line>
-          ))}
-        </div>
-      </Messages>
+      <MessagesWrap>
+        <Messages
+          ref={sc}
+          style={
+            scroll
+              ? {}
+              : {
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-end",
+                }
+          }
+        >
+          <div ref={container}>
+            {messages.map((m, i) => (
+              <Line key={i}>
+                <Time>{format(m.date, "HH:mm")}</Time>
+                <div>
+                  <Name>{m.name}</Name>
+                  <Message>{m.message}</Message>
+                </div>
+              </Line>
+            ))}
+          </div>
+        </Messages>
+      </MessagesWrap>
       {user && (
         <Input>
           <input
@@ -165,7 +220,7 @@ const Chat = () => {
               e.which === 13 && send();
             }}
           />
-          <Button text="Send" width="auto" onClick={send} />
+          <Button text="Send" width="auto" onClick={send} primary />
         </Input>
       )}
     </Container>
