@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useLayoutEffect, useState } from "react";
+import React, { useRef, useCallback, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import format from "date-fns/format";
@@ -70,36 +70,25 @@ const Input = styled.div`
   }
 `;
 
+let autoScroll = true;
+
 const Chat = () => {
   const messages = useSelector((state) => state.chat.messages);
   const user = useSelector((state) => state.user);
   const chatVisible = useSelector((state) => state.chat.visible);
-  const [scroll, setScroll] = useState(false);
+  const [scroll, setScroll] = useState(0);
   const input = useRef(null);
   const container = useRef(null);
   const sc = useRef(null);
 
-  const f = useCallback(() => {
-    if (chatVisible) {
-      if (container.current.offsetHeight > sc.current.offsetHeight) {
-        setScroll(true);
-      }
-      if (sc && container && container.current) {
-        sc.current.scrollTop = container.current.offsetHeight;
-      }
-    }
-  }, [chatVisible]);
-
-  useLayoutEffect(() => {
-    if (!scroll) {
-      setTimeout(() => {
-        f();
-      }, 1);
-    } else {
-      f();
+  useEffect(() => {
+    if (sc.current && container.current) {
+      sc.current.scrollTop = autoScroll
+        ? container.current.offsetHeight
+        : scroll;
     }
     /* eslint-disable-next-line*/
-  }, [messages]);
+  }, [chatVisible, messages]);
 
   const send = useCallback(() => {
     const val = input.current.value;
@@ -115,7 +104,6 @@ const Chat = () => {
         })
       );
     }
-
     /* eslint-disable-next-line*/
   }, []);
 
@@ -126,15 +114,17 @@ const Chat = () => {
       <MessagesWrap>
         <Messages
           ref={sc}
-          style={
-            scroll
-              ? {}
-              : {
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "flex-end",
-                }
-          }
+          onScrollCapture={() => {
+            if (
+              sc.current.scrollTop + sc.current.offsetHeight - 24 ===
+              container.current.offsetHeight
+            ) {
+              autoScroll = true;
+            } else {
+              autoScroll = false;
+              setScroll(sc.current.scrollTop);
+            }
+          }}
         >
           <div ref={container}>
             {messages.map((m, i) => (
