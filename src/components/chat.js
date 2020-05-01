@@ -1,16 +1,9 @@
-import React, {
-  useEffect,
-  useRef,
-  useCallback,
-  useLayoutEffect,
-  useState,
-  useMemo,
-} from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useRef, useCallback, useLayoutEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import format from "date-fns/format";
 
-import { addMessage } from "../actions";
+import socket from "../socket";
 import { Button } from "./";
 
 const Container = styled.div`
@@ -48,6 +41,7 @@ const Name = styled.span`
 
 const Message = styled.span`
   word-wrap: break-word;
+  word-break: break-word;
 `;
 
 const MessagesWrap = styled.div`
@@ -77,7 +71,6 @@ const Input = styled.div`
 `;
 
 const Chat = () => {
-  const dispatch = useDispatch();
   const messages = useSelector((state) => state.chat.messages);
   const user = useSelector((state) => state.user);
   const chatVisible = useSelector((state) => state.chat.visible);
@@ -85,46 +78,6 @@ const Chat = () => {
   const input = useRef(null);
   const container = useRef(null);
   const sc = useRef(null);
-
-  const ws = useMemo(() => {
-    const socket = new WebSocket(process.env.REACT_APP_CHAT_SERVER_URI);
-    socket.addEventListener("open", () => {
-      console.log("open");
-    });
-    return socket;
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      console.log("close");
-      ws.close();
-    };
-    /* eslint-disable-next-line*/
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      const f = () => {
-        console.log("auth");
-        ws.send(
-          JSON.stringify({
-            type: "auth",
-            data: {
-              token: localStorage.getItem("token"),
-            },
-          })
-        );
-      };
-      if (ws.readyState === 1) {
-        f();
-      } else {
-        ws.addEventListener("open", () => {
-          f();
-        });
-      }
-    }
-    /* eslint-disable-next-line*/
-  }, [user]);
 
   const f = useCallback(() => {
     if (chatVisible) {
@@ -148,26 +101,11 @@ const Chat = () => {
     /* eslint-disable-next-line*/
   }, [messages]);
 
-  useEffect(() => {
-    ws.addEventListener("message", (data) => {
-      try {
-        const m = JSON.parse(data.data);
-
-        if (m.type === "message") {
-          dispatch(addMessage(m.data));
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    });
-    /* eslint-disable-next-line*/
-  }, []);
-
   const send = useCallback(() => {
     const val = input.current.value;
     input.current.value = "";
     if (val) {
-      ws.send(
+      socket.send(
         JSON.stringify({
           type: "message",
           data: {
@@ -177,6 +115,7 @@ const Chat = () => {
         })
       );
     }
+
     /* eslint-disable-next-line*/
   }, []);
 

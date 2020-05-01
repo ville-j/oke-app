@@ -1,4 +1,14 @@
-import { ADD_MESSAGE, TOGGLE_CHAT } from "../actions";
+import { ADD_MESSAGE, TOGGLE_CHAT, SET_HISTORY } from "../actions";
+
+const parseMessage = (data) => ({
+  ...(data.name === "@"
+    ? {
+        name: data.message.split(":")[0],
+        message: data.message.split(": ").slice(1).join(": "),
+      }
+    : data),
+  date: data.date ? new Date(data.date) : new Date(),
+});
 
 export const chat = (state = { messages: [], visible: true }, action) => {
   switch (action.type) {
@@ -8,16 +18,14 @@ export const chat = (state = { messages: [], visible: true }, action) => {
         visible: !state.visible,
       };
     case ADD_MESSAGE:
-      const obj =
-        action.data.name === "@"
-          ? {
-              name: action.data.message.split(":")[0],
-              message: action.data.message.split(": ").slice(1).join(": "),
-            }
-          : action.data;
       return {
         ...state,
-        messages: [...state.messages, { ...obj, date: new Date() }],
+        messages: [...state.messages, parseMessage(action.data)],
+      };
+    case SET_HISTORY:
+      return {
+        ...state,
+        messages: [...action.data.map((m) => parseMessage(m))],
       };
     default:
       return state;

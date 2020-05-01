@@ -26,6 +26,7 @@ const GET_KUSKI = "GET_KUSKI";
 const GET_KUSKIS = "GET_KUSKIS";
 const GET_KUSKI_TIMES = "GET_KUSKI_TIMES";
 const ADD_MESSAGE = "ADD_MESSAGE";
+const SET_HISTORY = "SET_HISTORY";
 const TOGGLE_CHAT = "TOGGLE_CHAT";
 
 const actionGetBattles = (data) => ({
@@ -104,6 +105,11 @@ const actionGetKuskiTimes = (data) => ({
 
 const addMessage = (data) => ({
   type: ADD_MESSAGE,
+  data,
+});
+
+const setHistory = (data) => ({
+  type: SET_HISTORY,
   data,
 });
 
@@ -239,6 +245,7 @@ export {
   GET_KUSKI_TIMES,
   ADD_MESSAGE,
   TOGGLE_CHAT,
+  SET_HISTORY,
   getBattlesAsync,
   getBattleAsync,
   loadReplay,
@@ -256,4 +263,5 @@ export {
   getKuskiTimesAsync,
   addMessage,
   toggleChat,
+  setHistory,
 };
