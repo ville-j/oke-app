@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState, useEffect } from "react";
+import React, { useRef, useCallback, useEffect, useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import format from "date-fns/format";
@@ -17,6 +17,7 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+  padding-top: 50px;
 `;
 
 const Line = styled.div`
@@ -44,22 +45,16 @@ const Message = styled.span`
   word-break: break-word;
 `;
 
-const MessagesWrap = styled.div`
-  height: 100%;
-  padding-top: 96px;
-  box-sizing: border-box;
-`;
-
 const Messages = styled.div`
   height: 100%;
   max-height: 100%;
   overflow: auto;
-  box-sizing: border-box;
 `;
 
 const Input = styled.div`
   border-top: 1px solid #d2d2d2;
   display: flex;
+  height: 60px;
   > input {
     border: 0;
     padding: 12px;
@@ -71,22 +66,30 @@ const Input = styled.div`
 `;
 
 let autoScroll = true;
+let scroll = 0;
+let h = 0;
 
 const Chat = () => {
   const messages = useSelector((state) => state.chat.messages);
   const user = useSelector((state) => state.user);
   const chatVisible = useSelector((state) => state.chat.visible);
-  const [scroll, setScroll] = useState(0);
   const input = useRef(null);
   const container = useRef(null);
   const sc = useRef(null);
 
+  useLayoutEffect(() => {
+    h = sc.current.offsetHeight;
+  }, []);
+
   useEffect(() => {
-    if (sc.current && container.current) {
-      sc.current.scrollTop = autoScroll
-        ? container.current.offsetHeight
-        : scroll;
-    }
+    setTimeout(() => {
+      if (sc.current && container.current) {
+        sc.current.scrollTop = autoScroll
+          ? container.current.offsetHeight - h + 24
+          : scroll;
+      }
+    }, 10);
+
     /* eslint-disable-next-line*/
   }, [chatVisible, messages]);
 
@@ -111,47 +114,41 @@ const Chat = () => {
 
   return (
     <Container>
-      <MessagesWrap>
-        <Messages
-          ref={sc}
-          onScrollCapture={() => {
-            if (
-              sc.current.scrollTop + sc.current.offsetHeight - 24 ===
-              container.current.offsetHeight
-            ) {
-              autoScroll = true;
-            } else {
-              autoScroll = false;
-              setScroll(sc.current.scrollTop);
-            }
+      <Messages
+        ref={sc}
+        onScroll={() => {
+          if (sc.current.scrollTop + h + 100 > container.current.offsetHeight) {
+            autoScroll = true;
+          } else {
+            autoScroll = false;
+            scroll = sc.current.scrollTop;
+          }
+        }}
+      >
+        <div ref={container}>
+          {messages.map((m, i) => (
+            <Line key={i}>
+              <Time>{format(m.date, "HH:mm")}</Time>
+              <div>
+                <Name>{m.name}</Name>
+                <Message>{m.message}</Message>
+              </div>
+            </Line>
+          ))}
+        </div>
+      </Messages>
+      <Input>
+        <input
+          disabled={!user}
+          placeholder={user ? "Type here" : "Log in to chat"}
+          type="text"
+          ref={input}
+          onKeyDown={(e) => {
+            e.which === 13 && send();
           }}
-        >
-          <div ref={container}>
-            {messages.map((m, i) => (
-              <Line key={i}>
-                <Time>{format(m.date, "HH:mm")}</Time>
-                <div>
-                  <Name>{m.name}</Name>
-                  <Message>{m.message}</Message>
-                </div>
-              </Line>
-            ))}
-          </div>
-        </Messages>
-      </MessagesWrap>
-      {user && (
-        <Input>
-          <input
-            placeholder="Type here"
-            type="text"
-            ref={input}
-            onKeyDown={(e) => {
-              e.which === 13 && send();
-            }}
-          />
-          <Button text="Send" width="auto" onClick={send} primary />
-        </Input>
-      )}
+        />
+        {user && <Button text="Send" width="auto" onClick={send} primary />}
+      </Input>
     </Container>
   );
 };
