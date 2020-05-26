@@ -3,7 +3,14 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getTimesAsync } from "../actions";
-import { Table, TableRow, TableCell, Time, Timestamp } from "../components";
+import {
+  Table,
+  TableRow,
+  TableCell,
+  Time,
+  Timestamp,
+  Flag,
+} from "../components";
 
 const Pad = styled.div`
   padding: 0 12px;
@@ -40,7 +47,9 @@ const Home = () => {
                 <NavLink to={`/levels/${t.lev_id}`}>{t.lev_name}</NavLink>
               </TableCell>
               <TableCell>
-                <NavLink to={`/kuskis/${t.kuski_name}`}>{t.kuski_name}</NavLink>
+                <NavLink to={`/kuskis/${t.kuski_name}`}>
+                  <Flag nationality={t.kuski_country} /> {t.kuski_name}
+                </NavLink>
               </TableCell>
               <TableCell alignRight>
                 <Time time={t.time} />

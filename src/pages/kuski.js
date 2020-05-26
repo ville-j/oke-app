@@ -13,6 +13,7 @@ import {
   Line,
   Time,
   Timestamp,
+  Flag,
 } from "../components";
 import SidebarLayout from "../layouts/sidebarLayout";
 import { parseTime, formatTime } from "../utils";
@@ -35,6 +36,10 @@ const KuskiInfo = styled.div`
   h1,
   h2 {
     margin: 0;
+  }
+
+  h2 {
+    margin: 5px 0;
   }
 `;
 
@@ -135,7 +140,12 @@ const Kuski = ({
         </div>
         <div style={{ flex: 1 }}>
           <h1>{data ? data.name : <Line />}</h1>
-          <h2>{data && data.team && `[${data.team}]`}</h2>
+          {data && (
+            <h2>
+              <Flag nationality={data.country} />{" "}
+              {data.team && `[${data.team}]`}
+            </h2>
+          )}
         </div>
       </KuskiInfo>
       {user && data && user.id === data.id && (

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import { Table, TableRow, TableCell, LevelImage, Time } from "./";
+import { Table, TableRow, TableCell, LevelImage, Time, Flag } from "./";
 
 const StyledLevelCard = styled.div`
   background: #fff;
@@ -41,7 +41,7 @@ const LevelCard = ({ times, id, level }) => (
         <TableRow key={i}>
           <TableCell>{i + 1}.</TableCell>
           <TableCell>
-            {t.kuski}
+            <Flag nationality={t.kuski_country} /> {t.kuski}
             {t.team && ` [${t.team}]`}
           </TableCell>
           <TableCell>
