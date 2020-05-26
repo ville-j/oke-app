@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDistance, fromUnixTime } from "date-fns";
 import { NavLink } from "react-router-dom";
 import { getTimesAsync } from "../actions";
 import { Table, TableRow, TableCell, Time, Timestamp } from "../components";
@@ -12,7 +11,7 @@ const Pad = styled.div`
 
 const Home = () => {
   const dispatch = useDispatch();
-  const times = useSelector(state => state.times).sort((a, b) => {
+  const times = useSelector((state) => state.times).sort((a, b) => {
     return b.created - a.created;
   });
 
@@ -34,7 +33,7 @@ const Home = () => {
           </TableCell>
           <TableCell>Finished</TableCell>
         </TableRow>
-        {times.map(t => {
+        {times.map((t) => {
           return (
             <TableRow key={t.id}>
               <TableCell>

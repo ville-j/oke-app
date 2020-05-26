@@ -4,8 +4,9 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  withRouter
+  withRouter,
 } from "react-router-dom";
+import { Scrollbars } from "react-custom-scrollbars";
 import {
   Home,
   Kuski,
@@ -16,16 +17,24 @@ import {
   Battle,
   Login,
   Search,
-  Kuskis
+  Kuskis,
 } from "../pages";
-import { Menu, Player, BattleSidebar } from "../components";
-import { useSelector } from "react-redux";
+import { Menu, BattleSidebar, Chat } from "../components";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleChat } from "../actions";
 
 const menuHeight = "50px";
 
 const StyledLayout = styled.div`
   padding-top: ${menuHeight};
   height: 100%;
+  ${(props) =>
+    props.chatVisible &&
+    css`
+      @media all and (min-width: 1200px) {
+        padding-right: 300px;
+      }
+    `}
 `;
 
 const SidebarLayout = styled.div`
@@ -57,13 +66,13 @@ const Content = styled.div`
 `;
 
 const PlayerContainer = styled.div`
-${props =>
+${(props) =>
   props.visible &&
   css`
     height: 350px;
   `}
   
-  ${props =>
+  ${(props) =>
     props.docked &&
     css`
       position: fixed;
@@ -73,7 +82,7 @@ ${props =>
       width: 350px;
       z-index: 100;
     `}
-  ${props =>
+  ${(props) =>
     props.fullscreen &&
     css`
       position: fixed;
@@ -85,15 +94,33 @@ ${props =>
     `}
 `;
 
+const ToggleChat = styled.div`
+  position: fixed;
+  top: 55px;
+  right: 20px;
+  padding: 2px 10px;
+  z-index: 10;
+  font-size: 0.8em;
+  background: rgba(247, 247, 247, 0.6);
+  border-radius: 10px;
+  cursor: pointer;
+  @media all and (max-width: 799px) {
+    top: 10px;
+    z-index: 100;
+  }
+`;
+
 const PL = withRouter(({ width, height }) => {
-  return <Player width={width} height={height} />;
+  return null; //<Player width={width} height={height} />;
 });
 
 const MainLayout = () => {
   const playerContainer = useRef(null);
   const [w, sw] = useState(0);
   const [h, sh] = useState(0);
-  const playerState = useSelector(state => state.player.playerState);
+  const playerState = useSelector((state) => state.player.playerState);
+  const chatVisible = useSelector((state) => state.chat.visible);
+  const dispatch = useDispatch();
 
   const setWidth = useCallback(() => {
     sw(playerContainer.current.offsetWidth);
@@ -111,44 +138,54 @@ const MainLayout = () => {
     };
   }, [sw, setWidth, playerState]);
   return (
-    <StyledLayout>
-      <Router basename="/okeapp">
-        <Menu />
-        <SidebarLayout>
-          <Route
-            path="/battles/:id"
-            exact
-            render={props => (
-              <Sidebar>
-                <BattleSidebar {...props} />
-              </Sidebar>
-            )}
-          />
-          <Content>
-            <PlayerContainer
-              visible={playerState > 0}
-              ref={playerContainer}
-              docked={playerState === 2}
-              fullscreen={playerState === 3}
-            >
-              {playerState > 0 && <PL width={w} height={h} />}
-            </PlayerContainer>
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/kuskis/:name" component={Kuski} />
-              <Route path="/levels" exact component={Levels} />
-              <Route path="/levels/:id" exact component={Level} />
-              <Route path="/battles" exact component={Battles} />
-              <Route path="/battles/:id" exact component={Battle} />
-              <Route path="/login" component={Login} />
-              <Route path="/search" component={Search} />
-              <Route path="/kuskis" component={Kuskis} />
-              <Route component={NotFound} />
-            </Switch>
-          </Content>
-        </SidebarLayout>
-      </Router>
-    </StyledLayout>
+    <Scrollbars autoHide>
+      <StyledLayout chatVisible={chatVisible}>
+        <Router basename="/okeapp">
+          <Menu />
+          <SidebarLayout>
+            <Route
+              path="/battles/:id"
+              exact
+              render={(props) => (
+                <Sidebar>
+                  <BattleSidebar {...props} />
+                </Sidebar>
+              )}
+            />
+            <Content>
+              <PlayerContainer
+                visible={playerState > 0}
+                ref={playerContainer}
+                docked={playerState === 2}
+                fullscreen={playerState === 3}
+              >
+                {playerState > 0 && <PL width={w} height={h} />}
+              </PlayerContainer>
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/kuskis/:name" component={Kuski} />
+                <Route path="/levels" exact component={Levels} />
+                <Route path="/levels/:id" exact component={Level} />
+                <Route path="/battles" exact component={Battles} />
+                <Route path="/battles/:id" exact component={Battle} />
+                <Route path="/login" component={Login} />
+                <Route path="/search" component={Search} />
+                <Route path="/kuskis" component={Kuskis} />
+                <Route component={NotFound} />
+              </Switch>
+            </Content>
+          </SidebarLayout>
+        </Router>
+        <ToggleChat
+          onClick={() => {
+            dispatch(toggleChat());
+          }}
+        >
+          {chatVisible ? "Hide chat" : "Show chat"}
+        </ToggleChat>
+        <Chat />
+      </StyledLayout>
+    </Scrollbars>
   );
 };
 

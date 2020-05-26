@@ -10,13 +10,13 @@ import BattleCard from "./battleCard";
 import { Accordion, AccordionSection } from "./accordion";
 import { Table, TableRow, TableCell } from "./table";
 import { Tabs, Tab } from "./tabs";
-import Player from "./player";
 import BattleSidebar from "./battleSidebar";
 import Time from "./time";
 import LevelImage from "./levelImage";
 import Line from "./line";
 import Timestamp from "./timestamp";
 import Pagination from "./pagination";
+import Chat from "./chat";
 
 export {
   Button,
@@ -35,11 +35,11 @@ export {
   Label,
   TextBox,
   BattleCard,
-  Player,
   BattleSidebar,
   Time,
   LevelImage,
   Line,
   Timestamp,
-  Pagination
+  Pagination,
+  Chat,
 };

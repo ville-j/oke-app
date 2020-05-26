@@ -1,5 +1,5 @@
 import React from "react";
-import RecPlayer from "recplayer-react";
+/*import RecPlayer from "recplayer-react";
 import { useSelector, useDispatch } from "react-redux";
 import { setPlayerState } from "../actions";
 
@@ -30,3 +30,4 @@ const Player = ({ width, height }) => {
 };
 
 export default Player;
+*/
