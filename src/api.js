@@ -16,8 +16,8 @@ const getBattle = async (id) => {
   return res.data;
 };
 
-const register = async (name, password) => {
-  return await axios.post(`/kuskis`, { name, password });
+const register = async (name, password, country) => {
+  return await axios.post(`/kuskis`, { name, password, country });
 };
 
 const login = async (name, password) => {

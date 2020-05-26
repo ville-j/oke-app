@@ -11,7 +11,7 @@ const Selection = styled.div`
   padding-right: 36px;
 
   border-bottom: 1px solid #f7f7f7;
-  ${props =>
+  ${(props) =>
     props.primary &&
     css`
       background: #66af30;
@@ -27,7 +27,9 @@ const Options = styled.div`
   border-top: 1px solid #eaeaea;
   z-index: 10;
   background: #f7f7f7;
-  ${props =>
+  max-height: 300px;
+  overflow: auto;
+  ${(props) =>
     props.primary &&
     css`
       background: #66af30;
@@ -57,22 +59,22 @@ const Dropdown = ({
   value,
   placeholder = "Select",
   primary,
-  style
+  style,
 }) => {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
-  const handleKeyDown = e => {
+  const handleKeyDown = (e) => {
     e.keyCode === 13 && setOpen(!open);
   };
   const handleSelect = (e, value) => {
     onSelect && onSelect(e, value);
     setOpen(false);
   };
-  const selectedItem = options.find(o => o.value === value);
+  const selectedItem = options.find((o) => o.value === value);
   const container = useRef(null);
-  const clickHandler = e => {
+  const clickHandler = (e) => {
     !container.current.contains(e.target) && setOpen(false);
   };
   useEffect(() => {
@@ -95,14 +97,14 @@ const Dropdown = ({
       </Selection>
       {open && (
         <Options primary={primary}>
-          {options.map(o => (
+          {options.map((o) => (
             <div
               key={o.value}
               tabIndex="0"
-              onClick={e => {
+              onClick={(e) => {
                 handleSelect(e, o.value);
               }}
-              onKeyDown={e => {
+              onKeyDown={(e) => {
                 e.keyCode === 13 && handleSelect(e, o.value);
               }}
               role="button"

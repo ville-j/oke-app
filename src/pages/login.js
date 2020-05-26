@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getUser } from "../actions";
 
-import { TextBox, Label, Button } from "../components";
+import { getUser } from "../actions";
+import { TextBox, Label, Button, Dropdown } from "../components";
 import { register, login } from "../api";
+import countries from "../countries";
 
 const StyledLogin = styled.div`
   margin-top: 50px;
@@ -28,8 +29,8 @@ const StyledLogin = styled.div`
 `;
 
 const Box = styled.div`
-  background: ${props => (props.primary ? "#66af30" : "#fff")};
-  color: ${props => (props.primary ? "#fff" : "")};
+  background: ${(props) => (props.primary ? "#66af30" : "#fff")};
+  color: ${(props) => (props.primary ? "#fff" : "")};
   padding: 30px;
   width: 350px;
 
@@ -54,7 +55,9 @@ const initForm = {
   registerUsername: "",
   registerUsernameError: "",
   registerPassword: "",
-  registerPasswordError: ""
+  registerPasswordError: "",
+  country: "AF",
+  countryError: "",
 };
 
 const Login = ({ history }) => {
@@ -65,7 +68,7 @@ const Login = ({ history }) => {
       <div>
         <Box primary>
           <form
-            onSubmit={async e => {
+            onSubmit={async (e) => {
               e.preventDefault();
               const res = await login(form.loginUsername, form.loginPassword);
               if (res) {
@@ -85,11 +88,11 @@ const Login = ({ history }) => {
                 value={form.loginUsername}
                 fullSize
                 validationMessage={form.loginUsernameError}
-                onChange={e => {
+                onChange={(e) => {
                   setForm({
                     ...form,
                     loginUsername: e.target.value,
-                    loginUsernameError: ""
+                    loginUsernameError: "",
                   });
                 }}
               />
@@ -102,11 +105,11 @@ const Login = ({ history }) => {
                 password
                 fullSize
                 validationMessage={form.loginPasswordError}
-                onChange={e => {
+                onChange={(e) => {
                   setForm({
                     ...form,
                     loginPassword: e.target.value,
-                    loginPasswordError: ""
+                    loginPasswordError: "",
                   });
                 }}
               />
@@ -118,10 +121,14 @@ const Login = ({ history }) => {
       <div>
         <Box>
           <form
-            onSubmit={async e => {
+            onSubmit={async (e) => {
               e.preventDefault();
               try {
-                await register(form.registerUsername, form.registerPassword);
+                await register(
+                  form.registerUsername,
+                  form.registerPassword,
+                  form.country
+                );
                 await login(form.registerUsername, form.registerPassword);
 
                 dispatch(getUser());
@@ -132,12 +139,12 @@ const Login = ({ history }) => {
                 data.field === "name" &&
                   setForm({
                     ...form,
-                    registerUsernameError: data.text
+                    registerUsernameError: data.text,
                   });
                 data.field === "password" &&
                   setForm({
                     ...form,
-                    registerPasswordError: data.text
+                    registerPasswordError: data.text,
                   });
               }
             }}
@@ -150,11 +157,11 @@ const Login = ({ history }) => {
               <TextBox
                 fullSize
                 validationMessage={form.registerUsernameError}
-                onChange={e => {
+                onChange={(e) => {
                   setForm({
                     ...form,
                     registerUsername: e.target.value,
-                    registerUsernameError: ""
+                    registerUsernameError: "",
                   });
                 }}
               />
@@ -167,11 +174,26 @@ const Login = ({ history }) => {
                 password
                 validationMessage={form.registerPasswordError}
                 fullSize
-                onChange={e => {
+                onChange={(e) => {
                   setForm({
                     ...form,
                     registerPassword: e.target.value,
-                    registerPasswordError: ""
+                    registerPasswordError: "",
+                  });
+                }}
+              />
+            </Group>
+            <Group>
+              <div>
+                <Label text="Nationality"></Label>
+              </div>
+              <Dropdown
+                value={form.country}
+                options={countries}
+                onSelect={(e, val) => {
+                  setForm({
+                    ...form,
+                    country: val,
                   });
                 }}
               />
