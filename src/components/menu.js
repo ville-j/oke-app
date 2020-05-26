@@ -41,7 +41,7 @@ const MenuItems = styled.div`
     background: #66af30;
     transition: left 0.3s, visibility 0.3s;
     left: 0%;
-    ${props =>
+    ${(props) =>
       !props.menuOpen &&
       css`
         left: -300px;
@@ -54,7 +54,7 @@ const MenuItems = styled.div`
 
       &.active {
         color: #fff;
-        text-decoration: underline;
+        text-decoration: none;
       }
     }
   }
@@ -138,7 +138,7 @@ const Search = styled.div`
 
 const Menu = ({ history }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const closeMenu = () => {
     setMenuOpen(false);
@@ -173,8 +173,12 @@ const Menu = ({ history }) => {
         </NavLink>
         {user && (
           <HideOnDesktop>
-            <NavLink to={`/kuskis/${user.name}`} onClick={closeMenu}>
+            <NavLink exact to={`/kuskis/${user.name}`} onClick={closeMenu}>
               Profile
+              <BottomBorder />
+            </NavLink>
+            <NavLink to={`/settings`} onClick={closeMenu}>
+              Settings
               <BottomBorder />
             </NavLink>
           </HideOnDesktop>
@@ -183,7 +187,7 @@ const Menu = ({ history }) => {
           <HideOnDesktop>
             <NavLink
               to="/logout"
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 logout();
                 dispatch(getUser());
@@ -207,7 +211,7 @@ const Menu = ({ history }) => {
         <input
           type="text"
           placeholder="Search"
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             e.keyCode === 13 &&
               e.target.value.length > 0 &&
               history.push(`/search?q=${e.target.value}`);
@@ -221,7 +225,8 @@ const Menu = ({ history }) => {
             placeholder={user.name}
             options={[
               { value: 1, text: "Profile" },
-              { value: 2, text: "Log out" }
+              { value: 3, text: "Settings" },
+              { value: 2, text: "Log out" },
             ]}
             onSelect={(e, i) => {
               switch (i) {
@@ -231,6 +236,9 @@ const Menu = ({ history }) => {
                 case 2:
                   logout();
                   dispatch(getUser());
+                  return;
+                case 3:
+                  history.push(`/settings`);
                   return;
                 default:
                   return;

@@ -9,6 +9,7 @@ const Selection = styled.div`
   padding: 12px;
   cursor: default;
   padding-right: 36px;
+  background: #f7f7f7;
 
   border-bottom: 1px solid #f7f7f7;
   ${(props) =>
@@ -27,7 +28,7 @@ const Options = styled.div`
   border-top: 1px solid #eaeaea;
   z-index: 10;
   background: #f7f7f7;
-  max-height: 300px;
+  max-height: 250px;
   overflow: auto;
   ${(props) =>
     props.primary &&

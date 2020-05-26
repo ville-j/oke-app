@@ -56,7 +56,7 @@ const initForm = {
   registerUsernameError: "",
   registerPassword: "",
   registerPasswordError: "",
-  country: "AF",
+  country: "af",
   countryError: "",
 };
 

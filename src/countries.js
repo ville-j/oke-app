@@ -251,7 +251,7 @@ const countries = {
 };
 
 const s = Object.keys(countries).map((k) => ({
-  value: k,
+  value: k.toLowerCase(),
   text: countries[k],
 }));
 

@@ -104,6 +104,11 @@ const uploadShirt = async (kuski, formData) => {
   return res.data;
 };
 
+const updateSettings = async (data) => {
+  const res = await axios.patch(`/settings`, data);
+  return res.data;
+};
+
 export {
   getBattles,
   getBattle,
@@ -120,4 +125,5 @@ export {
   getKuskis,
   getKuskiTimes,
   uploadShirt,
+  updateSettings,
 };

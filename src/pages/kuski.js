@@ -12,7 +12,7 @@ import {
   Avatar,
   Line,
   Time,
-  Timestamp
+  Timestamp,
 } from "../components";
 import SidebarLayout from "../layouts/sidebarLayout";
 import { parseTime, formatTime } from "../utils";
@@ -82,15 +82,17 @@ const ChangeAvatar = styled.div`
 
 const Kuski = ({
   match: {
-    params: { name }
-  }
+    params: { name },
+  },
 }) => {
   const dispatch = useDispatch();
-  const data = useSelector(state => state.kuskis.find(k => k.name === name));
-  const user = useSelector(state => state.user);
+  const data = useSelector((state) =>
+    state.kuskis.find((k) => k.name === name)
+  );
+  const user = useSelector((state) => state.user);
   const { id } = data || { id: null };
-  const times = useSelector(state =>
-    state.times.filter(k => k.kuski_id === id)
+  const times = useSelector((state) =>
+    state.times.filter((k) => k.kuski_id === id)
   );
   const [t, setT] = useState(new Date().getTime());
 
@@ -113,7 +115,7 @@ const Kuski = ({
           type="file"
           name="shirt"
           id="shirt"
-          onChange={async e => {
+          onChange={async (e) => {
             if (e.target.files.length > 0) {
               const formData = new FormData();
               formData.append("shirt", e.target.files[0]);
@@ -177,7 +179,7 @@ const Kuski = ({
           <TableCell>Finished</TableCell>
         </TableRow>
         {times &&
-          times.map(t => {
+          times.map((t) => {
             return (
               <TableRow key={t.id}>
                 <TableCell>
