@@ -41,7 +41,8 @@ const LevelCard = ({ times, id, level }) => (
         <TableRow key={i}>
           <TableCell>{i + 1}.</TableCell>
           <TableCell>
-            <Flag nationality={t.kuski_country} /> {t.kuski}
+            <Flag nationality={t.kuski_country} />{" "}
+            <NavLink to={`/kuskis/${t.kuski}`}>{t.kuski}</NavLink>
             {t.team && ` [${t.team}]`}
           </TableCell>
           <TableCell>
