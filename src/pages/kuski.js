@@ -12,7 +12,8 @@ import {
   Avatar,
   Line,
   Time,
-  Timestamp
+  Timestamp,
+  Flag,
 } from "../components";
 import SidebarLayout from "../layouts/sidebarLayout";
 import { parseTime, formatTime } from "../utils";
@@ -35,6 +36,10 @@ const KuskiInfo = styled.div`
   h1,
   h2 {
     margin: 0;
+  }
+
+  h2 {
+    margin: 5px 0;
   }
 `;
 
@@ -82,15 +87,17 @@ const ChangeAvatar = styled.div`
 
 const Kuski = ({
   match: {
-    params: { name }
-  }
+    params: { name },
+  },
 }) => {
   const dispatch = useDispatch();
-  const data = useSelector(state => state.kuskis.find(k => k.name === name));
-  const user = useSelector(state => state.user);
+  const data = useSelector((state) =>
+    state.kuskis.find((k) => k.name === name)
+  );
+  const user = useSelector((state) => state.user);
   const { id } = data || { id: null };
-  const times = useSelector(state =>
-    state.times.filter(k => k.kuski_id === id)
+  const times = useSelector((state) =>
+    state.times.kuskiTimes.filter((k) => k.kuski_id === id)
   );
   const [t, setT] = useState(new Date().getTime());
 
@@ -113,7 +120,7 @@ const Kuski = ({
           type="file"
           name="shirt"
           id="shirt"
-          onChange={async e => {
+          onChange={async (e) => {
             if (e.target.files.length > 0) {
               const formData = new FormData();
               formData.append("shirt", e.target.files[0]);
@@ -133,7 +140,12 @@ const Kuski = ({
         </div>
         <div style={{ flex: 1 }}>
           <h1>{data ? data.name : <Line />}</h1>
-          <h2>{data && data.team && `[${data.team}]`}</h2>
+          {data && (
+            <h2>
+              <Flag nationality={data.country} />{" "}
+              {data.team && `[${data.team}]`}
+            </h2>
+          )}
         </div>
       </KuskiInfo>
       {user && data && user.id === data.id && (
@@ -177,7 +189,7 @@ const Kuski = ({
           <TableCell>Finished</TableCell>
         </TableRow>
         {times &&
-          times.map(t => {
+          times.map((t) => {
             return (
               <TableRow key={t.id}>
                 <TableCell>

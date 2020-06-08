@@ -7,9 +7,9 @@ import {
   getBattleAsync,
   loadLevRec,
   setPlayerState,
-  videoViewLeft
+  videoViewLeft,
 } from "../actions";
-import { Table, TableRow, TableCell, Time } from "../components";
+import { Table, TableRow, TableCell, Time, Flag } from "../components";
 
 const StyledBattle = styled.div``;
 const TableContainer = styled.div`
@@ -22,12 +22,12 @@ const TableContainer = styled.div`
 
 const Battle = ({
   match: {
-    params: { id }
-  }
+    params: { id },
+  },
 }) => {
   const dispatch = useDispatch();
-  const data = useSelector(state =>
-    state.battles.details.find(b => b.id === id)
+  const data = useSelector((state) =>
+    state.battles.details.find((b) => b.id === id)
   );
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Battle = ({
     dispatch(
       loadLevRec({
         lev: `${process.env.REACT_APP_API_URL}/levels/${data.lev_id}/data`,
-        rec: null
+        rec: null,
       })
     );
 
@@ -62,6 +62,7 @@ const Battle = ({
               <TableRow key={i}>
                 <TableCell>{i + 1}.</TableCell>
                 <TableCell>
+                  <Flag nationality={t.kuski_country} />{" "}
                   <NavLink to={`/kuskis/${t.kuski}`}>{t.kuski}</NavLink>
                 </TableCell>
                 <TableCell>

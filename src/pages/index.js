@@ -8,6 +8,7 @@ import NotFound from "./404";
 import Login from "./login";
 import Search from "./search";
 import Kuskis from "./kuskis";
+import Settings from "./settings";
 
 export {
   Home,
@@ -19,5 +20,6 @@ export {
   Login,
   Level,
   Search,
-  Kuskis
+  Kuskis,
+  Settings,
 };

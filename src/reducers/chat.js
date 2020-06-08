@@ -10,7 +10,10 @@ const parseMessage = (data) => ({
   date: data.date ? new Date(data.date) : new Date(),
 });
 
-export const chat = (state = { messages: [], visible: true }, action) => {
+export const chat = (
+  state = { messages: [], visible: window.innerWidth > 1199 },
+  action
+) => {
   switch (action.type) {
     case TOGGLE_CHAT:
       return {

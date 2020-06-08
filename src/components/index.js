@@ -17,6 +17,7 @@ import Line from "./line";
 import Timestamp from "./timestamp";
 import Pagination from "./pagination";
 import Chat from "./chat";
+import Flag from "./flag";
 
 export {
   Button,
@@ -42,4 +43,5 @@ export {
   Timestamp,
   Pagination,
   Chat,
+  Flag,
 };

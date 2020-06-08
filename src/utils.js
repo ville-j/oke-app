@@ -1,4 +1,4 @@
-const parseTime = time => {
+const parseTime = (time) => {
   const h = Math.floor(time / (60000 * 60));
   const m = Math.floor((time / 60000) % 60);
   const s = (time % 60000) / 1000;
@@ -6,7 +6,7 @@ const parseTime = time => {
   return {
     h,
     m,
-    s
+    s,
   };
 };
 
@@ -26,4 +26,6 @@ const poll = (fn, interval) => () => {
   };
 };
 
-export { parseTime, formatTime, poll };
+const alphaSort = (key) => (a, b) => a[key].localeCompare(b[key]);
+
+export { parseTime, formatTime, poll, alphaSort };

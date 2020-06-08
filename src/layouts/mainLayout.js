@@ -18,6 +18,7 @@ import {
   Login,
   Search,
   Kuskis,
+  Settings,
 } from "../pages";
 import { Menu, BattleSidebar, Chat } from "../components";
 import { useSelector, useDispatch } from "react-redux";
@@ -60,7 +61,7 @@ const Content = styled.div`
   flex: 1;
   overflow: hidden;
   @media (max-width: 799px) {
-    flex: 0;
+    flex: 1;
     flex-direction: column;
   }
 `;
@@ -98,7 +99,7 @@ const ToggleChat = styled.div`
   position: fixed;
   top: 55px;
   right: 20px;
-  padding: 2px 10px;
+  padding: 5px 10px;
   z-index: 10;
   font-size: 0.8em;
   background: rgba(247, 247, 247, 0.6);
@@ -164,6 +165,7 @@ const MainLayout = () => {
               <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/kuskis/:name" component={Kuski} />
+                <Route path="/settings" component={Settings} />
                 <Route path="/levels" exact component={Levels} />
                 <Route path="/levels/:id" exact component={Level} />
                 <Route path="/battles" exact component={Battles} />

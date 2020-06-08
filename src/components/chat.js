@@ -54,7 +54,7 @@ const Messages = styled.div`
 const Input = styled.div`
   border-top: 1px solid #d2d2d2;
   display: flex;
-  height: 60px;
+  height: 50px;
   > input {
     border: 0;
     padding: 12px;
@@ -78,8 +78,8 @@ const Chat = () => {
   const sc = useRef(null);
 
   useLayoutEffect(() => {
-    h = sc.current.offsetHeight;
-  }, []);
+    if (chatVisible) h = sc.current.offsetHeight;
+  }, [chatVisible]);
 
   useEffect(() => {
     setTimeout(() => {

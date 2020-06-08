@@ -11,7 +11,8 @@ import {
   TableCell,
   Time,
   LevelImage,
-  Line
+  Line,
+  Flag,
 } from "../components";
 
 const TableContainer = styled.div`
@@ -30,8 +31,8 @@ const Title = styled.div`
 
 const Level = ({
   match: {
-    params: { id }
-  }
+    params: { id },
+  },
 }) => {
   const dispatch = useDispatch();
 
@@ -41,11 +42,11 @@ const Level = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const level = useSelector(state =>
-    state.levels.details.find(l => l.id === Number(id))
+  const level = useSelector((state) =>
+    state.levels.details.find((l) => l.id === Number(id))
   );
-  const levelTimes = useSelector(state =>
-    state.levels.times.filter(t => t.lev_id === Number(id))
+  const levelTimes = useSelector((state) =>
+    state.levels.times.filter((t) => t.lev_id === Number(id))
   );
   const side = <Title>{(level && level.name) || <Line />}</Title>;
   const content = (
@@ -63,6 +64,7 @@ const Level = ({
               <TableRow key={t.id}>
                 <TableCell style={{ width: 50 }}>{i + 1}.</TableCell>
                 <TableCell>
+                  <Flag nationality={t.kuski_country} />{" "}
                   <NavLink to={`/kuskis/${t.kuski_name}`}>
                     {t.kuski_name}
                   </NavLink>

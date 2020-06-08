@@ -16,8 +16,8 @@ const getBattle = async (id) => {
   return res.data;
 };
 
-const register = async (name, password) => {
-  return await axios.post(`/kuskis`, { name, password });
+const register = async (name, password, country) => {
+  return await axios.post(`/kuskis`, { name, password, country });
 };
 
 const login = async (name, password) => {
@@ -104,6 +104,11 @@ const uploadShirt = async (kuski, formData) => {
   return res.data;
 };
 
+const updateSettings = async (data) => {
+  const res = await axios.patch(`/settings`, data);
+  return res.data;
+};
+
 export {
   getBattles,
   getBattle,
@@ -120,4 +125,5 @@ export {
   getKuskis,
   getKuskiTimes,
   uploadShirt,
+  updateSettings,
 };
