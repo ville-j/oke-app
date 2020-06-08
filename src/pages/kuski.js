@@ -97,7 +97,7 @@ const Kuski = ({
   const user = useSelector((state) => state.user);
   const { id } = data || { id: null };
   const times = useSelector((state) =>
-    state.times.filter((k) => k.kuski_id === id)
+    state.times.kuskiTimes.filter((k) => k.kuski_id === id)
   );
   const [t, setT] = useState(new Date().getTime());
 

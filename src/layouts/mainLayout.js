@@ -99,7 +99,7 @@ const ToggleChat = styled.div`
   position: fixed;
   top: 55px;
   right: 20px;
-  padding: 2px 10px;
+  padding: 5px 10px;
   z-index: 10;
   font-size: 0.8em;
   background: rgba(247, 247, 247, 0.6);

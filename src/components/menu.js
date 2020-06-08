@@ -118,6 +118,7 @@ const Search = styled.div`
 
   @media all and (max-width: 799px) {
     flex: 1;
+    margin-right: 110px;
   }
 
   input {

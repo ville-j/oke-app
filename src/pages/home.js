@@ -18,7 +18,7 @@ const Pad = styled.div`
 
 const Home = () => {
   const dispatch = useDispatch();
-  const times = useSelector((state) => state.times).sort((a, b) => {
+  const times = useSelector((state) => state.times.recentTimes).sort((a, b) => {
     return b.created - a.created;
   });
 
