@@ -1,4 +1,4 @@
-import { AUTH, SET_COUNTRY } from "../actions";
+import { AUTH, SET_COUNTRY, SET_TEAM } from "../actions";
 
 export const user = (state = null, action) => {
   switch (action.type) {
@@ -8,6 +8,11 @@ export const user = (state = null, action) => {
       return {
         ...state,
         country: action.data,
+      };
+    case SET_TEAM:
+      return {
+        ...state,
+        team: action.data,
       };
     default:
       return state;

@@ -10,6 +10,7 @@ import {
   getKuskis,
   getKuskiTimes,
   updateSettings,
+  joinTeam,
 } from "./api";
 const GET_BATTLE = "GET_BATTLE";
 const GET_BATTLES = "GET_BATTLES";
@@ -30,6 +31,7 @@ const ADD_MESSAGE = "ADD_MESSAGE";
 const SET_HISTORY = "SET_HISTORY";
 const TOGGLE_CHAT = "TOGGLE_CHAT";
 const SET_COUNTRY = "SET_COUNTRY";
+const SET_TEAM = "SET_TEAM";
 
 const actionGetBattles = (data) => ({
   type: GET_BATTLES,
@@ -124,6 +126,11 @@ const actionSetCountry = (data) => ({
   data,
 });
 
+const actionSetTeam = (data) => ({
+  type: SET_TEAM,
+  data,
+});
+
 const setCountryAsync = (data) => {
   return async (dispatch) => {
     try {
@@ -131,6 +138,18 @@ const setCountryAsync = (data) => {
       dispatch(actionSetCountry(data));
     } catch (e) {
       console.log(e);
+    }
+  };
+};
+
+const setTeamAsync = (team, password) => {
+  return async (dispatch) => {
+    try {
+      const res = await joinTeam(team, password);
+      dispatch(actionSetTeam(res.data.name));
+      return res;
+    } catch (e) {
+      return e.response.data;
     }
   };
 };
@@ -265,6 +284,7 @@ export {
   TOGGLE_CHAT,
   SET_HISTORY,
   SET_COUNTRY,
+  SET_TEAM,
   getBattlesAsync,
   getBattleAsync,
   loadReplay,
@@ -284,4 +304,5 @@ export {
   toggleChat,
   setHistory,
   setCountryAsync,
+  setTeamAsync,
 };

@@ -34,8 +34,9 @@ h2 {
   font-size: 1.2em;
 }
 h3 {
-  font-weight: 300;
+  font-weight: 200;
   text-transform: uppercase;
+  margin: 12px 0;
 }
 div {
   box-sizing: border-box;
