@@ -62,12 +62,15 @@ const Dropdown = ({
   primary,
   style,
 }) => {
+  const optionsElement = useRef(null);
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
   const handleKeyDown = (e) => {
     e.keyCode === 13 && setOpen(!open);
+    const i = options.findIndex((o) => o.text[0].toLowerCase() === e.key);
+    optionsElement && optionsElement.current.scroll(0, 37 * i);
   };
   const handleSelect = (e, value) => {
     onSelect && onSelect(e, value);
@@ -97,7 +100,7 @@ const Dropdown = ({
         <Chevron>▾</Chevron>
       </Selection>
       {open && (
-        <Options primary={primary}>
+        <Options primary={primary} ref={optionsElement}>
           {options.map((o) => (
             <div
               key={o.value}

@@ -18,6 +18,8 @@ import Timestamp from "./timestamp";
 import Pagination from "./pagination";
 import Chat from "./chat";
 import Flag from "./flag";
+import Divider from "./divider";
+import Popup from "./popup";
 
 export {
   Button,
@@ -44,4 +46,6 @@ export {
   Pagination,
   Chat,
   Flag,
+  Divider,
+  Popup,
 };

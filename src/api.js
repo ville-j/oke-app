@@ -109,6 +109,11 @@ const updateSettings = async (data) => {
   return res.data;
 };
 
+const joinTeam = async (team, password) => {
+  const res = await axios.post(`/teams`, { team, password });
+  return res.data;
+};
+
 export {
   getBattles,
   getBattle,
@@ -126,4 +131,5 @@ export {
   getKuskiTimes,
   uploadShirt,
   updateSettings,
+  joinTeam,
 };

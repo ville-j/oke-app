@@ -7,7 +7,7 @@ const StyledTextBox = styled.input`
   border: 0;
   background: #f7f7f7;
   line-height: 1.5;
-  width: ${props => (props.fullSize ? "100%" : "300px")};
+  width: ${(props) => (props.fullSize ? "100%" : "300px")};
   box-sizing: border-box;
 `;
 
@@ -23,27 +23,35 @@ const Validation = styled.div`
     color: #f7f7f7;
   }
 `;
-const TextBox = ({
-  text,
-  password,
-  fullSize,
-  validationMessage,
-  onChange,
-  value
-}) => (
-  <>
-    <StyledTextBox
-      type={password ? "password" : "text"}
-      fullSize={fullSize}
-      onChange={onChange}
-      value={value}
-    >
-      {text}
-    </StyledTextBox>
-    <Validation>
-      <span>{validationMessage}</span>
-    </Validation>
-  </>
+const TextBox = React.forwardRef(
+  (
+    {
+      text,
+      password,
+      fullSize,
+      validationMessage,
+      onChange,
+      value,
+      defaultValue,
+    },
+    ref
+  ) => (
+    <>
+      <StyledTextBox
+        type={password ? "password" : "text"}
+        fullSize={fullSize}
+        onChange={onChange}
+        value={value}
+        defaultValue={defaultValue}
+        ref={ref}
+      >
+        {text}
+      </StyledTextBox>
+      <Validation>
+        <span>{validationMessage}</span>
+      </Validation>
+    </>
+  )
 );
 
 export default TextBox;
