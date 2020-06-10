@@ -27,6 +27,12 @@ const DataLine = styled.div`
   margin: 12px;
 `;
 
+const battleTypes = {
+  0: "Normal",
+  1: "First finish",
+  2: "Apple",
+};
+
 const BattleSidebar = ({
   match: {
     params: { id }
@@ -47,6 +53,9 @@ const BattleSidebar = ({
       </DataLine>
       <DataLine>
         {(data && `Started by ${data.starter_name}`) || <Line />}
+      </DataLine>
+      <DataLine>
+        {(data && `Battle type: ${battleTypes[data.type]}`) || <Line />}
       </DataLine>
     </>
   );
