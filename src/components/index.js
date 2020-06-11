@@ -20,6 +20,7 @@ import Chat from "./chat";
 import Flag from "./flag";
 import Divider from "./divider";
 import Popup from "./popup";
+import UpdateSW from "./updateSW";
 
 export {
   Button,
@@ -48,4 +49,5 @@ export {
   Flag,
   Divider,
   Popup,
+  UpdateSW,
 };

@@ -8,6 +8,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import socket from "./socket";
+import { UpdateSW } from "./components";
 
 socket.on("message", ({ data }) => {
   const json = JSON.parse(data);
@@ -29,6 +30,7 @@ socket.on("open", () => {
 ReactDOM.render(
   <Provider store={store}>
     <App />
+    <UpdateSW />
   </Provider>,
   document.getElementById("root")
 );

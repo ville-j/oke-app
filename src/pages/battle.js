@@ -9,7 +9,14 @@ import {
   setPlayerState,
   videoViewLeft,
 } from "../actions";
-import { Table, TableRow, TableCell, Time, Flag } from "../components";
+import {
+  Table,
+  TableRow,
+  TableCell,
+  Time,
+  Flag,
+  LevelImage,
+} from "../components";
 
 const StyledBattle = styled.div``;
 const TableContainer = styled.div`
@@ -50,6 +57,7 @@ const Battle = ({
 
   return (
     <StyledBattle>
+      <LevelImage height="350px" level={data && data.lev_id} />
       <TableContainer>
         <Table>
           <TableRow head>
