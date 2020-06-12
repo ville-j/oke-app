@@ -14,6 +14,7 @@ import {
   Time,
   Timestamp,
   Flag,
+  KuskiBike,
 } from "../components";
 import SidebarLayout from "../layouts/sidebarLayout";
 import { parseTime, formatTime } from "../utils";

@@ -21,6 +21,7 @@ import Flag from "./flag";
 import Divider from "./divider";
 import Popup from "./popup";
 import UpdateSW from "./updateSW";
+import KuskiBike from "./kuskiBike";
 
 export {
   Button,
@@ -50,4 +51,5 @@ export {
   Divider,
   Popup,
   UpdateSW,
+  KuskiBike,
 };
