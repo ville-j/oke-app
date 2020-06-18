@@ -16,8 +16,7 @@ import {
   Settings,
 } from "../pages";
 import { Menu, BattleSidebar, Chat } from "../components";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleChat } from "../actions";
+import { useSelector } from "react-redux";
 
 const menuHeight = "50px";
 
@@ -61,25 +60,8 @@ const Content = styled.div`
   }
 `;
 
-const ToggleChat = styled.div`
-  position: fixed;
-  top: 55px;
-  right: 20px;
-  padding: 5px 10px;
-  z-index: 10;
-  font-size: 0.8em;
-  background: rgba(247, 247, 247, 0.6);
-  border-radius: 10px;
-  cursor: pointer;
-  @media all and (max-width: 799px) {
-    top: 10px;
-    z-index: 98;
-  }
-`;
-
 const MainLayout = () => {
   const chatVisible = useSelector((state) => state.chat.visible);
-  const dispatch = useDispatch();
 
   return (
     <Scrollbars autoHide>
@@ -113,13 +95,6 @@ const MainLayout = () => {
             </Content>
           </SidebarLayout>
         </Router>
-        <ToggleChat
-          onClick={() => {
-            dispatch(toggleChat());
-          }}
-        >
-          {chatVisible ? "Hide chat" : "Show chat"}
-        </ToggleChat>
         <Chat />
       </StyledLayout>
     </Scrollbars>
