@@ -28,8 +28,9 @@ const ResultsLink = styled(NavLink)`
   }
 `;
 
-const LevelCard = ({ times, id, level }) => (
+const LevelCard = ({ times, id, level, head }) => (
   <StyledLevelCard>
+    {head && head}
     <LevelImage level={level} height="200px" />
     <Table>
       <TableRow head>

@@ -28,4 +28,17 @@ const poll = (fn, interval) => () => {
 
 const alphaSort = (key) => (a, b) => a[key].localeCompare(b[key]);
 
-export { parseTime, formatTime, poll, alphaSort };
+const battleType = (type) => {
+  switch (type) {
+    case 0:
+      return "normal";
+    case 1:
+      return "first finish";
+    case 2:
+      return "apple";
+    default:
+      return "unknown";
+  }
+};
+
+export { parseTime, formatTime, poll, alphaSort, battleType };

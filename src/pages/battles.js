@@ -6,6 +6,7 @@ import format from "date-fns/format";
 import set from "date-fns/set";
 import isToday from "date-fns/isToday";
 import qs from "query-string";
+import { ChevronLeft, ChevronRight } from "react-feather";
 import { getBattlesAsync } from "../actions";
 import { BattleCard } from "../components";
 import { poll } from "../utils";
@@ -81,14 +82,18 @@ const Battles = ({ location }) => {
   const side = (
     <>
       <DateBar>
-        <NavLink to={`/battles?t=${date - 86400}`}>left</NavLink>
+        <NavLink to={`/battles?t=${date + 86400}`}>
+          <ChevronLeft /> newer
+        </NavLink>
 
         <div>
           {isToday(date * 1000)
             ? "Today"
             : format(date * 1000, "EEE dd.MM.yyyy")}
         </div>
-        <NavLink to={`/battles?t=${date + 86400}`}>right</NavLink>
+        <NavLink to={`/battles?t=${date - 86400}`}>
+          older <ChevronRight />
+        </NavLink>
       </DateBar>
     </>
   );
@@ -97,7 +102,12 @@ const Battles = ({ location }) => {
       {battles.map((b) => {
         return (
           <Cell key={b.id}>
-            <BattleCard id={b.id} />
+            <BattleCard
+              id={b.id}
+              date={b.created}
+              duration={b.duration}
+              type={b.type}
+            />
           </Cell>
         );
       })}
