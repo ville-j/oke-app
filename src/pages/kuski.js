@@ -14,7 +14,7 @@ import {
   Time,
   Timestamp,
   Flag,
-  KuskiBike,
+  Shirt,
 } from "../components";
 import SidebarLayout from "../layouts/sidebarLayout";
 import { parseTime, formatTime } from "../utils";
@@ -86,6 +86,12 @@ const ChangeAvatar = styled.div`
   }
 `;
 
+const ShirtContainer = styled.div`
+  width: 80px;
+  margin-right: 12px;
+  height: 108.73px;
+`;
+
 const Kuski = ({
   match: {
     params: { name },
@@ -100,7 +106,7 @@ const Kuski = ({
   const times = useSelector((state) =>
     state.times.kuskiTimes.filter((k) => k.kuski_id === id)
   );
-  const [t, setT] = useState(new Date().getTime());
+  const [t, setT] = useState(0);
 
   useEffect(() => {
     dispatch(getKuskiAsync(name));
@@ -126,8 +132,8 @@ const Kuski = ({
               const formData = new FormData();
               formData.append("shirt", e.target.files[0]);
               try {
-                await uploadShirt(data.name, formData);
-                setT(new Date().getTime());
+                const res = await uploadShirt(data.name, formData);
+                setT(res.shirt_crc);
               } catch (e) {
                 console.log(e);
               }
@@ -136,9 +142,9 @@ const Kuski = ({
         />
       </ShirtForm>
       <KuskiInfo>
-        <div>
-          <StyledAvatar kuski={data && data.name} t={t} />
-        </div>
+        <ShirtContainer>
+          {data && <Shirt kuski={data.name} crc={t} />}
+        </ShirtContainer>
         <div style={{ flex: 1 }}>
           <h1>{data ? data.name : <Line />}</h1>
           {data && (
