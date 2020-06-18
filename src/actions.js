@@ -154,10 +154,10 @@ const setTeamAsync = (team, password) => {
   };
 };
 
-const getBattlesAsync = () => {
+const getBattlesAsync = (date) => {
   return async (dispatch) => {
     try {
-      const data = await getBattles();
+      const data = await getBattles(date);
       dispatch(actionGetBattles(data));
     } catch (e) {
       console.log(e);

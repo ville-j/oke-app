@@ -6,8 +6,8 @@ axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
   "token"
 )}`;
 
-const getBattles = async () => {
-  const res = await axios.get("/battles");
+const getBattles = async (date) => {
+  const res = await axios.get(`/battles?t=${date}`);
   return res.data;
 };
 

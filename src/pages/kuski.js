@@ -9,7 +9,6 @@ import {
   TableCell,
   Tabs,
   Tab,
-  Avatar,
   Line,
   Time,
   Timestamp,
@@ -19,10 +18,6 @@ import {
 import SidebarLayout from "../layouts/sidebarLayout";
 import { parseTime, formatTime } from "../utils";
 import { uploadShirt } from "../api";
-
-const StyledAvatar = styled(Avatar)`
-  margin-right: 25px;
-`;
 
 const KuskiInfo = styled.div`
   padding: 12px;
