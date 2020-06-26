@@ -9,6 +9,7 @@ import Login from "./login";
 import Search from "./search";
 import Kuskis from "./kuskis";
 import Settings from "./settings";
+import LevelPacks from "./levelPacks";
 
 export {
   Home,
@@ -22,4 +23,5 @@ export {
   Search,
   Kuskis,
   Settings,
+  LevelPacks,
 };

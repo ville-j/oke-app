@@ -14,7 +14,7 @@ import SideBarLayout from "../layouts/sidebarLayout";
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   grid-gap: 8px;
   margin: 8px;
 `;
@@ -45,6 +45,12 @@ const DateBar = styled.div`
       flex: 0 0 50px;
     }
   }
+`;
+
+const SideContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
 
 const Battles = ({ location }) => {
@@ -80,7 +86,7 @@ const Battles = ({ location }) => {
 
   const battles = useSelector((state) => state.battles.list);
   const side = (
-    <>
+    <SideContent>
       <DateBar>
         <NavLink to={`/battles?t=${date + 86400}`}>
           <ChevronLeft /> newer
@@ -95,7 +101,7 @@ const Battles = ({ location }) => {
           older <ChevronRight />
         </NavLink>
       </DateBar>
-    </>
+    </SideContent>
   );
   const content = (
     <Grid>

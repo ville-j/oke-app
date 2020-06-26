@@ -71,7 +71,9 @@ const Battle = ({
                 <TableCell>{i + 1}.</TableCell>
                 <TableCell>
                   <Flag nationality={t.kuski_country} />{" "}
-                  <NavLink to={`/kuskis/${t.kuski}`}>{t.kuski}</NavLink>
+                  <NavLink to={`/kuskis/${t.kuski_name}`}>
+                    {t.kuski_name}
+                  </NavLink>
                 </TableCell>
                 <TableCell>
                   <Time time={t.time} />

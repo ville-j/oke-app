@@ -33,6 +33,8 @@ const TextBox = React.forwardRef(
       onChange,
       value,
       defaultValue,
+      placeholder,
+      hideValidation,
     },
     ref
   ) => (
@@ -44,12 +46,15 @@ const TextBox = React.forwardRef(
         value={value}
         defaultValue={defaultValue}
         ref={ref}
+        placeholder={placeholder}
       >
         {text}
       </StyledTextBox>
-      <Validation>
-        <span>{validationMessage}</span>
-      </Validation>
+      {!hideValidation && (
+        <Validation>
+          <span>{validationMessage}</span>
+        </Validation>
+      )}
     </>
   )
 );

@@ -41,4 +41,7 @@ const battleType = (type) => {
   }
 };
 
-export { parseTime, formatTime, poll, alphaSort, battleType };
+const pad = (value, length, char) =>
+  String(value).padStart(length, char || "0");
+
+export { parseTime, formatTime, poll, alphaSort, battleType, pad };

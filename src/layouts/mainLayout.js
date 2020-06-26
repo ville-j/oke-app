@@ -14,6 +14,7 @@ import {
   Search,
   Kuskis,
   Settings,
+  LevelPacks,
 } from "../pages";
 import { Menu, BattleSidebar, Chat } from "../components";
 import { useSelector } from "react-redux";
@@ -83,6 +84,8 @@ const MainLayout = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/kuskis/:name" component={Kuski} />
                 <Route path="/settings" component={Settings} />
+                <Route path="/levelpacks" exact component={LevelPacks} />
+                <Route path="/levelpacks/:name" component={LevelPacks} />
                 <Route path="/levels" exact component={Levels} />
                 <Route path="/levels/:id" exact component={Level} />
                 <Route path="/battles" exact component={Battles} />

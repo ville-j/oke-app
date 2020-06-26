@@ -33,7 +33,6 @@ const BattleCard = ({ id, date, duration, type }) => {
   return (
     <LevelCard
       times={data ? data.results : []}
-      id={id}
       level={data ? data.lev_id : ""}
       head={
         <Head>
@@ -43,6 +42,9 @@ const BattleCard = ({ id, date, duration, type }) => {
           <Timestamp time={date} />
         </Head>
       }
+      footer="Full info"
+      footerUrl={`/battles/${id}`}
+      maxTimes={3}
     />
   );
 };

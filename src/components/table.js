@@ -12,7 +12,7 @@ const StyledTable = styled.div`
 const StyledTableRow = styled.div`
   display: table-row;
 
-  ${props =>
+  ${(props) =>
     props.head &&
     css`
       font-weight: 600;
@@ -29,9 +29,20 @@ const StyledTableLinkRow = styled(NavLink)`
   box-sizing: border-box;
   text-decoration: none;
   color: inherit;
-  :hover {
+  &:hover {
     background: #fbfbfb;
   }
+
+  ${(props) =>
+    props.active &&
+    `
+    color: #fff;
+    background: #66af30;
+
+    &:hover {
+      background: #66af30;
+    }
+  `}
 `;
 
 const StyledTableCell = styled.div`
@@ -50,7 +61,7 @@ const StyledTableCell = styled.div`
     }
   }
 
-  ${props =>
+  ${(props) =>
     props.alignRight &&
     css`
       text-align: right;
@@ -65,7 +76,7 @@ const StyledTableCell = styled.div`
 `;
 
 const Table = ({ children }) => <StyledTable>{children}</StyledTable>;
-const TableRow = props =>
+const TableRow = (props) =>
   props.href ? (
     <StyledTableLinkRow to={props.href} {...props}>
       {props.children}
@@ -73,7 +84,7 @@ const TableRow = props =>
   ) : (
     <StyledTableRow {...props}>{props.children}</StyledTableRow>
   );
-const TableCell = props => (
+const TableCell = (props) => (
   <StyledTableCell {...props}>{props.children}</StyledTableCell>
 );
 

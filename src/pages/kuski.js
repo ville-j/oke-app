@@ -45,6 +45,12 @@ const Content = styled.div`
   }
 `;
 
+const SideContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
 const Stats = styled.div`
   @media all and (max-width: 799px) {
     display: flex;
@@ -116,7 +122,7 @@ const Kuski = ({
   }, [id]);
 
   const side = (
-    <>
+    <SideContent>
       <ShirtForm>
         <input
           type="file"
@@ -173,7 +179,7 @@ const Kuski = ({
           <StatsTitle>Finished runs</StatsTitle>
         </StatsContainer>
       </Stats>
-    </>
+    </SideContent>
   );
 
   const content = (

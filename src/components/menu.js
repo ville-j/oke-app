@@ -180,7 +180,7 @@ const Menu = ({ history }) => {
           Battles
           <BottomBorder />
         </NavLink>
-        <NavLink to="/levels" onClick={closeMenu}>
+        <NavLink to="/levelpacks" onClick={closeMenu}>
           Levels
           <BottomBorder />
         </NavLink>

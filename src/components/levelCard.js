@@ -8,8 +8,8 @@ const StyledLevelCard = styled.div`
   background: #fff;
   height: 100%;
   position: relative;
-  padding-bottom: 60px;
   box-shadow: 1px 1px 4px 0px #eaeaea;
+  padding-bottom: 60px;
 `;
 
 const ResultsLink = styled(NavLink)`
@@ -28,31 +28,34 @@ const ResultsLink = styled(NavLink)`
   }
 `;
 
-const LevelCard = ({ times, id, level, head }) => (
+const LevelCard = ({ times, level, head, footer, footerUrl, maxTimes }) => (
   <StyledLevelCard>
     {head && head}
     <LevelImage level={level} height="200px" />
-    <Table>
-      <TableRow head>
-        <TableCell style={{ width: 50 }}>#</TableCell>
-        <TableCell>Kuski</TableCell>
-        <TableCell>Time</TableCell>
-      </TableRow>
-      {[...times].splice(0, 3).map((t, i) => (
-        <TableRow key={i}>
-          <TableCell>{i + 1}.</TableCell>
-          <TableCell>
-            <Flag nationality={t.kuski_country} />{" "}
-            <NavLink to={`/kuskis/${t.kuski}`}>{t.kuski}</NavLink>
-            {t.team && ` [${t.team}]`}
-          </TableCell>
-          <TableCell>
-            <Time time={t.time} />
-          </TableCell>
+
+    {times && (
+      <Table>
+        <TableRow head>
+          <TableCell style={{ width: 50 }}>#</TableCell>
+          <TableCell>Kuski</TableCell>
+          <TableCell>Time</TableCell>
         </TableRow>
-      ))}
-    </Table>
-    <ResultsLink to={`/battles/${id}`}>Full info</ResultsLink>
+        {[...times].splice(0, maxTimes || 5).map((t, i) => (
+          <TableRow key={i}>
+            <TableCell>{i + 1}.</TableCell>
+            <TableCell>
+              <Flag nationality={t.kuski_country} />{" "}
+              <NavLink to={`/kuskis/${t.kuski_name}`}>{t.kuski_name}</NavLink>
+              {t.team && ` [${t.team}]`}
+            </TableCell>
+            <TableCell>
+              <Time time={t.time} />
+            </TableCell>
+          </TableRow>
+        ))}
+      </Table>
+    )}
+    <ResultsLink to={footerUrl}>{footer}</ResultsLink>
   </StyledLevelCard>
 );
 

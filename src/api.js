@@ -61,6 +61,16 @@ const getLevel = async (id) => {
   return res.data;
 };
 
+const getLevelPacks = async () => {
+  const res = await axios.get(`/levelpacks`);
+  return res.data;
+};
+
+const getLevelPack = async (name) => {
+  const res = await axios.get(`/levelpacks/${name}`);
+  return res.data;
+};
+
 const getKuski = async (name) => {
   const res = await axios.get(`/kuskis/${name}`);
   return res.data;
@@ -132,4 +142,6 @@ export {
   uploadShirt,
   updateSettings,
   joinTeam,
+  getLevelPacks,
+  getLevelPack,
 };
