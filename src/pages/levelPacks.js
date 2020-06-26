@@ -170,7 +170,9 @@ const LevelList = ({ packName }) => {
     /* eslint-disable-next-line */
   }, [packName]);
 
-  const details = useSelector((state) => state.levels.packDetails[packName]);
+  const details = useSelector((state) =>
+    packName ? state.levels.packDetails[packName.toLowerCase()] : null
+  );
   if (!packName) return null;
 
   const ll = details ? details.levels.length.toString().length : 0;
@@ -186,7 +188,7 @@ const LevelList = ({ packName }) => {
                 head={
                   <LevelCardHead>
                     <div>
-                      {packName} #{pad(i + 1, ll)}
+                      {details.name_short} #{pad(i + 1, ll)}
                     </div>
                     <div>{l.lev_name}.lev</div>
                   </LevelCardHead>

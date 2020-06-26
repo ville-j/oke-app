@@ -59,7 +59,7 @@ export const levels = (
         ...state,
         packDetails: {
           ...state.packDetails,
-          [action.data.name_short]: action.data,
+          [action.data.name_short.toLowerCase()]: action.data,
         },
       };
     }
