@@ -48,7 +48,7 @@ const Level = ({
   const levelTimes = useSelector((state) =>
     state.levels.times.filter((t) => t.lev_id === Number(id))
   );
-  const side = <Title>{(level && level.name) || <Line />}</Title>;
+  const side = <Title>{(level && `${level.name}.lev`) || <Line />}</Title>;
   const content = (
     <>
       <LevelImage level={id} height="350px" />

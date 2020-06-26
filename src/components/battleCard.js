@@ -12,6 +12,7 @@ const Head = styled.div`
   background: #333;
   color: #d8d8d8;
   border-bottom: 1px solid #484848;
+  font-weight: 200;
 
   > * {
     flex: 1;

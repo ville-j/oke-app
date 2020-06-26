@@ -237,8 +237,12 @@ const Menu = ({ history }) => {
       </Search>
       <ToggleChat>
         <MessageSquare
+          tabIndex="0"
           onClick={() => {
             dispatch(toggleChat());
+          }}
+          onKeyDown={(e) => {
+            e.keyCode === 13 && dispatch(toggleChat());
           }}
         />
       </ToggleChat>
