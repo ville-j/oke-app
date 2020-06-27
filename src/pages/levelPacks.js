@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { Plus } from "react-feather";
+import { Link } from "react-router-dom";
 import { SideView, MultiView, ScrollView } from "../layouts";
 
 import {
@@ -9,6 +10,7 @@ import {
   getLevelPackAsync,
   getLevelTimesAsync,
 } from "../actions";
+
 import { Table, TableRow, TableCell, TextBox, LevelCard } from "../components";
 import { pad, alphaSort } from "../utils";
 
@@ -57,6 +59,13 @@ const IconButton = () => {
     </Container>
   );
 };
+
+const BrowseLink = styled.div`
+  > * {
+    display: block;
+    padding: 12px;
+  }
+`;
 
 const Side = ({ packName }) => {
   const [filter, setFilter] = useState("");
@@ -109,6 +118,9 @@ const Side = ({ packName }) => {
             })}
         </Table>
       </ScrollView>
+      <BrowseLink>
+        <Link to="/levels">Browse all levels</Link>
+      </BrowseLink>
     </MultiView>
   );
 };

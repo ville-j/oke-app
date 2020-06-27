@@ -4,16 +4,13 @@ import qs from "query-string";
 import styled from "styled-components";
 import { getLevelsAsync } from "../actions";
 import { Table, TableRow, TableCell, Pagination } from "../components";
+import { MultiView, ScrollView } from "../layouts";
 
 const Container = styled.div`
   margin-bottom: 150px;
 `;
 
 const PaginationContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
   background: #fff;
   border-top: 1px solid #f7f7f7;
 `;
@@ -31,20 +28,22 @@ const Levels = ({ location }) => {
   if (!page && levels.meta.page !== 1) return null;
 
   return (
-    <Container>
-      <Table>
-        {levels.items.map((l) => {
-          return (
-            <TableRow href={`/levels/${l.id}`} key={l.id}>
-              <TableCell>{l.name}</TableCell>
-            </TableRow>
-          );
-        })}
-      </Table>
+    <MultiView>
+      <ScrollView>
+        <Table>
+          {levels.items.map((l) => {
+            return (
+              <TableRow href={`/levels/${l.id}`} key={l.id}>
+                <TableCell>{l.name}</TableCell>
+              </TableRow>
+            );
+          })}
+        </Table>
+      </ScrollView>
       <PaginationContainer>
         <Pagination {...levels.meta} />
       </PaginationContainer>
-    </Container>
+    </MultiView>
   );
 };
 
