@@ -12,6 +12,8 @@ import {
   Flag,
 } from "../components";
 
+import { View } from "../layouts";
+
 const Pad = styled.div`
   padding: 0 12px;
 `;
@@ -27,7 +29,7 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <>
+    <View>
       <Pad>
         <h3>Recent times</h3>
       </Pad>
@@ -61,7 +63,7 @@ const Home = () => {
           );
         })}
       </Table>
-    </>
+    </View>
   );
 };
 

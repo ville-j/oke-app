@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUser } from "./actions";
-import { MainLayout } from "./layouts";
+import { Layout } from "./layouts";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUser());
   });
-  return <MainLayout />;
+  return <Layout />;
 }
 
 export default App;

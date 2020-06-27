@@ -20,6 +20,9 @@ import Chat from "./chat";
 import Flag from "./flag";
 import Divider from "./divider";
 import Popup from "./popup";
+import UpdateSW from "./updateSW";
+import KuskiBike from "./kuskiBike";
+import Shirt from "./shirt";
 
 export {
   Button,
@@ -48,4 +51,7 @@ export {
   Flag,
   Divider,
   Popup,
+  UpdateSW,
+  KuskiBike,
+  Shirt,
 };

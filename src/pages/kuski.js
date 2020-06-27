@@ -9,19 +9,15 @@ import {
   TableCell,
   Tabs,
   Tab,
-  Avatar,
   Line,
   Time,
   Timestamp,
   Flag,
+  Shirt,
 } from "../components";
-import SidebarLayout from "../layouts/sidebarLayout";
+import { SideView, MultiView, ScrollView } from "../layouts";
 import { parseTime, formatTime } from "../utils";
 import { uploadShirt } from "../api";
-
-const StyledAvatar = styled(Avatar)`
-  margin-right: 25px;
-`;
 
 const KuskiInfo = styled.div`
   padding: 12px;
@@ -43,10 +39,10 @@ const KuskiInfo = styled.div`
   }
 `;
 
-const Content = styled.div`
-  h3 {
-    margin: 12px;
-  }
+const SideContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
 
 const Stats = styled.div`
@@ -85,6 +81,12 @@ const ChangeAvatar = styled.div`
   }
 `;
 
+const ShirtContainer = styled.div`
+  width: 80px;
+  margin-right: 12px;
+  height: 108.73px;
+`;
+
 const Kuski = ({
   match: {
     params: { name },
@@ -99,7 +101,7 @@ const Kuski = ({
   const times = useSelector((state) =>
     state.times.kuskiTimes.filter((k) => k.kuski_id === id)
   );
-  const [t, setT] = useState(new Date().getTime());
+  const [t, setT] = useState(0);
 
   useEffect(() => {
     dispatch(getKuskiAsync(name));
@@ -114,7 +116,7 @@ const Kuski = ({
   }, [id]);
 
   const side = (
-    <>
+    <SideContent>
       <ShirtForm>
         <input
           type="file"
@@ -125,8 +127,8 @@ const Kuski = ({
               const formData = new FormData();
               formData.append("shirt", e.target.files[0]);
               try {
-                await uploadShirt(data.name, formData);
-                setT(new Date().getTime());
+                const res = await uploadShirt(data.name, formData);
+                setT(res.shirt_crc);
               } catch (e) {
                 console.log(e);
               }
@@ -135,9 +137,9 @@ const Kuski = ({
         />
       </ShirtForm>
       <KuskiInfo>
-        <div>
-          <StyledAvatar kuski={data && data.name} t={t} />
-        </div>
+        <ShirtContainer>
+          {data && <Shirt kuski={data.name} crc={t} />}
+        </ShirtContainer>
         <div style={{ flex: 1 }}>
           <h1>{data ? data.name : <Line />}</h1>
           {data && (
@@ -171,43 +173,45 @@ const Kuski = ({
           <StatsTitle>Finished runs</StatsTitle>
         </StatsContainer>
       </Stats>
-    </>
+    </SideContent>
   );
 
   const content = (
-    <Content>
+    <MultiView>
       <Tabs>
         <Tab to={`/kuskis/${name}`}>Times</Tab>
       </Tabs>
-      <h3>Recent times</h3>
-      <Table>
-        <TableRow head>
-          <TableCell style={{ width: 120 }}>Level</TableCell>
-          <TableCell style={{ width: 90 }} alignRight>
-            Time
-          </TableCell>
-          <TableCell>Finished</TableCell>
-        </TableRow>
-        {times &&
-          times.map((t) => {
-            return (
-              <TableRow key={t.id}>
-                <TableCell>
-                  <NavLink to={`/levels/${t.lev_id}`}>{t.lev_name}</NavLink>
-                </TableCell>
-                <TableCell alignRight>
-                  <Time time={t.time} />
-                </TableCell>
-                <TableCell>
-                  <Timestamp time={t.created} relative />
-                </TableCell>
-              </TableRow>
-            );
-          })}
-      </Table>
-    </Content>
+      <ScrollView>
+        <h3>Recent times</h3>
+        <Table>
+          <TableRow head>
+            <TableCell style={{ width: 120 }}>Level</TableCell>
+            <TableCell style={{ width: 90 }} alignRight>
+              Time
+            </TableCell>
+            <TableCell>Finished</TableCell>
+          </TableRow>
+          {times &&
+            times.map((t) => {
+              return (
+                <TableRow key={t.id}>
+                  <TableCell>
+                    <NavLink to={`/levels/${t.lev_id}`}>{t.lev_name}</NavLink>
+                  </TableCell>
+                  <TableCell alignRight>
+                    <Time time={t.time} />
+                  </TableCell>
+                  <TableCell>
+                    <Timestamp time={t.created} relative />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+        </Table>
+      </ScrollView>
+    </MultiView>
   );
-  return <SidebarLayout side={side} content={content} />;
+  return <SideView side={side} main={content} />;
 };
 
 export default Kuski;

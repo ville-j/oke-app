@@ -12,6 +12,7 @@ const Container = styled.div`
 `;
 
 const Side = styled.div`
+  display: flex;
   flex: 0 1 350px;
   border-right: 1px solid #f7f7f7;
 

@@ -2,9 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-const StyledTabs = styled.div`
-  padding-bottom: 5px;
-`;
+const StyledTabs = styled.div``;
 
 const TabsContainer = styled.div`
   display: flex;

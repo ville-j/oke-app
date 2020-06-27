@@ -6,8 +6,8 @@ axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
   "token"
 )}`;
 
-const getBattles = async () => {
-  const res = await axios.get("/battles");
+const getBattles = async (date) => {
+  const res = await axios.get(`/battles?t=${date}`);
   return res.data;
 };
 
@@ -58,6 +58,16 @@ const getLevels = async (page) => {
 
 const getLevel = async (id) => {
   const res = await axios.get(`/levels/${id}`);
+  return res.data;
+};
+
+const getLevelPacks = async () => {
+  const res = await axios.get(`/levelpacks`);
+  return res.data;
+};
+
+const getLevelPack = async (name) => {
+  const res = await axios.get(`/levelpacks/${name}`);
   return res.data;
 };
 
@@ -132,4 +142,6 @@ export {
   uploadShirt,
   updateSettings,
   joinTeam,
+  getLevelPacks,
+  getLevelPack,
 };

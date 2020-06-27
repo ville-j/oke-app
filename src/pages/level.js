@@ -29,6 +29,12 @@ const Title = styled.div`
   text-align: center;
 `;
 
+const SideContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
 const Level = ({
   match: {
     params: { id },
@@ -45,10 +51,12 @@ const Level = ({
   const level = useSelector((state) =>
     state.levels.details.find((l) => l.id === Number(id))
   );
-  const levelTimes = useSelector((state) =>
-    state.levels.times.filter((t) => t.lev_id === Number(id))
+  const levelTimes = useSelector((state) => state.levels.times[id]);
+  const side = (
+    <SideContent>
+      <Title>{(level && `${level.name}.lev`) || <Line />}</Title>
+    </SideContent>
   );
-  const side = <Title>{(level && level.name) || <Line />}</Title>;
   const content = (
     <>
       <LevelImage level={id} height="350px" />

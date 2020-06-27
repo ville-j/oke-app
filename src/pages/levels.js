@@ -20,7 +20,7 @@ const PaginationContainer = styled.div`
 
 const Levels = ({ location }) => {
   const dispatch = useDispatch();
-  const levels = useSelector(state => state.levels.list);
+  const levels = useSelector((state) => state.levels.list);
   const { page } = qs.parse(location.search);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Levels = ({ location }) => {
   return (
     <Container>
       <Table>
-        {levels.items.map(l => {
+        {levels.items.map((l) => {
           return (
             <TableRow href={`/levels/${l.id}`} key={l.id}>
               <TableCell>{l.name}</TableCell>

@@ -4,6 +4,8 @@ import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { MessageSquare } from "react-feather";
+import { toggleChat } from "../actions";
 import { logout } from "../api";
 import { getUser } from "../actions";
 import { Dropdown } from "./";
@@ -60,8 +62,22 @@ const MenuItems = styled.div`
   }
 `;
 
-const DropdownContainer = styled.div`
+const DropdownContainer = styled.div``;
+
+const ToggleChat = styled.div`
   flex: 1;
+  color: #66af30;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  @media all and (max-width: 799px) {
+    flex: 0 1 50px;
+  }
+
+  > * {
+    padding: 12px;
+  }
 `;
 
 const StyledMenu = styled.div`
@@ -73,7 +89,7 @@ const StyledMenu = styled.div`
   z-index: 50;
   background: #fff;
 
-  > div:nth-child(4) {
+  > div:nth-child(5) {
     display: flex;
     justify-content: flex-end;
 
@@ -98,6 +114,7 @@ const ToggleButton = styled.button`
   border: 0;
   background: transparent;
   color: #66af30;
+
   @media all and (min-width: 800px) {
     display: none;
   }
@@ -118,7 +135,6 @@ const Search = styled.div`
 
   @media all and (max-width: 799px) {
     flex: 1;
-    margin-right: 110px;
   }
 
   input {
@@ -164,7 +180,7 @@ const Menu = ({ history }) => {
           Battles
           <BottomBorder />
         </NavLink>
-        <NavLink to="/levels" onClick={closeMenu}>
+        <NavLink to="/levelpacks" onClick={closeMenu}>
           Levels
           <BottomBorder />
         </NavLink>
@@ -219,6 +235,17 @@ const Menu = ({ history }) => {
           }}
         />
       </Search>
+      <ToggleChat>
+        <MessageSquare
+          tabIndex="0"
+          onClick={() => {
+            dispatch(toggleChat());
+          }}
+          onKeyDown={(e) => {
+            e.keyCode === 13 && dispatch(toggleChat());
+          }}
+        />
+      </ToggleChat>
       {user && (
         <DropdownContainer>
           <Dropdown

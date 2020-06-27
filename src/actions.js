@@ -11,6 +11,8 @@ import {
   getKuskiTimes,
   updateSettings,
   joinTeam,
+  getLevelPacks,
+  getLevelPack,
 } from "./api";
 const GET_BATTLE = "GET_BATTLE";
 const GET_BATTLES = "GET_BATTLES";
@@ -32,6 +34,8 @@ const SET_HISTORY = "SET_HISTORY";
 const TOGGLE_CHAT = "TOGGLE_CHAT";
 const SET_COUNTRY = "SET_COUNTRY";
 const SET_TEAM = "SET_TEAM";
+const GET_LEVEL_PACKS = "GET_LEVEL_PACKS";
+const GET_LEVEL_PACK = "GET_LEVEL_PACK";
 
 const actionGetBattles = (data) => ({
   type: GET_BATTLES,
@@ -77,9 +81,10 @@ const actionGetTimes = (data) => ({
   data,
 });
 
-const actionGetLevelTimes = (data) => ({
+const actionGetLevelTimes = (data, id) => ({
   type: GET_LEVEL_TIMES,
   data,
+  id,
 });
 
 const actionGetLevels = (data) => ({
@@ -89,6 +94,16 @@ const actionGetLevels = (data) => ({
 
 const actionGetLevel = (data) => ({
   type: GET_LEVEL,
+  data,
+});
+
+const actionGetLevelPacks = (data) => ({
+  type: GET_LEVEL_PACKS,
+  data,
+});
+
+const actionGetLevelPack = (data) => ({
+  type: GET_LEVEL_PACK,
   data,
 });
 
@@ -154,10 +169,10 @@ const setTeamAsync = (team, password) => {
   };
 };
 
-const getBattlesAsync = () => {
+const getBattlesAsync = (date) => {
   return async (dispatch) => {
     try {
-      const data = await getBattles();
+      const data = await getBattles(date);
       dispatch(actionGetBattles(data));
     } catch (e) {
       console.log(e);
@@ -213,7 +228,29 @@ const getLevelTimesAsync = (id) => {
   return async (dispatch) => {
     try {
       const data = await getLevelTimes(id);
-      dispatch(actionGetLevelTimes(data));
+      dispatch(actionGetLevelTimes(data, id));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+const getLevelPacksAsync = () => {
+  return async (dispatch) => {
+    try {
+      const data = await getLevelPacks();
+      dispatch(actionGetLevelPacks(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+const getLevelPackAsync = (name) => {
+  return async (dispatch) => {
+    try {
+      const data = await getLevelPack(name);
+      dispatch(actionGetLevelPack(data));
     } catch (e) {
       console.log(e);
     }
@@ -285,6 +322,8 @@ export {
   SET_HISTORY,
   SET_COUNTRY,
   SET_TEAM,
+  GET_LEVEL_PACKS,
+  GET_LEVEL_PACK,
   getBattlesAsync,
   getBattleAsync,
   loadReplay,
@@ -305,4 +344,6 @@ export {
   setHistory,
   setCountryAsync,
   setTeamAsync,
+  getLevelPacksAsync,
+  getLevelPackAsync,
 };
