@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Scrollbars } from "react-custom-scrollbars";
 
 const Container = styled.div`
   overflow: auto;
@@ -7,7 +8,23 @@ const Container = styled.div`
 `;
 
 const View = ({ children }) => {
-  return <Container>{children}</Container>;
+  const f = () => window.innerWidth > 799;
+  const [customScroll, setCustomScroll] = useState(f());
+
+  useEffect(() => {
+    const g = () => {
+      setCustomScroll(f());
+    };
+    window.addEventListener("resize", g);
+    return () => {
+      window.removeEventListener("resize", g);
+    };
+  }, []);
+  return (
+    <Container>
+      {customScroll ? <Scrollbars>{children}</Scrollbars> : children}
+    </Container>
+  );
 };
 
 const MultiView = styled.div`

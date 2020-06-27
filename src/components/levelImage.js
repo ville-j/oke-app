@@ -57,7 +57,7 @@ const LevelImage = ({ level, height }) => {
         console.log("error loading svg", e);
       }
     };
-    f();
+    level && f();
   }, [level]);
 
   return (
