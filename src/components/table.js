@@ -36,12 +36,9 @@ const StyledTableLinkRow = styled(NavLink)`
   ${(props) =>
     props.active &&
     `
-    color: #fff;
-    background: #66af30;
+    background: #fbfbfb;
 
-    &:hover {
-      background: #66af30;
-    }
+
   `}
 `;
 

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { Plus } from "react-feather";
-import SidebarLayout from "../layouts/sidebarLayout";
+import { SideView, MultiView, ScrollView } from "../layouts";
+
 import {
   getLevelPacksAsync,
   getLevelPackAsync,
@@ -57,18 +58,6 @@ const IconButton = () => {
   );
 };
 
-const PackList = styled.div`
-  flex: 1;
-  display: flex;
-  overflow: auto;
-`;
-
-const Fixed = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-`;
-
 const Side = ({ packName }) => {
   const [filter, setFilter] = useState("");
   const dispatch = useDispatch();
@@ -81,7 +70,7 @@ const Side = ({ packName }) => {
   const packs = useSelector((state) => state.levels.packs.items);
 
   return (
-    <Fixed>
+    <MultiView>
       <Head>
         <Title>Level packs</Title>
         <CreatePack>
@@ -99,7 +88,7 @@ const Side = ({ packName }) => {
           }}
         />
       </div>
-      <PackList>
+      <ScrollView>
         <Table>
           {packs
             .filter(
@@ -119,8 +108,8 @@ const Side = ({ packName }) => {
               );
             })}
         </Table>
-      </PackList>
-    </Fixed>
+      </ScrollView>
+    </MultiView>
   );
 };
 
@@ -162,6 +151,12 @@ const Card = ({ level, head }) => {
   );
 };
 
+const PackHeader = styled.div`
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #f7f7f7;
+`;
+
 const LevelList = ({ packName }) => {
   const dispatch = useDispatch();
 
@@ -173,31 +168,40 @@ const LevelList = ({ packName }) => {
   const details = useSelector((state) =>
     packName ? state.levels.packDetails[packName.toLowerCase()] : null
   );
-  if (!packName) return null;
 
-  const ll = details ? details.levels.length.toString().length : 0;
+  if (!packName || !details) return null;
+
+  const packNameLength = details.levels.length.toString().length;
 
   return (
-    <Grid>
-      {details &&
-        details.levels.sort(alphaSort("lev_name")).map((l, i) => {
-          return (
-            <Cell key={l.lev_id}>
-              <Card
-                level={l.lev_id}
-                head={
-                  <LevelCardHead>
-                    <div>
-                      {details.name_short} #{pad(i + 1, ll)}
-                    </div>
-                    <div>{l.lev_name}.lev</div>
-                  </LevelCardHead>
-                }
-              />
-            </Cell>
-          );
-        })}
-    </Grid>
+    <MultiView>
+      <PackHeader>
+        <div>
+          {details.name_short} {details.name_long}
+        </div>
+      </PackHeader>
+      <ScrollView>
+        <Grid>
+          {details.levels.sort(alphaSort("lev_name")).map((l, i) => {
+            return (
+              <Cell key={l.lev_id}>
+                <Card
+                  level={l.lev_id}
+                  head={
+                    <LevelCardHead>
+                      <div>
+                        {details.name_short} #{pad(i + 1, packNameLength)}
+                      </div>
+                      <div>{l.lev_name}.lev</div>
+                    </LevelCardHead>
+                  }
+                />
+              </Cell>
+            );
+          })}
+        </Grid>
+      </ScrollView>
+    </MultiView>
   );
 };
 
@@ -207,9 +211,11 @@ const LevelPacks = ({
   },
 }) => {
   return (
-    <SidebarLayout
+    <SideView
+      stack
+      stickySide
       side={<Side packName={name} />}
-      content={<LevelList packName={name} />}
+      main={name ? <LevelList packName={name} /> : null}
     />
   );
 };

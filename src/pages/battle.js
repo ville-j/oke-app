@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-
+import { SideView, View } from "../layouts";
 import {
   getBattleAsync,
   loadLevRec,
   setPlayerState,
   videoViewLeft,
 } from "../actions";
+
 import {
   Table,
   TableRow,
@@ -16,9 +17,9 @@ import {
   Time,
   Flag,
   LevelImage,
+  BattleSidebar,
 } from "../components";
 
-const StyledBattle = styled.div``;
 const TableContainer = styled.div`
   @media (min-width: 950px) {
     > div > div > div:nth-child(2) {
@@ -56,33 +57,38 @@ const Battle = ({
     );
 
   return (
-    <StyledBattle>
-      <LevelImage height="350px" level={data && data.lev_id} />
-      <TableContainer>
-        <Table>
-          <TableRow head>
-            <TableCell style={{ width: 50 }}>#</TableCell>
-            <TableCell>Kuski</TableCell>
-            <TableCell>Time</TableCell>
-          </TableRow>
-          {data &&
-            data.results.map((t, i) => (
-              <TableRow key={i}>
-                <TableCell>{i + 1}.</TableCell>
-                <TableCell>
-                  <Flag nationality={t.kuski_country} />{" "}
-                  <NavLink to={`/kuskis/${t.kuski_name}`}>
-                    {t.kuski_name}
-                  </NavLink>
-                </TableCell>
-                <TableCell>
-                  <Time time={t.time} />
-                </TableCell>
+    <SideView
+      side={<BattleSidebar match={{ params: { id: id } }} />}
+      main={
+        <View>
+          <LevelImage height="350px" level={data && data.lev_id} />
+          <TableContainer>
+            <Table>
+              <TableRow head>
+                <TableCell style={{ width: 50 }}>#</TableCell>
+                <TableCell>Kuski</TableCell>
+                <TableCell>Time</TableCell>
               </TableRow>
-            ))}
-        </Table>
-      </TableContainer>
-    </StyledBattle>
+              {data &&
+                data.results.map((t, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i + 1}.</TableCell>
+                    <TableCell>
+                      <Flag nationality={t.kuski_country} />{" "}
+                      <NavLink to={`/kuskis/${t.kuski_name}`}>
+                        {t.kuski_name}
+                      </NavLink>
+                    </TableCell>
+                    <TableCell>
+                      <Time time={t.time} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </Table>
+          </TableContainer>
+        </View>
+      }
+    />
   );
 };
 

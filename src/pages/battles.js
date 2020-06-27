@@ -10,7 +10,7 @@ import { ChevronLeft, ChevronRight } from "react-feather";
 import { getBattlesAsync } from "../actions";
 import { BattleCard } from "../components";
 import { poll } from "../utils";
-import SideBarLayout from "../layouts/sidebarLayout";
+import { SideView, View } from "../layouts";
 
 const Grid = styled.div`
   display: grid;
@@ -119,7 +119,7 @@ const Battles = ({ location }) => {
       })}
     </Grid>
   );
-  return <SideBarLayout side={side} content={content} />;
+  return <SideView side={side} main={<View>{content}</View>} stickySide />;
 };
 
 export default Battles;

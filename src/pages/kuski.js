@@ -15,7 +15,7 @@ import {
   Flag,
   Shirt,
 } from "../components";
-import SidebarLayout from "../layouts/sidebarLayout";
+import { SideView, MultiView, ScrollView } from "../layouts";
 import { parseTime, formatTime } from "../utils";
 import { uploadShirt } from "../api";
 
@@ -36,12 +36,6 @@ const KuskiInfo = styled.div`
 
   h2 {
     margin: 5px 0;
-  }
-`;
-
-const Content = styled.div`
-  h3 {
-    margin: 12px;
   }
 `;
 
@@ -183,39 +177,41 @@ const Kuski = ({
   );
 
   const content = (
-    <Content>
+    <MultiView>
       <Tabs>
         <Tab to={`/kuskis/${name}`}>Times</Tab>
       </Tabs>
-      <h3>Recent times</h3>
-      <Table>
-        <TableRow head>
-          <TableCell style={{ width: 120 }}>Level</TableCell>
-          <TableCell style={{ width: 90 }} alignRight>
-            Time
-          </TableCell>
-          <TableCell>Finished</TableCell>
-        </TableRow>
-        {times &&
-          times.map((t) => {
-            return (
-              <TableRow key={t.id}>
-                <TableCell>
-                  <NavLink to={`/levels/${t.lev_id}`}>{t.lev_name}</NavLink>
-                </TableCell>
-                <TableCell alignRight>
-                  <Time time={t.time} />
-                </TableCell>
-                <TableCell>
-                  <Timestamp time={t.created} relative />
-                </TableCell>
-              </TableRow>
-            );
-          })}
-      </Table>
-    </Content>
+      <ScrollView>
+        <h3>Recent times</h3>
+        <Table>
+          <TableRow head>
+            <TableCell style={{ width: 120 }}>Level</TableCell>
+            <TableCell style={{ width: 90 }} alignRight>
+              Time
+            </TableCell>
+            <TableCell>Finished</TableCell>
+          </TableRow>
+          {times &&
+            times.map((t) => {
+              return (
+                <TableRow key={t.id}>
+                  <TableCell>
+                    <NavLink to={`/levels/${t.lev_id}`}>{t.lev_name}</NavLink>
+                  </TableCell>
+                  <TableCell alignRight>
+                    <Time time={t.time} />
+                  </TableCell>
+                  <TableCell>
+                    <Timestamp time={t.created} relative />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+        </Table>
+      </ScrollView>
+    </MultiView>
   );
-  return <SidebarLayout side={side} content={content} />;
+  return <SideView side={side} main={content} />;
 };
 
 export default Kuski;
