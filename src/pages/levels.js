@@ -6,10 +6,6 @@ import { getLevelsAsync } from "../actions";
 import { Table, TableRow, TableCell, Pagination } from "../components";
 import { MultiView, ScrollView } from "../layouts";
 
-const Container = styled.div`
-  margin-bottom: 150px;
-`;
-
 const PaginationContainer = styled.div`
   background: #fff;
   border-top: 1px solid #f7f7f7;
