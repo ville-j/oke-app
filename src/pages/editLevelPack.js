@@ -145,7 +145,9 @@ const Main = ({ packData }) => {
         fullSize
         placeholder="Search levels"
         hideValidation
-        suggestions={suggestions}
+        suggestions={suggestions.filter(
+          (s) => !levels.find((l) => l.lev_id === s.id)
+        )}
         suggestionRenderer={(s) => {
           return `${s.text}.lev`;
         }}
