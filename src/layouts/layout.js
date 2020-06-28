@@ -15,6 +15,7 @@ import {
   Kuskis,
   Settings,
   LevelPacks,
+  EditLevelPack,
 } from "../pages";
 
 const Container = styled.div`
@@ -38,7 +39,9 @@ const Layout = () => {
             <Route path="/kuskis/:name" component={Kuski} />
             <Route path="/settings" component={Settings} />
             <Route path="/levelpacks" exact component={LevelPacks} />
-            <Route path="/levelpacks/:name" component={LevelPacks} />
+            <Route path="/levelpacks/:name" exact component={LevelPacks} />
+            <Route path="/editlevelpack" exact component={EditLevelPack} />
+            <Route path="/editlevelpack/:id" exact component={EditLevelPack} />
             <Route path="/levels" exact component={Levels} />
             <Route path="/levels/:id" exact component={Level} />
             <Route path="/battles" exact component={Battles} />

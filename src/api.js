@@ -61,8 +61,8 @@ const getLevel = async (id) => {
   return res.data;
 };
 
-const getLevelPacks = async () => {
-  const res = await axios.get(`/levelpacks`);
+const getLevelPacks = async (id) => {
+  const res = await axios.get(`/levelpacks`, { params: { id } });
   return res.data;
 };
 
@@ -96,10 +96,11 @@ const setToken = (token) => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
-const search = async (query) => {
+const search = async (query, types) => {
   const res = await axios.get(`/search`, {
     params: {
       query,
+      types,
     },
   });
   return res.data;
@@ -124,6 +125,42 @@ const joinTeam = async (team, password) => {
   return res.data;
 };
 
+const createLevelPack = async (shortName, longName, description) => {
+  return await axios.post(`/levelpacks`, {
+    name_short: shortName,
+    name_long: longName,
+    descrip: description,
+  });
+};
+
+const editLevelPack = async (id, shortName, longName, description) => {
+  return await axios.put(`/levelpacks`, {
+    id,
+    name_short: shortName,
+    name_long: longName,
+    descrip: description,
+  });
+};
+
+const addLevelPackLevel = async (id, levId) => {
+  return await axios.post(`/levelpacks/${id}`, {
+    levId,
+  });
+};
+
+const removeLevelPackLevel = async (id, levId) => {
+  return await axios.delete(`/levelpacks`, {
+    data: {
+      id,
+      levId,
+    },
+  });
+};
+
+const deleteLevelPack = async (id) => {
+  return await axios.delete(`/levelpacks/${id}`);
+};
+
 export {
   getBattles,
   getBattle,
@@ -144,4 +181,9 @@ export {
   joinTeam,
   getLevelPacks,
   getLevelPack,
+  createLevelPack,
+  editLevelPack,
+  removeLevelPackLevel,
+  addLevelPackLevel,
+  deleteLevelPack,
 };

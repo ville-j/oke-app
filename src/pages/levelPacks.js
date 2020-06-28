@@ -11,7 +11,14 @@ import {
   getLevelTimesAsync,
 } from "../actions";
 
-import { Table, TableRow, TableCell, TextBox, LevelCard } from "../components";
+import {
+  Table,
+  TableRow,
+  TableCell,
+  TextBox,
+  LevelCard,
+  IconButton,
+} from "../components";
 import { pad, alphaSort } from "../utils";
 
 const Grid = styled.div`
@@ -40,26 +47,6 @@ const CreatePack = styled.div`
   flex: 0 0 50px;
 `;
 
-const Container = styled.div`
-  display: inline-flex;
-  padding: 12px;
-  border-radius: 50%;
-  color: #66af30;
-  cursor: default;
-
-  &:hover {
-    background: #ebebeb;
-  }
-`;
-
-const IconButton = () => {
-  return (
-    <Container>
-      <Plus />
-    </Container>
-  );
-};
-
 const BrowseLink = styled.div`
   > * {
     display: block;
@@ -77,14 +64,17 @@ const Side = ({ packName }) => {
   }, []);
 
   const packs = useSelector((state) => state.levels.packs.items);
+  const user = useSelector((state) => state.user);
 
   return (
     <MultiView>
       <Head>
         <Title>Level packs</Title>
-        <CreatePack>
-          <IconButton />
-        </CreatePack>
+        {user && (
+          <CreatePack>
+            <IconButton url="/editlevelpack" icon={<Plus size="1em" />} />
+          </CreatePack>
+        )}
       </Head>
       <div>
         <TextBox
@@ -105,6 +95,7 @@ const Side = ({ packName }) => {
                 !filter ||
                 p.name_short.toLowerCase().indexOf(filter.toLowerCase()) > -1
             )
+            .sort(alphaSort("name_short"))
             .map((p) => {
               return (
                 <TableRow
@@ -165,8 +156,15 @@ const Card = ({ level, head }) => {
 
 const PackHeader = styled.div`
   padding: 12px;
-  text-align: center;
   border-bottom: 1px solid #f7f7f7;
+  display: flex;
+
+  > * {
+    flex: 1;
+    :last-child {
+      text-align: right;
+    }
+  }
 `;
 
 const LevelList = ({ packName }) => {
@@ -180,6 +178,7 @@ const LevelList = ({ packName }) => {
   const details = useSelector((state) =>
     packName ? state.levels.packDetails[packName.toLowerCase()] : null
   );
+  const user = useSelector((state) => state.user);
 
   if (!packName || !details) return null;
 
@@ -189,7 +188,12 @@ const LevelList = ({ packName }) => {
     <MultiView>
       <PackHeader>
         <div>
-          {details.name_short} {details.name_long}
+          {details.name_short} {details.name_long} {details.descrip}
+        </div>
+        <div>
+          {user && user.id === details.kuski_id && (
+            <Link to={`/editlevelpack/${details.id}`}>Edit</Link>
+          )}
         </div>
       </PackHeader>
       <ScrollView>

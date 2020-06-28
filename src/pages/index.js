@@ -10,6 +10,7 @@ import Search from "./search";
 import Kuskis from "./kuskis";
 import Settings from "./settings";
 import LevelPacks from "./levelPacks";
+import EditLevelPack from "./editLevelPack";
 
 export {
   Home,
@@ -24,4 +25,5 @@ export {
   Kuskis,
   Settings,
   LevelPacks,
+  EditLevelPack,
 };

@@ -23,6 +23,7 @@ import Popup from "./popup";
 import UpdateSW from "./updateSW";
 import KuskiBike from "./kuskiBike";
 import Shirt from "./shirt";
+import IconButton from "./iconButton";
 
 export {
   Button,
@@ -54,4 +55,5 @@ export {
   UpdateSW,
   KuskiBike,
   Shirt,
+  IconButton,
 };

@@ -2,7 +2,6 @@ import React, { useRef, useCallback, useEffect, useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import format from "date-fns/format";
-
 import socket from "../socket";
 import { Button } from "./";
 
@@ -18,6 +17,7 @@ const Container = styled.div`
   justify-content: flex-end;
   flex-direction: column;
   padding-top: 50px;
+  z-index: 2;
 `;
 
 const Line = styled.div`
