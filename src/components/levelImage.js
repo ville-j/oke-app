@@ -47,6 +47,7 @@ const LevelImage = ({ level, height }) => {
   const [svg, setSvg] = useState(null);
 
   useEffect(() => {
+    setSvg(null);
     const f = async () => {
       try {
         const { data } = await axios.get(

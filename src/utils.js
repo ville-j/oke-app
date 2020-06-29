@@ -44,4 +44,14 @@ const battleType = (type) => {
 const pad = (value, length, char) =>
   String(value).padStart(length, char || "0");
 
-export { parseTime, formatTime, poll, alphaSort, battleType, pad };
+const okeTimeToNorm = (time) => time + 1262304000;
+
+export {
+  parseTime,
+  formatTime,
+  poll,
+  alphaSort,
+  battleType,
+  pad,
+  okeTimeToNorm,
+};

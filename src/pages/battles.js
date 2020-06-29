@@ -8,7 +8,7 @@ import qs from "query-string";
 import { ChevronLeft, ChevronRight } from "react-feather";
 import { getBattlesAsync } from "../actions";
 import { BattleCard, IconButton, Header } from "../components";
-import { poll } from "../utils";
+import { poll, okeTimeToNorm } from "../utils";
 import { SideView, View } from "../layouts";
 
 const Grid = styled.div`
@@ -74,7 +74,15 @@ const Battles = ({ location }) => {
     [date]
   );
 
-  const battles = useSelector((state) => state.battles.list);
+  const battles = useSelector((state) =>
+    state.battles.list.filter((b) => {
+      return (
+        okeTimeToNorm(b.created) >= date &&
+        okeTimeToNorm(b.created) < date + 86400
+      );
+    })
+  );
+
   const side = (
     <SideContent>
       <DateBar>
