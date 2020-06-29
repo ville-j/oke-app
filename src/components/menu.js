@@ -180,7 +180,13 @@ const Menu = ({ history }) => {
           Battles
           <BottomBorder />
         </NavLink>
-        <NavLink to="/levelpacks" onClick={closeMenu}>
+        <NavLink
+          to="/levels/packs"
+          isActive={(match, location) => {
+            return location.pathname.substr(0, 7) === "/levels";
+          }}
+          onClick={closeMenu}
+        >
           Levels
           <BottomBorder />
         </NavLink>

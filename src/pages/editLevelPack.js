@@ -64,7 +64,7 @@ const Side = withRouter(({ packId, packData, history }) => {
 
   const deletePack = async () => {
     await deleteLevelPack(packId);
-    history.push(`/levelpacks`);
+    history.push(`/levels/packs`);
   };
 
   return (

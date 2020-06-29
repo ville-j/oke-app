@@ -48,10 +48,10 @@ const Layout = () => {
             <Route path="/" exact component={Home} />
             <Route path="/kuskis/:name" component={Kuski} />
             <Route path="/settings" component={Settings} />
-            <Route path="/levelpacks" exact component={LevelPacks} />
-            <Route path="/levelpacks/:name" exact component={LevelPacks} />
+            <Route path="/levels/packs" exact component={LevelPacks} />
+            <Route path="/levels/packs/:name" exact component={LevelPacks} />
             <Route
-              path="/levelpacks/:name/stats"
+              path="/levels/packs/:name/stats"
               exact
               component={LevelPacks}
             />

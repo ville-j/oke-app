@@ -89,7 +89,7 @@ const Side = ({ packName }) => {
             .map((p) => {
               return (
                 <TableRow
-                  href={`/levelpacks/${p.name_short}`}
+                  href={`/levels/packs/${p.name_short}`}
                   key={p.id}
                   active={p.name_short === packName ? 1 : 0}
                 >
@@ -189,8 +189,8 @@ const LevelList = ({ packName }) => {
         </div>
       </PackHeader>
       <Tabs>
-        <Tab to={`/levelpacks/${details.name_short}`}>Levels</Tab>
-        <Tab to={`/levelpacks/${details.name_short}/stats`}>Stats</Tab>
+        <Tab to={`/levels/packs/${details.name_short}`}>Levels</Tab>
+        <Tab to={`/levels/packs/${details.name_short}/stats`}>Stats</Tab>
       </Tabs>
       <ScrollView>
         <Grid>
