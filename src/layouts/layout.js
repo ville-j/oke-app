@@ -50,6 +50,11 @@ const Layout = () => {
             <Route path="/settings" component={Settings} />
             <Route path="/levelpacks" exact component={LevelPacks} />
             <Route path="/levelpacks/:name" exact component={LevelPacks} />
+            <Route
+              path="/levelpacks/:name/stats"
+              exact
+              component={LevelPacks}
+            />
             <Route path="/editlevelpack" exact component={EditLevelPack} />
             <Route path="/editlevelpack/:id" exact component={EditLevelPack} />
             <Route path="/levels" exact component={Levels} />

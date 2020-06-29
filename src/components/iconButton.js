@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 
 const style = css`
   display: inline-flex;
-  padding: 12px;
+  padding: 10px !important;
   border-radius: 50%;
-  color: #66af30;
   cursor: default;
 
   &:hover {
-    background: #ebebeb;
+    background: rgba(0, 0, 0, 0.1);
   }
 `;
 
@@ -26,7 +25,16 @@ const IconButton = ({ icon, onClick, url }) => {
   return url ? (
     <LinkContainer to={url}>{icon}</LinkContainer>
   ) : (
-    <Container onClick={onClick}>{icon}</Container>
+    <Container
+      tabIndex="0"
+      onKeyDown={(e) => {
+        e.keyCode === 13 && onClick && onClick();
+      }}
+      role="button"
+      onClick={onClick}
+    >
+      {icon}
+    </Container>
   );
 };
 

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
+import { X } from "react-feather";
+import { IconButton } from "./";
 
 const Container = styled.div`
   position: fixed;
@@ -9,19 +11,20 @@ const Container = styled.div`
   height: 100%;
   background: rgba(255, 255, 255, 0.5);
   z-index: 100;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(8px);
   display: flex;
 `;
 
 const Content = styled.div`
   background: #fff;
-  width: 800px;
-  max-width: 100;
+  width: 400px;
+  max-width: 100%;
   margin: auto;
-  height: 500px;
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
 `;
 
 const Title = styled.div`
@@ -38,28 +41,19 @@ const Padding = styled.div`
 `;
 
 const Close = styled.div`
-  padding: 12px 18px;
   color: #fff;
   position: absolute;
   top: 0;
   right: 0;
-  cursor: pointer;
 `;
 
-const Popup = ({ title, children }) => {
-  const [visible, setVisible] = useState(true);
-
-  if (!visible) return null;
+const Popup = ({ title, children, onClose }) => {
   return (
     <Container>
       <Content>
         <Title>{title}</Title>
-        <Close
-          onClick={() => {
-            setVisible(false);
-          }}
-        >
-          &times;
+        <Close onClick={onClose}>
+          <IconButton icon={<X />} />
         </Close>
         <Padding>{children}</Padding>
       </Content>

@@ -17,27 +17,13 @@ const TabsContainer = styled.div`
     text-decoration: none;
     color: #8a8a8a;
     &.active {
-      background: #505050;
-      color: #f7f7f7;
-
+      background: #66af30;
+      color: #fff;
       > div {
         display: block;
       }
     }
   }
-`;
-
-const Triangle = styled.div`
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #505050;
-  position: absolute;
-  left: 50%;
-  margin-left: -5px;
-  bottom: -5px;
-  display: none;
 `;
 
 const Tabs = ({ children }) => {
@@ -50,9 +36,8 @@ const Tabs = ({ children }) => {
 
 const Tab = ({ children, to }) => {
   return (
-    <NavLink to={to}>
+    <NavLink exact to={to}>
       {children}
-      <Triangle />
     </NavLink>
   );
 };

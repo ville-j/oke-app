@@ -8,7 +8,7 @@ import { MessageSquare } from "react-feather";
 import { toggleChat } from "../actions";
 import { logout } from "../api";
 import { getUser } from "../actions";
-import { Dropdown } from "./";
+import { Dropdown, IconButton } from "./";
 
 const BottomBorder = styled.div`
   position: absolute;
@@ -236,14 +236,14 @@ const Menu = ({ history }) => {
         />
       </Search>
       <ToggleChat>
-        <MessageSquare
-          tabIndex="0"
+        <IconButton
           onClick={() => {
             dispatch(toggleChat());
           }}
           onKeyDown={(e) => {
             e.keyCode === 13 && dispatch(toggleChat());
           }}
+          icon={<MessageSquare />}
         />
       </ToggleChat>
       {user && (

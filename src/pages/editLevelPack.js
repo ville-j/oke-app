@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
 import { X } from "react-feather";
 import { SideView, MultiView, ScrollView } from "../layouts";
-import { TextBox, Label, Button, IconButton } from "../components";
+import { TextBox, Label, Button, IconButton, Header } from "../components";
 import {
   createLevelPack,
   editLevelPack,
@@ -16,12 +16,6 @@ import {
 import { alphaSort } from "../utils";
 
 const SideContainer = styled.div``;
-
-const Header = styled.span`
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-`;
 
 const Title = styled.div`
   padding: 12px;
@@ -102,7 +96,19 @@ const Side = withRouter(({ packId, packData, history }) => {
             <Button text="Save information" primary onClick={save} />
           </div>
           <div>
-            {packId && <Button text="Delete pack" onClick={deletePack} />}
+            {packId && (
+              <Button
+                text="Delete pack"
+                onClick={deletePack}
+                confirm="Delete level pack?"
+                confirmContent={
+                  <div>
+                    This action will unlink all associated levels and delete the
+                    level pack.
+                  </div>
+                }
+              />
+            )}
           </div>
         </Buttons>
       </Pad>
@@ -188,10 +194,11 @@ const Main = ({ packData }) => {
                 <div
                   style={{
                     width: 50,
+                    color: "#66af30",
                   }}
                 >
                   <IconButton
-                    icon={<X size="1em" />}
+                    icon={<X size="1.5em" />}
                     onClick={async () => {
                       await removeLevelPackLevel(packData.id, l.lev_id);
                       setLevels(levels.filter((le) => le.lev_id !== l.lev_id));

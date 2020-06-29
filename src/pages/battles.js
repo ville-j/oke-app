@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
 import format from "date-fns/format";
 import set from "date-fns/set";
 import isToday from "date-fns/isToday";
 import qs from "query-string";
 import { ChevronLeft, ChevronRight } from "react-feather";
 import { getBattlesAsync } from "../actions";
-import { BattleCard } from "../components";
+import { BattleCard, IconButton, Header } from "../components";
 import { poll } from "../utils";
 import { SideView, View } from "../layouts";
 
@@ -28,21 +27,12 @@ const DateBar = styled.div`
 
   > * {
     display: flex;
-    flex: 1;
     margin: 0;
     padding: 12px;
-    box-sizing: border-box;
-
-    :nth-child(1) {
-      flex: 0 0 50px;
-    }
 
     :nth-child(2) {
       justify-content: center;
-    }
-    :nth-child(3) {
-      justify-content: flex-end;
-      flex: 0 0 50px;
+      flex: 1;
     }
   }
 `;
@@ -88,18 +78,19 @@ const Battles = ({ location }) => {
   const side = (
     <SideContent>
       <DateBar>
-        <NavLink to={`/battles?t=${date + 86400}`}>
-          <ChevronLeft /> newer
-        </NavLink>
+        <IconButton icon={<ChevronLeft />} url={`/battles?t=${date + 86400}`} />
 
         <div>
-          {isToday(date * 1000)
-            ? "Today"
-            : format(date * 1000, "EEE dd.MM.yyyy")}
+          <Header>
+            {isToday(date * 1000)
+              ? "Today"
+              : format(date * 1000, "EEE dd.MM.yyyy")}
+          </Header>
         </div>
-        <NavLink to={`/battles?t=${date - 86400}`}>
-          older <ChevronRight />
-        </NavLink>
+        <IconButton
+          icon={<ChevronRight />}
+          url={`/battles?t=${date - 86400}`}
+        />
       </DateBar>
     </SideContent>
   );

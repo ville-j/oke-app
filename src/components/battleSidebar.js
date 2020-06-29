@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "react-feather";
-import { Line, Timestamp } from "./";
+import { Line, Timestamp, Header, IconButton } from "./";
 import { battleType } from "../utils";
 
 const TitleBar = styled.div`
@@ -13,20 +12,12 @@ const TitleBar = styled.div`
 
   > * {
     display: flex;
-    flex: 1;
     margin: 0;
-    padding: 12px;
-    box-sizing: border-box;
+    padding: 12px !important;
 
-    :nth-child(1) {
-      flex: 0 0 50px;
-    }
     :nth-child(2) {
       justify-content: center;
-    }
-    :nth-child(3) {
-      justify-content: flex-end;
-      flex: 0 0 50px;
+      flex: 1;
     }
   }
 `;
@@ -46,13 +37,11 @@ const BattleSidebar = ({
   return (
     <>
       <TitleBar>
-        <NavLink to={`/battles/${Number(id) + 1}`}>
-          <ChevronLeft /> newer
-        </NavLink>
-        <div>{(data && `${data.lev_name}.lev`) || <Line />}</div>
-        <NavLink to={`/battles/${id - 1}`}>
-          older <ChevronRight />
-        </NavLink>
+        <IconButton icon={<ChevronLeft />} url={`/battles/${Number(id) + 1}`} />
+        <div>
+          <Header>{(data && `${data.lev_name}.lev`) || <Line />}</Header>
+        </div>
+        <IconButton icon={<ChevronRight />} url={`/battles/${id - 1}`} />
       </TitleBar>
       <DataLine>
         {(data && <Timestamp time={data.created} />) || <Line />}

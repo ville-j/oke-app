@@ -13,6 +13,7 @@ import {
   LevelImage,
   Line,
   Flag,
+  Header,
 } from "../components";
 
 const TableContainer = styled.div`
@@ -54,7 +55,9 @@ const Level = ({
   const levelTimes = useSelector((state) => state.levels.times[id]);
   const side = (
     <SideContent>
-      <Title>{(level && `${level.name}.lev`) || <Line />}</Title>
+      <Title>
+        <Header>{(level && `${level.name}.lev`) || <Line />}</Header>
+      </Title>
     </SideContent>
   );
   const content = (

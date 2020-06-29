@@ -24,6 +24,8 @@ import UpdateSW from "./updateSW";
 import KuskiBike from "./kuskiBike";
 import Shirt from "./shirt";
 import IconButton from "./iconButton";
+import Header from "./header";
+import TitleBar from "./titleBar";
 
 export {
   Button,
@@ -56,4 +58,6 @@ export {
   KuskiBike,
   Shirt,
   IconButton,
+  Header,
+  TitleBar,
 };

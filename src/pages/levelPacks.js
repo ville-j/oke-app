@@ -18,6 +18,10 @@ import {
   TextBox,
   LevelCard,
   IconButton,
+  Header,
+  Tabs,
+  Tab,
+  TitleBar,
 } from "../components";
 import { pad, alphaSort } from "../utils";
 
@@ -30,21 +34,9 @@ const Grid = styled.div`
 
 const Cell = styled.div``;
 
-const Head = styled.div`
-  display: flex;
-  border-bottom: 1px solid #f7f7f7;
-`;
-
 const Title = styled.div`
   flex: 1;
   padding: 12px;
-  h3 {
-    margin: 0;
-  }
-`;
-
-const CreatePack = styled.div`
-  flex: 0 0 50px;
 `;
 
 const BrowseLink = styled.div`
@@ -68,14 +60,12 @@ const Side = ({ packName }) => {
 
   return (
     <MultiView>
-      <Head>
-        <Title>Level packs</Title>
-        {user && (
-          <CreatePack>
-            <IconButton url="/editlevelpack" icon={<Plus size="1em" />} />
-          </CreatePack>
-        )}
-      </Head>
+      <TitleBar>
+        <Title>
+          <Header>Level packs</Header>
+        </Title>
+        {user && <IconButton url="/editlevelpack" icon={<Plus />} />}
+      </TitleBar>
       <div>
         <TextBox
           placeholder="Filter"
@@ -160,7 +150,9 @@ const PackHeader = styled.div`
   display: flex;
 
   > * {
-    flex: 1;
+    :first-child {
+      flex: 1;
+    }
     :last-child {
       text-align: right;
     }
@@ -188,7 +180,7 @@ const LevelList = ({ packName }) => {
     <MultiView>
       <PackHeader>
         <div>
-          {details.name_short} {details.name_long} {details.descrip}
+          <Header>{details.name_long}</Header>
         </div>
         <div>
           {user && user.id === details.kuski_id && (
@@ -196,6 +188,10 @@ const LevelList = ({ packName }) => {
           )}
         </div>
       </PackHeader>
+      <Tabs>
+        <Tab to={`/levelpacks/${details.name_short}`}>Levels</Tab>
+        <Tab to={`/levelpacks/${details.name_short}/stats`}>Stats</Tab>
+      </Tabs>
       <ScrollView>
         <Grid>
           {details.levels.sort(alphaSort("lev_name")).map((l, i) => {
